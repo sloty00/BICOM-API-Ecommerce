@@ -1,10 +1,9 @@
 const {Router} = require("express");
 const router = Router();
-const {registerUser, loginUser, renewToken, UpdateUserEnterprise, GetUserEnterprise, GetUserFromCategory, UpdateUserClient} = require('../controllers/auth');
+const {registerUser, loginUser, renewToken} = require('../controllers/auth');
 const {check} = require("express-validator");
 const { validateInputs } = require("../middlewares/validate-inputs");
 const { validateJwt } = require("../middlewares/validate-jwt");
-const { validateUniqueEmailUser, validateUniqueUserName } = require("../middlewares/validate-unique");
 const fileUpload = require('express-fileupload');
 
 
@@ -44,53 +43,6 @@ router.post(
     ], 
     registerUser
 );
-
-// Update Profile Enterprise
-router.put(
-    '/update-enterprise',
-    [        
-        validateJwt,
-        check('email', 'El email es Obligatorio').notEmpty().isEmail().custom(validateUniqueEmailUser),
-        check('name', 'El Nombre es Obligatorio').notEmpty(),
-        check('username', 'El Nombre de usuario es Obligatorio').notEmpty().custom(validateUniqueUserName),
-        check('description', 'El campo Descripción es Obligatorio').notEmpty(),
-        check('address', 'El campo Dirección es Obligatorio').notEmpty(),
-        check('country', 'El Pais es Obligatorio').notEmpty(),
-        validateInputs
-    ],
-    UpdateUserEnterprise
-);
-
-
-// GET Profile 
-router.get(
-    '/update-enterprise',
-    [        
-        validateJwt
-    ],
-    GetUserEnterprise
-);
-
-
-// GET PROFILE FROM CATEGORY
-router.get(
-    '/profiles/:page/:category/:query?',
-    [        
-        
-    ],
-    GetUserFromCategory
-);
-
-
-// Update Profile Client
-router.put(
-    '/update-client',
-    [        
-        validateJwt
-    ],
-    UpdateUserClient
-);
-
 
 // JWT Token
 router.get('/renew-token',[

@@ -1,10 +1,7 @@
 const {response} = require("express");
 const User = require("../models/User");
-const Country = require("../models/Country");
 const bcrypt = require("bcryptjs");
 const {generateJWT} = require("../helpers/jwt");
-const s3Bucket = require('../helpers/s3');
-const fs = require("fs");
 
 
 const registerUser =  async (req, res = response) => {

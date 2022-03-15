@@ -1,0 +1,1 @@
+SELECT * FROM (products INNER JOIN `groups` ON products.id = `groups`.id) INNER JOIN sub_groups ON products.id = sub_groups.id LIMIT 

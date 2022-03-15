@@ -1,28 +1,9 @@
-const express = require("express");
-require('dotenv').config();
-const cors = require("cors");
+const express = require('express');
+const bodyParser = require('body-parser');
+const indexRouter = require('./router/router');
+
 const app = express();
 
+app.use('/api', indexRouter); //<--- (http://localhost/api)
 
-// Cors
-app.use(cors())
-
-// Directorio Público
-app.use( express.static('public') );
-
-// Parseo del Body de Cada Petición
-app.use( express.json() );
-app.use( express.urlencoded({ extended: true }) );
-
-app.get('/', function(req, res) {
-    res.send('.');
-});
-
-// Rutas 
-app.use('/api/auth', require('./routes/auth'));
-
-
-
-app.listen(process.env.PORT, () => {
-    console.log(`SERVIDOR CORRIENDO EN PUERTO ${process.env.PORT}`)
-});
+app.listen(3000, () => console.log('Server is running on port 3000')); //<--- Servidor Activo

@@ -1,4 +1,4 @@
-const db = require('../config/dbConnection');
+const pool = require('../config/dbConnection');
 
 exports.getAllCustomers = (req, res) => {
     // limite de 100
@@ -9,7 +9,7 @@ exports.getAllCustomers = (req, res) => {
     const offset = (page - 1) * limit
     // consulta de datos con numero de paginas y offset
     const prodsQuery = "select * from customer_suppliers limit "+limit+" OFFSET "+offset
-    db.getConnection(function(err, connection) {
+    pool.getConnection(function(err, connection) {
       connection.query(prodsQuery, function (error, results, fields) {
         // cuando se establece conexion la libera.
         connection.release();
@@ -21,10 +21,8 @@ exports.getAllCustomers = (req, res) => {
           'productos':results
         }
         // crea el response
-        var myJsonString = JSON.parse(JSON.stringify(jsonResult));
-        res.statusMessage = "Productos por pagina "+page;
         res.statusCode = 200;
-        res.json(myJsonString);
+        res.json(jsonResult);
         res.end();
       })
     })

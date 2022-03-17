@@ -21,10 +21,8 @@ exports.getAllProducts = (req, res) => {
           'productos':results
         }
         // crea el response
-        var myJsonString = JSON.parse(JSON.stringify(jsonResult));
-        res.statusMessage = "Productos por pagina "+page;
         res.statusCode = 200;
-        res.json(myJsonString);
+        res.json(jsonResult);
         res.end();
       })
     })

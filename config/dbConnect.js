@@ -1,18 +1,16 @@
-const mysql = require('mysql2');
-require('dotenv').config();
+const mysql = require('mysql');
 
 createConnectMysql = (host,bd_name) => {
     // Agregue las credenciales para acceder a su base de datos
-    let pool;
+    let connection;
     switch (host) {
         case '1':
-            pool = mysql.createPool({
-                connectionLimit : 10,
+            connection = mysql.createConnection({
                 host     : process.env.BC_HOST_MYSQL_1,
                 user     : process.env.BC_USER_MYSQL_1,
                 password : process.env.BC_PASSWORD_MYSQL_1,
-                database : bd_name,
-                multipleStatements: true
+                port     : process.env.BC_PORT_MYSQL_1,
+                database : bd_name
             });
         break;
         case '2':
@@ -45,7 +43,7 @@ createConnectMysql = (host,bd_name) => {
     }
     
     // conectarse a mysql
-    connection.pool(function(err) {
+    connection.connect(function(err) {
         // en caso de error
         if(err){
             console.log(err.code);
@@ -53,7 +51,7 @@ createConnectMysql = (host,bd_name) => {
         }
     });
 
-    return pool;
+    return connection;
 }
 
 module.exports = {

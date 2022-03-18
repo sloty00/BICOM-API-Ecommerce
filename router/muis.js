@@ -1,7 +1,7 @@
-const express = require('express');
-const router_muis = express.Router();
-const { getAllMui } = require("../controllers/muis");
+const { Router } = require('express');
+const router = Router();
+const { getAllMuis } = require('../controllers/muis')
 
-router_muis.get('/measurement_unit', getAllMui);
+router.get('/', getAllMuis);
 
-module.exports = router_muis;
+module.exports = router;

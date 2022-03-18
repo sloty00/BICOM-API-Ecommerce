@@ -1,7 +1,7 @@
-const express = require('express');
-const router_customers = express.Router();
-const { getAllCustomers } = require("../controllers/customers");
+const { Router } = require('express');
+const router = Router();
+const { getAllCustomers } = require('../controllers/customers')
 
-router_customers.get('/costumer_supp', getAllCustomers);
+router.get('/', getAllCustomers);
 
-module.exports = router_customers;
+module.exports = router;

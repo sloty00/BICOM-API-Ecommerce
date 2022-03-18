@@ -1,7 +1,7 @@
-const express = require('express');
-const router_groups = express.Router();
-const { getAllGroups } = require("../controllers/groups");
+const { Router } = require('express');
+const router = Router();
+const { getAllGroups } = require('../controllers/groups')
 
-router_groups.get('/groups', getAllGroups);
+router.get('/', getAllGroups);
 
-module.exports = router_groups;
+module.exports = router;

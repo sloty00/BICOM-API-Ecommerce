@@ -1,21 +1,24 @@
-const { createConnectMysql } = require("../config/dbConnect")
+/*
+-------------------------------------TABLA COMPUESTA (E/R)--------------------------------------
+*/
 
-const getProducts = async (bd_name, host, page) => {
+//Declaracion de Constantes.
+const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos.
+
+const getProducts = async (bd_name, host, page) => {//Funcion de tipo asincronica.
     const mysql = createConnectMysql(host, bd_name)
     const products = await queryProducts(page, mysql)
     let jsonResult = {
         'numero elementos': products.length,
         'numero paginas': page,
-        'productos': products
+        'Products': products
     }
     return jsonResult;
 }
 
-const queryProducts = async (page, mysql) => {
+const queryProducts = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
     // limite de 100
     const limit = 100
-    // numeros paginas
-
     // calcula offset
     const offset = (page - 1) * limit
     // consulta de datos con numero de paginas y offset
@@ -24,7 +27,7 @@ const queryProducts = async (page, mysql) => {
     return prod;
 }
 
-//Deberia ir en herlpers
+//Controla los errores de conexion
 const query = (sql, mysql) => {
     return new Promise((resolve, reject) => {
         mysql.query(sql, (err, rows) => {
@@ -37,6 +40,7 @@ const query = (sql, mysql) => {
     })
 }
 
+//Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
     getProducts
 }

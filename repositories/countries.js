@@ -1,30 +1,29 @@
 /*
--------------------------------------TABLA COMPUESTA (E/R)--------------------------------------
+-------------------------------------TABLA BASE--------------------------------------
 */
-
 //Declaracion de Constantes.
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
-const getCustomers = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+const getCountries = async (bd_name, host, page) => {//Funcion de tipo asincronica.
   const mysql = createConnectMysql(host, bd_name)
-  const customers = await queryGetAllCustomers(page, mysql)
+  const countries = await queryGetAllCountries(page, mysql)
   let jsonResult = {
-    'numero elementos': customers.length,
+    'numero elementos': countries.length,
     'numero paginas': page,
-    'Custommers Suppliers': customers
+    'Countries': countries
   }
   return jsonResult;
 }
 
-const queryGetAllCustomers = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
+const queryGetAllCountries = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
   // limite de 100
   const limit = 100
   // calcula offset
   const offset = (page - 1) * limit
   // consulta de datos con numero de paginas y offset
-  const customQuery = "select * from customer_suppliers limit " + limit + " OFFSET " + offset
-  const custom = await query(customQuery, mysql);
-  return custom;
+  const countriesQuery = "select * from countries limit " + limit + " OFFSET " + offset
+  const countrie = await query(countriesQuery, mysql);
+  return countrie;
 }
 
 //Deberia ir en herlpers
@@ -42,5 +41,5 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-  getCustomers
+  getCountries
 }

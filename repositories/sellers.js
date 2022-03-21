@@ -1,31 +1,30 @@
 /*
 -------------------------------------TABLA BASE--------------------------------------
 */
-//Declaracion de Constantes.
-const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos.
 
-const getMuis = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+//Declaracion de Constantes.
+const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
+
+const getSellers = async (bd_name, host, page) => {//Funcion de tipo asincronica.
     const mysql = createConnectMysql(host, bd_name)
-    const muis = await queryMuis(page, mysql)
+    const sellers = await querySellers(page, mysql)
     let jsonResult = {
-        'numero elementos': muis.length,
+        'numero elementos': sellers.length,
         'numero paginas': page,
-        'Measurements Units': muis
+        'Sellers': sellers
     }
     return jsonResult;
 }
 
-const queryMuis = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
+const querySellers = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
     // limite de 100
     const limit = 100
-    // numeros paginas
-
     // calcula offset
     const offset = (page - 1) * limit
     // consulta de datos con numero de paginas y offset
-    const muisQuery = "select * from measurement_units limit " + limit + " OFFSET " + offset
-    const mui = await query(muisQuery, mysql);
-    return mui;
+    const sellersQuery = "select * from sellers limit " + limit + " OFFSET " + offset
+    const seller = await query(sellersQuery, mysql);
+    return seller;
 }
 
 //Deberia ir en herlpers
@@ -43,5 +42,5 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-    getMuis
+    getSellers
 }

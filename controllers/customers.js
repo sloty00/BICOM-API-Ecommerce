@@ -1,4 +1,4 @@
-//const db = require('../config/dbConnect');
+//Declaracion de Constantes.
 const { getCustomers } = require('../repositories/customers')
 
 const getAllCustomers = async (req, res) => {
@@ -10,6 +10,7 @@ const getAllCustomers = async (req, res) => {
   res.json(customers)
 };
 
+//Exportamos la funcion para usar los datos en .router/customers.js
 module.exports = {
   getAllCustomers
 }

@@ -54,6 +54,7 @@ createConnectMysql = (host,bd_name) => {
     return connection;
 }
 
+//Exportamos la funcion para usar los datos en .repositories/*.js
 module.exports = {
     createConnectMysql
 }

@@ -9,7 +9,7 @@ const getAllBanks = async (req, res) => {
   const host = "1"
 
   const banks = await getBanks(bd_name, host, req.query.page);
-  //console.log(products)
+  //console.log(banks)
   res.json(banks)
 };
 

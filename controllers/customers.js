@@ -6,7 +6,7 @@ const getAllCustomers = async (req, res) => {
   const host = "1"
 
   const customers = await getCustomers(bd_name, host, req.query.page);
-  //console.log(products)
+  //console.log(customers)
   res.json(customers)
 };
 

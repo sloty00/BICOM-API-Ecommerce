@@ -9,7 +9,7 @@ const getAllActivities = async (req, res) => {
   const host = "1"
 
   const activities = await getActivities(bd_name, host, req.query.page);
-  //console.log(products)
+  //console.log(acttivities)
   res.json(activities)
 };
 

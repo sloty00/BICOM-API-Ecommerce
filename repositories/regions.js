@@ -9,7 +9,7 @@ const getRegions = async (bd_name, host, page) => {//Funcion de tipo asincronica
   let jsonResult = {
     'numero elementos': regions.length,
     'numero paginas': page,
-    'Countries': regions
+    'Regions': regions
   }
   return jsonResult;
 }

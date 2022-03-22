@@ -8,7 +8,7 @@ const getAllTaxes = async (req, res) => {
   const host = "1"
 
   const taxes = await getTaxes(bd_name, host, req.query.page);
-  //console.log(products)
+  //console.log(taxes)
   res.json(taxes)
 };
 

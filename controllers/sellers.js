@@ -8,7 +8,7 @@ const getAllSellers = async (req, res) => {
   const host = "1"
 
   const sellers = await getSellers(bd_name, host, req.query.page);
-  //console.log(products)
+  //console.log(sellers)
   res.json(sellers)
 };
 

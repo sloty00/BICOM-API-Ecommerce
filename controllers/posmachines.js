@@ -9,8 +9,8 @@ const getAllPosMachines = async (req, res) => {
   const host = "1"
 
   const pmachines = await getPosMachines(bd_name, host, req.query.page);
-  //console.log(products)
-  res.json(pmachines)
+  //console.log(pmachines)
+    res.json(pmachines)
 };
 
 //Exportamos la funcion para usar los datos en .router/customers.js

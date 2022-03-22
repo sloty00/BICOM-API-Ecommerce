@@ -9,7 +9,7 @@ const getAllCountries = async (req, res) => {
   const host = "1"
 
   const countries = await getCountries(bd_name, host, req.query.page);
-  //console.log(products)
+  //console.log(countries)
   res.json(countries)
 };
 

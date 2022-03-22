@@ -9,7 +9,7 @@ const getAllCities = async (req, res) => {
   const host = "1"
 
   const cities = await getCities(bd_name, host, req.query.page);
-  //console.log(products)
+  //console.log(cities)
   res.json(cities)
 };
 

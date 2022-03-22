@@ -1,5 +1,11 @@
 /*
 -------------------------------------TABLA COMPUESTA (E/R)--------------------------------------
+-branchoffice
+-posmachine
+-warehouse
+-cost center
+-printer
+-transbank_machine
 */
 //Declaracion de Constantes.
 const { getCRT } = require('../repositories/cash_registers_types')

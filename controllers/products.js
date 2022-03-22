@@ -1,3 +1,10 @@
+/*
+-------------------------------------TABLA COMPUESTA (E/R)--------------------------------------
+-measurement_unit
+-group
+-subgroup
+-measurement_unit_convert_id???
+*/
 //Declaracion de Constantes.
 const { getProducts } = require('../repositories/products')
 

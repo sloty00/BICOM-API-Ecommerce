@@ -1,3 +1,13 @@
+/*
+-------------------------------------TABLA COMPUESTA (E/R)--------------------------------------
+-activity
+-country
+-region
+-city
+-communes
+-sellers
+-list price
+*/
 //Declaracion de Constantes.
 const { getCustomers } = require('../repositories/customers')
 

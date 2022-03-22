@@ -1,3 +1,6 @@
+/*
+-------------------------------------TABLA BASE--------------------------------------
+*/
 //Declaracion de Constantes.
 const { getMuis } = require('../repositories/muis')
 //const { addMuis } = require('../repositories/muis')

@@ -1,3 +1,6 @@
+/*
+-------------------------------------TABLA BASE--------------------------------------
+*/
 //Declaracion de Constantes.
 const { getGroups } = require('../repositories/groups')
 

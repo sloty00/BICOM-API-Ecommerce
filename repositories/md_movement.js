@@ -51,7 +51,7 @@ const getMdMovement = async (bd_name, host, page, doc_type) => {//Funcion de tip
     let jsonResult = {
         'numero elementos': movements.length,
         'numero paginas': page,
-        'M-D Inventory': movements
+        'M-D Movements': movements
     }
     console.log("repository: "+doc_type);
     return jsonResult;

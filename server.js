@@ -3,7 +3,7 @@ const express = require('express');
 require('dotenv').config();
 const cors = require("cors");
 const app = express();
-const { router } = require('./router/master_detail_movement')
+//const { router } = require('./router/master_detail_movement')
 
 //Usar ciertos esquemas.
 app.use(cors());
@@ -30,8 +30,10 @@ app.use('/api/activities', require('./router/activities')); //<--- (http://local
 app.use('/api/subgroups', require('./router/subgroups')); //<--- (http://localhost:3000/api/subgroups?page=1)
 app.use('/api/ccards', require('./router/creditcards')); //<--- (http://localhost:3000/api/ccards?page=1)
 app.use('/api/sellers', require('./router/sellers')); //<--- (http://localhost:3000/api/sellers?page=1)
-app.use('/api/md_inventorys', require('./router/master_detail_inventory')); //<--- (http://localhost:3000/api/md_inventorys?page=1)
-app.use('/api/md_movements', require('./router/master_detail_movement')); //<--- (http://localhost:3000/api/md_movements?page=1)
+app.use('/api/md_inventorys', require('./router/md_inventory')); //<--- (http://localhost:3000/api/md_inventorys?page=1)
+app.use('/api/md_movements', require('./router/md_movement')); //<--- (http://localhost:3000/api/md_movements?page=1&doc_type=1)
+app.use('/api/md_products', require('./router/md_product')); //<--- (http://localhost:3000/api/md_products?page=1)
+app.use('/api/md_ecommp', require('./router/md_ecommerceparams')); //<--- (http://localhost:3000/api/md_ecommp?page=1)
 
 //Ruta de referencia.
 app.get('/', function (req, res) {

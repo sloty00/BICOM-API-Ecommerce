@@ -1,10 +1,10 @@
 //Declaracion Constantes.
 const { Router } = require('express');
 const router = Router();
-const { getAllMdInventory } = require('../controllers/master_detail_inventory')
+const { getAllEcommp } = require('../controllers/md_ecommerceparams')
 
 //Rutas.
-router.get('/', getAllMdInventory);
+router.get('/', getAllEcommp);
 
 //Exportamos ñas funciones para usar en server.js.
 module.exports = router;

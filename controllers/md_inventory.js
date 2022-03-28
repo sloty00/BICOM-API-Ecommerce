@@ -1,5 +1,5 @@
 //Declaracion de Constantes.
-const { getMdInventory } = require('../repositories/master_detail_inventory')
+const { getMdInventory } = require('../repositories/md_inventory')
 
 const getAllMdInventory = async (req, res) => {
   const bd_name = 'bicom2'

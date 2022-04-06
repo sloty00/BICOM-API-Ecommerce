@@ -8,9 +8,11 @@ const getWarehouses = async (bd_name, host, page) => {//Funcion de tipo asincron
   const mysql = createConnectMysql(host, bd_name)
   const warehouses = await queryGetAllWarehouses(page, mysql)
   let jsonResult = {
-    'numero elementos': warehouses.length,
-    'numero paginas': page,
-    'Warehouses': warehouses
+    'total_rows': total_elementos,
+    'total_pages':total_paginas,
+    'number_pagination': warehouses.length,
+    'page': page,
+    'data': warehouses
   }
   return jsonResult;
 }
@@ -21,8 +23,13 @@ const queryGetAllWarehouses = async (page, mysql) => {//Funcion de tipo asincron
   // calcula offset
   const offset = (page - 1) * limit
   // consulta de datos con numero de paginas y offset
-  const warehousesQuery = "select * from warehouses limit " + limit + " OFFSET " + offset
+  const warehousesQuery = "SELECT warehouses.id, warehouses.description, warehouses.address, warehouses.is_ecommerce FROM warehouses LIMIT " + limit + " OFFSET " + offset
   const warehouse= await query(warehousesQuery, mysql);
+  const totalQuery = "SELECT COUNT(*) AS id FROM warehouses"
+  const total= await query(totalQuery, mysql);
+  
+  total_elementos = total[0]['id']
+  total_paginas = Math.ceil(total_elementos/100)
   return warehouse;
 }
 

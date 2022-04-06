@@ -8,9 +8,11 @@ const getCountries = async (bd_name, host, page) => {//Funcion de tipo asincroni
   const mysql = createConnectMysql(host, bd_name)
   const countries = await queryGetAllCountries(page, mysql)
   let jsonResult = {
-    'numero elementos': countries.length,
-    'numero paginas': page,
-    'Countries': countries
+    'total_rows': total_elementos,
+    'total_page': total_paginas,
+    'number_pagination': countries.length,
+    'page': page,
+    'data': countries
   }
   return jsonResult;
 }
@@ -21,8 +23,13 @@ const queryGetAllCountries = async (page, mysql) => {//Funcion de tipo asincroni
   // calcula offset
   const offset = (page - 1) * limit
   // consulta de datos con numero de paginas y offset
-  const countriesQuery = "select * from countries limit " + limit + " OFFSET " + offset
+  const countriesQuery = "SELECT countries.id, countries.`code`, countries.description FROM countries LIMIT " + limit + " OFFSET " + offset
   const countrie = await query(countriesQuery, mysql);
+  const totalQuery = "SELECT COUNT(*) AS id FROM countries "
+  const total = await query(totalQuery, mysql);
+
+  total_elementos = total[0]['id']
+  total_paginas= Math.ceil(total_elementos/100)
   return countrie;
 }
 

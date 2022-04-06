@@ -6,7 +6,7 @@ const { getMuis } = require('../repositories/muis')
 //const { addMuis } = require('../repositories/muis')
 
 const getAllMuis = async (req, res) => {
-  const bd_name = 'bicom2'
+  const bd_name = process.env.BC_DATABASE_MYSQL_1
   const host = "1"
 
   const muis = await getMuis(bd_name, host, req.query.page);

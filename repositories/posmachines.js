@@ -8,9 +8,11 @@ const getPosMachines = async (bd_name, host, page) => {//Funcion de tipo asincro
   const mysql = createConnectMysql(host, bd_name)
   const pmachines = await queryGetAllPosMachines(page, mysql)
   let jsonResult = {
-    'numero elementos': pmachines.length,
-    'numero paginas': page,
-    'Pos Machines': pmachines
+    'total_rows': total_elementos,
+    'total:page': total_paginas,
+    'number_pagination': pmachines.length,
+    'page': page,
+    'data': pmachines
   }
   return jsonResult;
 }
@@ -21,8 +23,13 @@ const queryGetAllPosMachines = async (page, mysql) => {//Funcion de tipo asincro
   // calcula offset
   const offset = (page - 1) * limit
   // consulta de datos con numero de paginas y offset
-  const pmachinesQuery = "select * from posmachines limit " + limit + " OFFSET " + offset
+  const pmachinesQuery = "SELECT posmachines.id, posmachines.`code`, posmachines.description, posmachines.mac_address FROM posmachines LIMIT " + limit + " OFFSET " + offset
   const pmachine = await query(pmachinesQuery, mysql);
+  const totalQuery = "SELECT COUNT(*) AS id FROM posmachines "
+  const total = await query(totalQuery, mysql);
+
+  total_elementos = total[0]['id']
+  total_paginas = Math.ceil(total_elementos/100)
   return pmachine;
 }
 

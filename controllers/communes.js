@@ -5,7 +5,7 @@
 const { getCommunes } = require('../repositories/communes')
 
 const getAllCommunes = async (req, res) => {
-  const bd_name = 'bicom2'
+  const bd_name = process.env.BC_DATABASE_MYSQL_1
   const host = "1"
 
   const communes = await getCommunes(bd_name, host, req.query.page);

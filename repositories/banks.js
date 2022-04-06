@@ -8,9 +8,11 @@ const getBanks = async (bd_name, host, page) => {//Funcion de tipo asincronica.
   const mysql = createConnectMysql(host, bd_name)
   const banks = await queryGetAllBanks(page, mysql)
   let jsonResult = {
-    'numero elementos': banks.length,
-    'numero paginas': page,
-    'Banks': banks
+    'total_rows': total_elementos,
+    'total_page': total_paginas,
+    'number_pagination': banks.length,
+    'page': page,
+    'data': banks
   }
   return jsonResult;
 }
@@ -21,8 +23,13 @@ const queryGetAllBanks = async (page, mysql) => {//Funcion de tipo asincronica, 
   // calcula offset
   const offset = (page - 1) * limit
   // consulta de datos con numero de paginas y offset
-  const banksQuery = "select * from banks limit " + limit + " OFFSET " + offset
+  const banksQuery = "SELECT banks.id, banks.`code`, banks.description FROM banks LIMIT " + limit + " OFFSET " + offset
   const bank= await query(banksQuery, mysql);
+  const totalQuery = "SELECT COUNT(*) AS id FROM banks "
+  const total= await query(totalQuery, mysql);
+
+  total_elementos = total[0]['id']
+  total_paginas = Math.ceil(total_elementos/100)
   return bank;
 }
 

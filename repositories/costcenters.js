@@ -8,9 +8,11 @@ const getCostCenters = async (bd_name, host, page) => {//Funcion de tipo asincro
   const mysql = createConnectMysql(host, bd_name)
   const ccenters = await queryGetAllCostCenters(page, mysql)
   let jsonResult = {
-    'numero elementos': ccenters.length,
-    'numero paginas': page,
-    'Cost Centers': ccenters
+    'total_rows': total_elementos,
+    'total_page': total_paginas,
+    'numbre_pagination': ccenters.length,
+    'page': page,
+    'data': ccenters
   }
   return jsonResult;
 }
@@ -21,8 +23,14 @@ const queryGetAllCostCenters = async (page, mysql) => {//Funcion de tipo asincro
   // calcula offset
   const offset = (page - 1) * limit
   // consulta de datos con numero de paginas y offset
-  const ccentersQuery = "select * from cost_centers limit " + limit + " OFFSET " + offset
+  const ccentersQuery = "SELECT cost_centers.id, cost_centers.`code`, cost_centers.description FROM cost_centers LIMIT " + limit + " OFFSET " + offset
   const ccenter= await query(ccentersQuery, mysql);
+
+  const totalQuery = "SELECT COUNT(*) AS id FROM cost_centers "
+  const total= await query(totalQuery, mysql);
+
+  total_elementos = total[0]['id']
+  total_paginas= Math.ceil(total_elementos/100)
   return ccenter;
 }
 

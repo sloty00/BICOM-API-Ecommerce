@@ -8,9 +8,11 @@ const getCommunes = async (bd_name, host, page) => {//Funcion de tipo asincronic
   const mysql = createConnectMysql(host, bd_name)
   const communes = await queryGetAllCommunes(page, mysql)
   let jsonResult = {
-    'numero elementos': communes.length,
-    'numero paginas': page,
-    'Communes': communes
+    'total_rows': total_elementos,
+    'total_page': total_paginas,
+    'number_pagination': communes.length,
+    'page': page,
+    'data': communes
   }
   return jsonResult;
 }
@@ -21,8 +23,13 @@ const queryGetAllCommunes = async (page, mysql) => {//Funcion de tipo asincronic
   // calcula offset
   const offset = (page - 1) * limit
   // consulta de datos con numero de paginas y offset
-  const communesQuery = "select * from communes limit " + limit + " OFFSET " + offset
+  const communesQuery = "SELECT communes.id, communes.`code`, communes.description, communes.city_id FROM communes LIMIT " + limit + " OFFSET " + offset
   const commune= await query(communesQuery, mysql);
+  const totalQuery = "SELECT COUNT(*) AS id FROM communes "
+  const total= await query(totalQuery, mysql);
+
+  total_elementos = total[0]['id']
+  total_paginas= Math.ceil(total_elementos/100)
   return commune;
 }
 

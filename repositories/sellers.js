@@ -1,5 +1,5 @@
 /*
--------------------------------------TABLA BASE--------------------------------------
+-------------------------------------TABLA COMPUESTA (E/R POR USER)--------------------------------------
 */
 
 //Declaracion de Constantes.
@@ -9,9 +9,11 @@ const getSellers = async (bd_name, host, page) => {//Funcion de tipo asincronica
     const mysql = createConnectMysql(host, bd_name)
     const sellers = await querySellers(page, mysql)
     let jsonResult = {
-        'numero elementos': sellers.length,
-        'numero paginas': page,
-        'Sellers': sellers
+        'total_rows': total_elementos,
+        'total_page': total_paginas,
+        'number_pagination': sellers.length,
+        'page': page,
+        'data': sellers
     }
     return jsonResult;
 }
@@ -22,8 +24,13 @@ const querySellers = async (page, mysql) => {//Funcion de tipo asincronica, real
     // calcula offset
     const offset = (page - 1) * limit
     // consulta de datos con numero de paginas y offset
-    const sellersQuery = "select * from sellers limit " + limit + " OFFSET " + offset
+    const sellersQuery = "SELECT sellers.id, sellers.description, sellers.user_id FROM sellers LIMIT " + limit + " OFFSET " + offset
     const seller = await query(sellersQuery, mysql);
+    const totalQuery = "SELECT COUNT(*) AS id FROM sellers LIMIT "
+    const total = await query(totalQuery, mysql);
+
+    total_elementos = total[0]['id']
+    total_paginas = Math.ceil(total_elementos/100)
     return seller;
 }
 

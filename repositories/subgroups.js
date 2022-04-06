@@ -8,9 +8,11 @@ const getSubGroups = async (bd_name, host, page) => {//Funcion de tipo asincroni
   const mysql = createConnectMysql(host, bd_name)
   const subgroups = await queryGetAllSubgroups(page, mysql)
   let jsonResult = {
-    'numero elementos': subgroups.length,
-    'numero paginas': page,
-    'Sub Groups': subgroups
+    'total_rows': total_elementos,
+    'total_page': total_paginas,
+    'number_pagination': subgroups.length,
+    'page': page,
+    'data': subgroups
   }
   return jsonResult;
 }
@@ -21,8 +23,13 @@ const queryGetAllSubgroups = async (page, mysql) => {//Funcion de tipo asincroni
   // calcula offset
   const offset = (page - 1) * limit
   // consulta de datos con numero de paginas y offset
-  const subgroupsQuery = "select * from sub_groups limit " + limit + " OFFSET " + offset
+  const subgroupsQuery = "SELECT sub_groups.id, sub_groups.description, sub_groups.group_id FROM sub_groups LIMIT " + limit + " OFFSET " + offset
   const subgroup = await query(subgroupsQuery, mysql);
+  const totalQuery = "SELECT COUNT(*) AS id FROM sub_groups"
+  const total = await query(totalQuery, mysql);
+
+  total_elementos = total[0]['id']
+  total_paginas = Math.ceil(total_elementos/100)
   return subgroup;
 }
 

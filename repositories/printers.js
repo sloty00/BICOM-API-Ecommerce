@@ -8,9 +8,11 @@ const getPrinters = async (bd_name, host, page) => {//Funcion de tipo asincronic
   const mysql = createConnectMysql(host, bd_name)
   const printers = await queryGetAllPrinters(page, mysql)
   let jsonResult = {
-    'numero elementos': printers.length,
-    'numero paginas': page,
-    'Printers': printers
+    'total_rows': total_elementos,
+    'total_page': total_paginas,
+    'number_pagination': printers.length,
+    'page': page,
+    'data': printers
   }
   return jsonResult;
 }
@@ -21,8 +23,13 @@ const queryGetAllPrinters = async (page, mysql) => {//Funcion de tipo asincronic
   // calcula offset
   const offset = (page - 1) * limit
   // consulta de datos con numero de paginas y offset
-  const printersQuery = "select * from printers limit " + limit + " OFFSET " + offset
+  const printersQuery = "SELECT printers.id, printers.description, printers.is_active, printers.branchoffice_id FROM printers LIMIT " + limit + " OFFSET " + offset
   const printer = await query(printersQuery, mysql);
+  const totalQuery = "SELECT COUNT(*) AS id FROM printers "
+  const total = await query(totalQuery, mysql);
+
+  total_elementos = total[0]['id']
+  total_paginas = Math.ceil(total_elementos/100);
   return printer;
 }
 

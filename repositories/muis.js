@@ -8,9 +8,11 @@ const getMuis = async (bd_name, host, page) => {//Funcion de tipo asincronica.
     const mysql = createConnectMysql(host, bd_name)
     const muis = await queryMuis(page, mysql)
     let jsonResult = {
-        'numero elementos': muis.length,
-        'numero paginas': page,
-        'Measurements Units': muis
+        'total_rows': total_elementos,
+        'total_page': total_page,
+        'number_pagination': muis.length,
+        'page': page,
+        'data': muis
     }
     return jsonResult;
 }
@@ -23,8 +25,13 @@ const queryMuis = async (page, mysql) => {//Funcion de tipo asincronica, realiza
     // calcula offset
     const offset = (page - 1) * limit
     // consulta de datos con numero de paginas y offset
-    const muisQuery = "select * from measurement_units limit " + limit + " OFFSET " + offset
+    const muisQuery = "SELECT measurement_units.id, measurement_units.`code`, measurement_units.description FROM measurement_units LIMIT " + limit + " OFFSET " + offset
     const mui = await query(muisQuery, mysql);
+    const totalQuery = "SELECT COUNT(*) AS id FROM measurement_units "
+    const total = await query(totalQuery, mysql);
+
+    total_elementos = total[0]['id']
+    total_page = Math.ceil(total_elementos/100)
     return mui;
 }
 

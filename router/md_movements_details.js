@@ -1,7 +1,7 @@
 //Declaracion Constantes.
 const { Router } = require('express');
 const router = Router();
-const { getAllMdMovement } = require('../controllers/md_movement')
+const { getAllMdMovement } = require('../controllers/md_movements_details')
 //Rutas.
 router.get('/', getAllMdMovement);
 

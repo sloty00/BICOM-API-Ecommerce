@@ -1,8 +1,8 @@
 //Declaracion de Constantes.
-const { getMdEcommP } = require('../repositories/md_ecommerceparams')
+const { getMdEcommP } = require('../repositories/md_ecommerce_sellers_warehouses')
 
 const getAllEcommp = async (req, res) => {
-  const bd_name = 'bicom2'
+  const bd_name = process.env.BC_DATABASE_MYSQL_1
   const host = "1"
 
   const ecommps = await getMdEcommP(bd_name, host, req.query.page);

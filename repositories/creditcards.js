@@ -8,9 +8,11 @@ const getCreditCards = async (bd_name, host, page) => {//Funcion de tipo asincro
   const mysql = createConnectMysql(host, bd_name)
   const ccards = await queryGetAllCreditCards(page, mysql)
   let jsonResult = {
-    'numero elementos': ccards.length,
-    'numero paginas': page,
-    'Credit Cards': ccards
+    'total_rows': total_elementos,
+    'total_page': total_paginas,
+    'number_pagination': ccards.length,
+    'page': page,
+    'data': ccards
   }
   return jsonResult;
 }
@@ -21,8 +23,13 @@ const queryGetAllCreditCards = async (page, mysql) => {//Funcion de tipo asincro
   // calcula offset
   const offset = (page - 1) * limit
   // consulta de datos con numero de paginas y offset
-  const ccardsQuery = "select * from credit_cards limit " + limit + " OFFSET " + offset
+  const ccardsQuery = "SELECT credit_cards.id, credit_cards.`code`, credit_cards.description FROM credit_cards LIMIT " + limit + " OFFSET " + offset
   const ccard = await query(ccardsQuery, mysql);
+  const totalQuery = "SELECT COUNT(*) AS id FROM credit_cards "
+  const total = await query(totalQuery, mysql);
+
+  total_elementos = total[0]['id']
+  total_paginas= Math.ceil(total_elementos/100)
   return ccard;
 }
 

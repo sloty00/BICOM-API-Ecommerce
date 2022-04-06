@@ -4,7 +4,7 @@
 const { getRegions } = require('../repositories/regions')
 
 const getAllRegions = async (req, res) => {
-  const bd_name = 'bicom2'
+  const bd_name = process.env.BC_DATABASE_MYSQL_1
   const host = "1"
 
   const regions = await getRegions(bd_name, host, req.query.page);

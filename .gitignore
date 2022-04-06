@@ -2,3 +2,6 @@ node_modules
 build
 npm-debug.log
 .env
+.vscode
+repositorio
+maestros.sql

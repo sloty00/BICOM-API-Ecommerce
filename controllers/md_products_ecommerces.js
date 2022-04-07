@@ -19,9 +19,8 @@ const getAllMdProduct = async (req, res) => {
   var custom3 = (req.query.custom3 == undefined) ?"":req.query.custom3;
   var custom4 = (req.query.custom4 == undefined) ?"":req.query.custom4;
   var custom5 = (req.query.custom5 == undefined) ?"":req.query.custom5;
-
+  console.log(req.query.group_id)
   const mdproduct = await getMdProduct(bd_name, host, req.query.page, is_active, is_inventory, is_ecommerce, is_ticket, is_aggregate, is_free, is_kit, group_id, subgroup_id, custom1, custom2, custom3, custom4, custom5);
-  //console.log(mdinventarios)
   res.json(mdproduct)
 };
 

@@ -127,6 +127,102 @@ const { getAllProducts } = require('../controllers/products')
  *           type: integer
  *         required: true
  *         description: All products for pages
+ *       - in: query
+ *         name: begin_code
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Internal code of the product
+ *       - in: query
+ *         name: end_code
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Internal code of the product
+ *       - in: query
+ *         name: is_active
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
+ *       - in: query
+ *         name: is_inventory
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
+ *       - in: query
+ *         name: is_ecommerce
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
+ *       - in: query
+ *         name: is_ticket
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
+ *       - in: query
+ *         name: is_aggregate
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
+ *       - in: query
+ *         name: is_free
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
+ *       - in: query
+ *         name: is_kit
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
+ *       - in: query
+ *         name: group_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
+ *       - in: query
+ *         name: sub_group_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
+ *       - in: query
+ *         name: custom1
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
+ *       - in: query
+ *         name: custom2
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
+ *       - in: query
+ *         name: custom3
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
+ *       - in: query
+ *         name: custom4
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
+ *       - in: query
+ *         name: custom5
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: #
  *     responses:
  *       200:
  *         description: Success

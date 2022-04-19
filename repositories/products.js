@@ -154,7 +154,7 @@ const getProducts = async (bd_name, host, page, code, begin_code, end_code, is_a
 
     switch (custom1 !== "" && custom1) {
         case custom1:
-            filter_custom1=" AND prod.sub_group_id= " + `'${custom1}'`;
+            filter_custom1=" AND prod.custom1= " + `'${custom1}'`;
             console.log('VACIA No esta Activa1');
         break;
     }

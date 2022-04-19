@@ -131,98 +131,82 @@ const { getAllProducts } = require('../controllers/products')
  *         name: begin_code
  *         schema:
  *           type: integer
- *         required: true
- *         description: Internal code of the product
+ *         description: Internal code of the product (Begin)
  *       - in: query
  *         name: end_code
  *         schema:
  *           type: integer
- *         required: true
- *         description: Internal code of the product
+ *         description: Internal code of the product (Last)
  *       - in: query
  *         name: is_active
  *         schema:
  *           type: integer
- *         required: true
- *         description: #
+ *         description: Product is active = 1 or not = 0
  *       - in: query
  *         name: is_inventory
  *         schema:
  *           type: integer
- *         required: true
- *         description: #
+ *         description: product is inventoriable = 1 or not = 0
  *       - in: query
  *         name: is_ecommerce
  *         schema:
  *           type: integer
- *         required: true
- *         description: #
+ *         description: Product appears in the e-commerce = 1 or not = 0
  *       - in: query
  *         name: is_ticket
  *         schema:
  *           type: integer
- *         required: true
- *         description: #
+ *         description: Product works with exchange tickets = 1 or not 0
  *       - in: query
  *         name: is_aggregate
  *         schema:
  *           type: integer
- *         required: true
- *         description: #
+ *         description: Product is added, for the module Bigourmet de restaurants = 1 or not = 0
  *       - in: query
  *         name: is_free
  *         schema:
  *           type: integer
- *         required: true
  *         description: #
  *       - in: query
  *         name: is_kit
  *         schema:
  *           type: integer
- *         required: true
- *         description: #
+ *         description: Products is products kit = 1 or not = 0
  *       - in: query
  *         name: group_id
  *         schema:
  *           type: integer
- *         required: true
- *         description: #
+ *         description: ID of the group
  *       - in: query
  *         name: sub_group_id
  *         schema:
  *           type: integer
- *         required: true
- *         description: #
+ *         description: ID of the subgroup
  *       - in: query
  *         name: custom1
  *         schema:
- *           type: integer
- *         required: true
- *         description: #
+ *           type: string
+ *         description: Field for end user add his own field
  *       - in: query
  *         name: custom2
  *         schema:
- *           type: integer
- *         required: true
- *         description: #
+ *           type: string
+ *         description: Field for end user add his own field
  *       - in: query
  *         name: custom3
  *         schema:
- *           type: integer
- *         required: true
- *         description: #
+ *           type: string
+ *         description: Field for end user add his own field
  *       - in: query
  *         name: custom4
  *         schema:
- *           type: integer
- *         required: true
- *         description: #
+ *           type: string
+ *         description: Field for end user add his own field
  *       - in: query
  *         name: custom5
  *         schema:
- *           type: integer
- *         required: true
- *         description: #
+ *           type: string
+ *         description: Field for end user add his own field
  *     responses:
  *       200:
  *         description: Success

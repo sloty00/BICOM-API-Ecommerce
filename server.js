@@ -68,6 +68,7 @@ app.use('/api/md_list_price_prod', require('./router/md_listprices_products')); 
 app.use('/api/md_trans_branchoffices', require('./router/md_transbank_branchoffices')); //<--- (http://localhost:3000/api/md_trans_branchoffices?page=1)
 app.use('/api/md_bimarket_details', require('./router/md_bimarkets_details')); //<--- (http://localhost:3000/api/md_bimarket_details?page=1)
 app.use('/api/md_quote_details', require('./router/md_quotes_details')); //<--- (http://localhost:3000/api/md_quote_details?page=1)
+app.use('/api/md_products_stock', require('./router/md_products_stock')); //<--- (http://localhost:3000/api/md_products_stock?page=1)
 
 //Ruta de referencia.
 app.get('/', function (req, res) {

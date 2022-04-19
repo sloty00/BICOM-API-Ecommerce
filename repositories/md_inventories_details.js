@@ -15,23 +15,19 @@ const getMdInventories = async (bd_name, host, page, invoice_date, begin_date, e
     switch (invoice_date !=="" && invoice_date) {
         case invoice_date:
             filter_invoice_date=" AND (inv.invoice_date = " + `'${invoice_date}')`;
-            console.log('comillas2: '+ filter_invoice_date);
         break;
       }
     
       switch (begin_date !=="" && begin_date) {
         case begin_date:
             filter_begin_date=" AND (inv.invoice_date >= " + `'${begin_date}'`;
-            console.log('Repository: '+begin_date);
         break;
       }
     
       switch (end_date !=="" && end_date) {
         case end_date:
             filter_end_date=" AND inv.invoice_date <= " + `'${end_date}')`;
-            console.log('Repository: '+end_date);
         break;
-    
       }
 
     var filter_between = filter_begin_date + filter_end_date;
@@ -52,8 +48,6 @@ const queryMdInventories = async (page, mysql, limit, offset, filter_invoice_dat
     const inventories = await query(mdinventoriesQuery, mysql);
     const totalQuery = "SELECT COUNT(*) AS id FROM inventories AS inv LEFT OUTER JOIN inventory_details AS inv_det ON (inv.id = inv_det.inventory_id) WHERE 1+1" + filter_invoice_date + filter_between
     const total = await query(totalQuery, mysql);
-
-    console.log(mdinventoriesQuery);
     total_elementos = total[0]['id']
     total_paginas= Math.ceil(total_elementos/100)
     return inventories;

@@ -16,21 +16,18 @@ const getMdBimarketDetail = async (bd_name, host, page, invoice_date, begin_date
 
         case invoice_date:
             filter_invoice_date=" AND t_bimarkets.invoice_date = " + `'${invoice_date}'`;
-            console.log('Quotes');
         break;
     }
     switch (begin_date !=="" && begin_date) {
 
         case begin_date:
             filter_begin_date=" AND (t_bimarkets.invoice_date >= " + `'${begin_date}'`;
-            console.log('Quotes');
         break;
     }
     switch (end_date !=="" && end_date) {
 
         case end_date:
             filter_end_date=" AND t_bimarkets.invoice_date <= " + `'${end_date}')`;
-            console.log('Quotes');
         break;
     }
     var filter_between = filter_begin_date + filter_end_date;
@@ -52,8 +49,6 @@ const queryMdBimarketDetail = async (page, mysql, limit, offset, filter_invoice_
     const bimarketdet = await query(bimarketsdetQuery, mysql);
     const totalQuery = "SELECT COUNT(*) AS id FROM ticket_bimarkets AS t_bimarkets LEFT OUTER JOIN ticket_bimarket_details AS t_bimarketsd ON t_bimarkets.id = t_bimarketsd.ticket_bimarket_id WHERE 1+1" + filter_invoice_date + filter_between
     const total = await query(totalQuery, mysql);
-
-    console.log(bimarketsdetQuery);
     total_elementos = total[0]['id']
     total_paginas= Math.ceil(total_elementos/100)
     return bimarketdet;

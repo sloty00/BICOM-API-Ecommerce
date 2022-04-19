@@ -9,7 +9,6 @@ const getAllEcommerceBrands = async (req, res) => {
   const host = "1"
 
   const ebrands = await getEcommerceBrands(bd_name, host, req.query.page);
-  //console.log(ebrands)
   res.json(ebrands)
 };
 

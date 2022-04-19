@@ -9,7 +9,6 @@ const getAllPosMachines = async (req, res) => {
   const host = "1"
 
   const pmachines = await getPosMachines(bd_name, host, req.query.page);
-  //console.log(pmachines)
     res.json(pmachines)
 };
 

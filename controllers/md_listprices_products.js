@@ -6,7 +6,6 @@ const getAllMdListprice = async (req, res) => {
   const host = "1"
 
   const mdlistprice = await getMdListprice(bd_name, host, req.query.page);
-  //console.log(mdinventarios)
   res.json(mdlistprice)
 };
 

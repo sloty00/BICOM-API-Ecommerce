@@ -21,53 +21,43 @@ const getCustomers = async (bd_name, host, page, is_active, is_customers, is_sup
 
   if(is_active == '0' && is_active) {
     filter_isactive="AND (customer_suppliers.is_active= 0 OR customer_suppliers.is_active is null) ";
-        console.log('No esta Activa1');
   } else if (is_active == '1' && is_active){
     filter_isactive="AND customer_suppliers.is_active= 1 ";
-        console.log('Esta Activa1');
   }
 
   if(is_customers == '0' && is_customers) {
     filter_iscustomers="AND (customer_suppliers.is_customer= 0 OR customer_suppliers.is_customer is null) ";
-    console.log('No es cliente1');
   } else if (is_customers == '1' && is_customers){
     filter_iscustomers="AND customer_suppliers.is_customer= 1 ";
-    console.log('Si es cliente1');
   }
 
   if(is_suppliers == '0' && is_suppliers) {
     filter_issupplier="AND (customer_suppliers.is_supplier= 0 OR customer_suppliers.is_supplier is null) ";
-    console.log('No es proveedor1');
   } else if (is_suppliers == '1' && is_suppliers){
     filter_issupplier="AND customer_suppliers.is_supplier= 1 ";
-    console.log('Si es proveedor1');
   }
 
   switch (region_id !=="" && region_id) {
     case region_id:
         filter_regionid="AND customer_suppliers.region_id= "+`${region_id}`;
-        console.log(region_id);
     break;
   }
 
   switch (city_id !=="" && city_id) {
     case city_id:
         filter_cityid="AND customer_suppliers.city_id= "+`${city_id}`;
-        console.log(city_id);
     break;
   }
 
   switch (communes_id !=="" && communes_id) {
     case communes_id:
         filter_communesid="AND customer_suppliers.commune_id= "+`${communes_id}`;
-        console.log(communes_id);
     break;
   }
 
   switch (activity_id !=="" && activity_id) {
     case activity_id:
         filter_activityid="AND customer_suppliers.activity_id= "+`${activity_id}`;
-        console.log(activity_id);
     break;
   }
 
@@ -88,8 +78,6 @@ const queryGetAllCustomers = async (page, mysql, filter_isactive, filter_iscusto
   const custom = await query(customQuery, mysql);
   const totalQuery = "SELECT COUNT(*) AS id FROM customer_suppliers WHERE customer_suppliers.deleted_at is null " + filter_isactive + " " + filter_iscustomers + " " + filter_issupplier + " " + filter_regionid + " " + filter_cityid + " " + filter_communesid +" "+ filter_activityid
   const total = await query(totalQuery, mysql);
-
-  console.log(customQuery);
   total_elementos = total[0]['id']
   total_paginas= Math.ceil(total_elementos/100)
   return custom;

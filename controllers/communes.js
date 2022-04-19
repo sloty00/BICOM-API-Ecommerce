@@ -9,7 +9,6 @@ const getAllCommunes = async (req, res) => {
   const host = "1"
 
   const communes = await getCommunes(bd_name, host, req.query.page);
-  //console.log(communes)
   res.json(communes)
 };
 

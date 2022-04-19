@@ -31,7 +31,6 @@ const getAllProducts = async (req, res) => {//Funcion de tipo asincronica, decla
   var custom5 = (req.query.custom5 == undefined) ?"":req.query.custom5;
 
   const products = await getProducts(bd_name, host, req.query.page, code, begin_code, end_code, is_active, is_inventory, is_ecommerce, is_ticket, is_aggregate, is_free, is_kit, group_id, sub_group_id, custom1, custom2, custom3, custom4, custom5);
-  //console.log(products)
   res.json(products)
 };
 

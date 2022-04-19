@@ -9,7 +9,6 @@ const getAllProductsStock = async (req, res) => {
   const host = "1"
 
   const productsStock = await getProductsStock(bd_name, host, req.query.page);
-  //console.log(communes)
   res.json(productsStock)
 };
 

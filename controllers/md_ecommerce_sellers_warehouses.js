@@ -6,7 +6,6 @@ const getAllEcommp = async (req, res) => {
   const host = "1"
 
   const ecommps = await getMdEcommP(bd_name, host, req.query.page);
-  //console.log(groups)
   res.json(ecommps)
 };
 

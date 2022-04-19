@@ -9,7 +9,6 @@ const getAllCostCenters = async (req, res) => {
   const host = "1"
 
   const ccenters = await getCostCenters(bd_name, host, req.query.page);
-  //console.log(ccenters)
   res.json(ccenters)
 };
 

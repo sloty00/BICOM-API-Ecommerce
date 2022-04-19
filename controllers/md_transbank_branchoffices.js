@@ -6,7 +6,6 @@ const getAllMdTransbankBranch = async (req, res) => {
   const host = "1"
 
   const mdtransbranch = await getMdTransbankBranch(bd_name, host, req.query.page);
-  //console.log(mdinventarios)
   res.json(mdtransbranch)
 };
 

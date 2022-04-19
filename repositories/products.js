@@ -39,151 +39,126 @@ const getProducts = async (bd_name, host, page, code, begin_code, end_code, is_a
     switch (begin_code !== "" && begin_code) {
         case begin_code:
             filter_begin_code=" AND prod.code >= " + `${begin_code}`;
-            console.log('Codes 1');
         break;
     }
 
     switch (end_code !== "" && end_code) {
         case end_code:
             filter_end_code=" AND prod.code <= " + `${end_code}`;
-            console.log('Codes 2');
         break;
     }
 
     switch (is_active !== "" && is_active) {
         case '0':
             filter_isactive=" AND (prod.is_active= 0 OR prod.is_active is null) ";
-            console.log('VACIA No esta Activa1');
         break;
 
         case '1':
             filter_isactive=" AND prod.is_active= 1 ";
-            console.log('NO VACIA Esta Activa1');
     }
 
     switch (is_inventory !== "" && is_inventory) {
         case '0':
             filter_isinventory=" AND (prod.is_inventory= 0 OR prod.is_inventory is null) ";
-            console.log('VACIA No esta Activa1');
         break;
 
         case '1':
             filter_isinventory=" AND prod.is_inventory= 1 ";
-            console.log('NO VACIA Esta Activa1');
     }
 
     switch (is_ecommerce !== "" && is_ecommerce) {
         case '0':
             filter_isecommerce=" AND (prod.is_ecommerce= 0 OR prod.is_ecommerce is null) ";
-            console.log('VACIA No esta Activa1');
         break;
 
         case '1':
             filter_isecommerce=" AND prod.is_ecommerce= 1 ";
-            console.log('NO VACIA Esta Activa1');
     }
 
     switch (is_ticket !== "" && is_ticket) {
         case '0':
             filter_isticket=" AND (prod.is_ticket= 0 OR prod.is_ticket is null) ";
-            console.log('VACIA No esta Activa1');
         break;
 
         case '1':
             filter_isticket=" AND prod.is_ticket= 1 ";
-            console.log('NO VACIA Esta Activa1');
     }
 
     switch (is_aggregate !== "" && is_aggregate) {
         case '0':
             filter_isaggregate=" AND (prod.is_aggregate= 0 OR prod.is_aggregate is null) ";
-            console.log('VACIA No esta Activa1');
         break;
 
         case '1':
             filter_isaggregate=" AND prod.is_aggregate= 1 ";
-            console.log('NO VACIA Esta Activa1');
     }
 
     switch (is_aggregate !== "" && is_aggregate) {
         case '0':
             filter_isaggregate=" AND (prod.is_aggregate= 0 OR prod.is_aggregate is null) ";
-            console.log('VACIA No esta Activa1');
         break;
 
         case '1':
             filter_isaggregate=" AND prod.is_aggregate= 1 ";
-            console.log('NO VACIA Esta Activa1');
     }
 
     switch (is_free !== "" && is_free) {
         case '0':
             filter_isfree=" AND (prod.is_free= 0 OR prod.is_free is null) ";
-            console.log('VACIA No esta Activa1');
         break;
 
         case '1':
             filter_isfree=" AND prod.is_free= 1 ";
-            console.log('NO VACIA Esta Activa1');
     }
 
     switch (is_kit !== "" && is_kit) {
         case '0':
             filter_iskit=" AND (prod.is_kit= 0 OR prod.is_kit is null) ";
-            console.log('VACIA No esta Activa1');
         break;
 
         case '1':
             filter_iskit=" AND prod.is_kit= 1 ";
-            console.log('NO VACIA Esta Activa1');
     }
 
     switch (group_id !== "" && group_id) {
         case group_id:
             filter_groupid=" AND prod.group_id= " + `${group_id}`;
-            console.log('VACIA No esta Activa1');
         break;
     }
 
     switch (sub_group_id !== "" && sub_group_id) {
         case sub_group_id:
             filter_subgroupid=" AND prod.sub_group_id= " + `${sub_group_id}`;
-            console.log('VACIA No esta Activa1');
         break;
     }
 
     switch (custom1 !== "" && custom1) {
         case custom1:
             filter_custom1=" AND prod.custom1= " + `'${custom1}'`;
-            console.log('VACIA No esta Activa1');
         break;
     }
 
     switch (custom2 !== "" && custom2) {
         case custom2:
             filter_subgroupid=" AND prod.custom2= " + `'${custom2}'`;
-            console.log('VACIA No esta Activa1');
         break;
     }
 
     switch (custom3 !== "" && custom3) {
         case custom3:
             filter_custom3=" AND prod.custom3= " + `'${custom3}'`;
-            console.log('VACIA No esta Activa1');
         break;
     }
 
     switch (custom4 !== "" && custom4) {
         case custom4:
             filter_subgroupid=" AND prod.custom4= " + `'${custom4}'`;
-            console.log('VACIA No esta Activa1');
         break;
     }
 
     switch (custom5 !== "" && custom5) {
         case custom5:
             filter_custom5=" AND prod.custom5= " + `'${custom5}'`;
-            console.log('VACIA No esta Activa1');
         break;
     }
 
@@ -217,7 +192,6 @@ const queryProducts = async (dbConnection, filter_code, filter_between, filter_i
 
     total_elementos = total[0]['id']
     total_paginas = Math.ceil(total_elementos/100)
-    console.log(prodsQuery);
     return prod;
 }
 
@@ -225,7 +199,6 @@ const queryTaxes = async (dbConnection, id_prod, limit, offset) => {//Funcion de
     // consulta de datos con numero de paginas y offset
     const taxQuery = "SELECT * FROM product_taxes WHERE product_id IN ("+id_prod +")" + " LIMIT " + limit + " OFFSET " + offset
     const tax = await query(taxQuery, dbConnection);
-    console.log(taxQuery);
 
     return tax;
 }

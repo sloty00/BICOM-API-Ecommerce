@@ -9,7 +9,6 @@ const getAllGroups = async (req, res) => {
   const host = "1"
 
   const groups = await getGroups(bd_name, host, req.query.page);
-  //console.log(groups)
   res.json(groups)
 };
 

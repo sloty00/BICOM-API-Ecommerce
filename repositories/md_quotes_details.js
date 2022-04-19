@@ -16,25 +16,21 @@ const getMdQuoteDetail = async (bd_name, host, page, invoice_date, begin_date, e
 
         case invoice_date:
             filter_quote_date=" AND quotes.quote_date = " + `'${invoice_date}'`;
-            console.log('Quotes');
         break;
     }
     switch (begin_date!=="" && begin_date) {
 
         case begin_date:
             filter_begin_date=" AND (quotes.quote_date >= " + `'${begin_date}'`;
-            console.log('Quotes');
         break;
     }
     switch (end_date !=="" && end_date) {
 
         case end_date:
             filter_end_date=" AND quotes.quote_date <= " + `'${end_date}')`;
-            console.log('Quotes');
         break;
     }
     var filter_between = filter_begin_date + filter_end_date;
-    console.log(filter_between);
     const quotesdet = await queryMdQuoteDetail(page, mysql, limit, offset, filter_quote_date, filter_between)
 
     let jsonResult = {
@@ -53,8 +49,6 @@ const queryMdQuoteDetail = async (page, mysql, limit, offset, filter_quote_date,
     const quotedet = await query(quotesdetQuery, mysql);
     const totalQuery = "SELECT COUNT(*) AS id FROM quotes LEFT OUTER JOIN quote_details ON quotes.id = quote_details.quote_id WHERE 1=1 " +filter_quote_date + filter_between
     const total = await query(totalQuery, mysql);
-
-    console.log(quotesdetQuery);
     total_elementos = total[0]['id']
     total_paginas= Math.ceil(total_elementos/100)
     return quotedet;

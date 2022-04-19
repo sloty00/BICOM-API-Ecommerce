@@ -9,7 +9,6 @@ const getAllSubgroups = async (req, res) => {
   const host = "1"
 
   const subgroups = await getSubGroups(bd_name, host, req.query.page);
-  //console.log(subgroups)
   res.json(subgroups)
 };
 

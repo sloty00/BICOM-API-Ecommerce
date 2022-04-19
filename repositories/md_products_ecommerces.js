@@ -28,7 +28,6 @@ const queryMdProducts = async (page, mysql, limit, offset) => {//Funcion de tipo
 
     total_elementos = total[0]['id']
     total_paginas= Math.ceil(total_elementos/100)
-    console.log(mdproductsQuery);
     return product;
 }
 

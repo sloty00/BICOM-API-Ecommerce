@@ -9,7 +9,6 @@ const getAllMdInventories = async (req, res) => {
   var end_date = (req.query.end_date == undefined) ?"":req.query.end_date;
 
   const mdinventory = await getMdInventories(bd_name, host, req.query.page, invoice_date, begin_date, end_date);
-  //console.log(mdinventarios)
   res.json(mdinventory)
 };
 

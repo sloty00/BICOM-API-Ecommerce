@@ -9,7 +9,6 @@ const getAllWarehouses = async (req, res) => {
   const host = "1"
 
   const warehouses = await getWarehouses(bd_name, host, req.query.page);
-  //console.log(warehouses)
   res.json(warehouses)
 };
 

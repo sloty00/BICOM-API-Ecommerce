@@ -9,7 +9,6 @@ const getAllPrinters = async (req, res) => {
   const host = "1"
 
   const printers = await getPrinters(bd_name, host, req.query.page);
-  //console.log(printers)
   res.json(printers)
 };
 

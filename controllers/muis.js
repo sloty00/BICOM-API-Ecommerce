@@ -10,7 +10,6 @@ const getAllMuis = async (req, res) => {
   const host = "1"
 
   const muis = await getMuis(bd_name, host, req.query.page);
-  //console.log(muis)
   res.json(muis)
 };
 

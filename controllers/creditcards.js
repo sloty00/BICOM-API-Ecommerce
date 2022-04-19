@@ -9,7 +9,6 @@ const getAllCreditsCards = async (req, res) => {
   const host = "1"
 
   const ccards = await getCreditCards(bd_name, host, req.query.page);
-  //console.log(ccards)
   res.json(ccards)
 };
 

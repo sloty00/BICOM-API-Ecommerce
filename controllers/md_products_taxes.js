@@ -6,7 +6,6 @@ const getAllMdProductTaxes = async (req, res) => {
   const host = "1"
 
   const mdproducttax = await getMdProductTaxes(bd_name, host, req.query.page);
-  //console.log(mdinventarios)
   res.json(mdproducttax)
 };
 

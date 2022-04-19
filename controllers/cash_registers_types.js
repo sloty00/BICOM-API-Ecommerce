@@ -15,7 +15,6 @@ const getAllCRT = async (req, res) => {
   const host = "1"
 
   const crt = await getCRT(bd_name, host, req.query.page);
-  //console.log(crt)
   res.json(crt)
 };
 

@@ -8,7 +8,6 @@ const getAllRegions = async (req, res) => {
   const host = "1"
 
   const regions = await getRegions(bd_name, host, req.query.page);
-  //console.log(regions)
   res.json(regions)
 };
 

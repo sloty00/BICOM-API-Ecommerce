@@ -6,7 +6,6 @@ const getAllEcommerceShipping = async (req, res) => {
   const host = "1"
 
   const mdeimages = await getMdEcommerceShipping(bd_name, host, req.query.page);
-  //console.log(mdeimages)
   res.json(mdeimages)
 };
 

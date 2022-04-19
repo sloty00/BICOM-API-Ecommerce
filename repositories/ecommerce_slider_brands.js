@@ -6,8 +6,12 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getEcommerceBrands = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+  // limite de 100
+  const limit = 100
+  // calcula offset
+  const offset = (page - 1) * limit
   const mysql = createConnectMysql(host, bd_name)
-  const ebrands = await queryGetAllEcommerceBrands(page, mysql)
+  const ebrands = await queryGetAllEcommerceBrands(page, mysql, limit, offset)
   let jsonResult = {
     'total_rows': total_elementos,
     'total_page': total_paginas,
@@ -18,11 +22,7 @@ const getEcommerceBrands = async (bd_name, host, page) => {//Funcion de tipo asi
   return jsonResult;
 }
 
-const queryGetAllEcommerceBrands = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
-  // limite de 100
-  const limit = 100
-  // calcula offset
-  const offset = (page - 1) * limit
+const queryGetAllEcommerceBrands = async (page, mysql, limit, offset) => {//Funcion de tipo asincronica, realiza la consulta.
   // consulta de datos con numero de paginas y offset
   const ebrandQuery = "SELECT ecommerce_slider_brands.id, ecommerce_slider_brands.slider_img FROM ecommerce_slider_brands LIMIT " + limit + " OFFSET " + offset
   const ecommerce = await query(ebrandQuery, mysql);

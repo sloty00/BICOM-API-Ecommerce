@@ -2,8 +2,12 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getMdEcommerceImages = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+    // limite de 100
+    const limit = 100
+    // calcula offset
+    const offset = (page - 1) * limit
     const mysql = createConnectMysql(host, bd_name)
-    const eimages = await queryMdEcommerceImages(page, mysql)
+    const eimages = await queryMdEcommerceImages(page, mysql, limit, offset)
     let jsonResult = {
         'total_rows': total_elementos,
         'total_page': total_paginas,
@@ -14,11 +18,7 @@ const getMdEcommerceImages = async (bd_name, host, page) => {//Funcion de tipo a
     return jsonResult;
 }
 
-const queryMdEcommerceImages = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
-    // limite de 100
-    const limit = 100
-    // calcula offset
-    const offset = (page - 1) * limit
+const queryMdEcommerceImages = async (page, mysql, limit, offset) => {//Funcion de tipo asincronica, realiza la consulta.
     // consulta de datos con numero de paginas y offset
     const eimagesQuery = "SELECT ecommerce_slider_images.id, ecommerce_slider_images.slider_img, ecommerce_slider_images.title, ecommerce_slider_images.description, ecommerce_slider_images.category_id, groups.id as groups_id, groups.description as groups_description, groups.is_ecommerce, groups.is_menu, groups.img_groups FROM ecommerce_slider_images LEFT OUTER JOIN `groups` ON ecommerce_slider_images.category_id = groups.id LIMIT " + limit + " OFFSET " + offset
     const eimage = await query(eimagesQuery, mysql);

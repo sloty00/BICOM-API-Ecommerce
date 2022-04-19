@@ -5,10 +5,36 @@ const cors = require("cors");
 const app = express();
 //const { router } = require('./router/master_detail_movement')
 
+//swagger
+const swaggerUI = require('swagger-ui-express');
+const swaggerjsDoc = require('swagger-jsdoc');
+const path = require("path");
+const swaggerSpec = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Node API Ecommerce Bicom",
+            version: "1.0.0",
+        },
+        servers: [
+            {
+                url: "http://localhost:3000/api",
+            },
+        ],
+    },
+    apis: [`${path.join(__dirname, "./router/*.js")}`],
+    
+};
+
 //Usar ciertos esquemas.
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//swagger
+app.use("/api-doc", 
+swaggerUI.serve, 
+swaggerUI.setup(swaggerjsDoc(swaggerSpec)))
 
 //Llamada a las rutas.
 app.use('/api/products', require('./router/products')); //<--- (http://localhost:3000/api/products?page=1)

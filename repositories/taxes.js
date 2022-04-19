@@ -3,8 +3,12 @@
 */
 
 const getTaxes = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+    // limite de 100
+    const limit = 100
+    // calcula offset
+    const offset = (page - 1) * limit
     const mysql = createConnectMysql(host, bd_name)
-    const taxes = await queryGetAllTaxes(page, mysql)
+    const taxes = await queryGetAllTaxes(page, mysql, limit, offset)
     let jsonResult = {
       'total_rows': total_elementos,
       'total_page': total_paginas,
@@ -15,15 +19,11 @@ const getTaxes = async (bd_name, host, page) => {//Funcion de tipo asincronica.
     return jsonResult;
 }
   
-  const queryGetAllTaxes = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
-    // limite de 100
-    const limit = 100
-    // calcula offset
-    const offset = (page - 1) * limit
+  const queryGetAllTaxes = async (page, mysql, limit, offset) => {//Funcion de tipo asincronica, realiza la consulta.
     // consulta de datos con numero de paginas y offset
-    const taxesQuery = "SELECT taxes.id, taxes.`code`, taxes.description, taxes.`value`, taxes.type FROM taxes LIMIT " + limit + " OFFSET " + offset
+    const taxesQuery = "SELECT taxes.id, taxes.`code`, taxes.description, taxes.`value`, taxes.type FROM taxes WHERE deleted_at IS NULL LIMIT " + limit + " OFFSET " + offset
     const taxes = await query(taxesQuery, mysql);
-    const totalQuery = "SELECT COUNT(*) as id FROM taxes "
+    const totalQuery = "SELECT COUNT(*) as id FROM taxes WHERE deleted_at IS NULL "
     const total = await query(totalQuery, mysql);
 
     total_elementos = total[0]['id']

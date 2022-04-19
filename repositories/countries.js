@@ -5,8 +5,12 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getCountries = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+  // limite de 100
+  const limit = 100
+  // calcula offset
+  const offset = (page - 1) * limit
   const mysql = createConnectMysql(host, bd_name)
-  const countries = await queryGetAllCountries(page, mysql)
+  const countries = await queryGetAllCountries(page, mysql, limit, offset)
   let jsonResult = {
     'total_rows': total_elementos,
     'total_page': total_paginas,
@@ -17,11 +21,7 @@ const getCountries = async (bd_name, host, page) => {//Funcion de tipo asincroni
   return jsonResult;
 }
 
-const queryGetAllCountries = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
-  // limite de 100
-  const limit = 100
-  // calcula offset
-  const offset = (page - 1) * limit
+const queryGetAllCountries = async (page, mysql, limit, offset) => {//Funcion de tipo asincronica, realiza la consulta.
   // consulta de datos con numero de paginas y offset
   const countriesQuery = "SELECT countries.id, countries.`code`, countries.description FROM countries LIMIT " + limit + " OFFSET " + offset
   const countrie = await query(countriesQuery, mysql);

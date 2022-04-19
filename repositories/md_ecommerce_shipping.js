@@ -2,8 +2,13 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getMdEcommerceShipping = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+    // limite de 100
+    const limit = 100
+    // calcula offset
+    const offset = (page - 1) * limit
+
     const mysql = createConnectMysql(host, bd_name)
-    const eimages = await queryMdEcommerceShippping(page, mysql)
+    const eimages = await queryMdEcommerceShippping(page, mysql, limit, offset)
     let jsonResult = {
         'total_rows': total_elementos,
         'total_page': total_paginas,
@@ -14,11 +19,7 @@ const getMdEcommerceShipping = async (bd_name, host, page) => {//Funcion de tipo
     return jsonResult;
 }
 
-const queryMdEcommerceShippping = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
-    // limite de 100
-    const limit = 100
-    // calcula offset
-    const offset = (page - 1) * limit
+const queryMdEcommerceShippping = async (page, mysql, limit, offset) => {//Funcion de tipo asincronica, realiza la consulta.
     // consulta de datos con numero de paginas y offset
     const eshippingsQuery = "SELECT ecommerce_parameters.id, ecommerce_parameters.top_message, ecommerce_parameters.img_slider_one, ecommerce_parameters.img_slider_two, ecommerce_parameters.img_slider_three, ecommerce_parameters.txt_slider_one, ecommerce_parameters.txt_slider_two, ecommerce_parameters.txt_slider_three, ecommerce_parameters.txt_two_slider_one, ecommerce_parameters.txt_two_slider_two, ecommerce_parameters.txt_two_slider_three, ecommerce_parameters.category_slider_one, ecommerce_parameters.category_slider_two, ecommerce_parameters.category_slider_three, ecommerce_parameters.img_facebook_thumbnail, ecommerce_parameters.img_about_one, ecommerce_parameters.txt_about_one, ecommerce_parameters.email_contact_web, ecommerce_parameters.template_send_mail, ecommerce_parameters.template_send_mail_order, ecommerce_parameters.longitude, ecommerce_parameters.latitude, ecommerce_parameters.payment_type, ecommerce_parameters.payment_methods, ecommerce_parameters.commerce_code, ecommerce_parameters.public_key, ecommerce_parameters.private_key, ecommerce_parameters.transbank_key, ecommerce_parameters.api_key, ecommerce_parameters.secret_key, ecommerce_parameters.color_picker, ecommerce_parameters.hours, ecommerce_parameters.prod_cert, ecommerce_parameters.email_one, ecommerce_parameters.email_two, ecommerce_parameters.email_three, ecommerce_parameters.email_four, ecommerce_parameters.social_network_one, ecommerce_parameters.social_network_two, ecommerce_parameters.social_network_three, ecommerce_parameters.social_network_four, ecommerce_parameters.img_out_stock, ecommerce_parameters.view_out_of_stock, ecommerce_parameters.sell_out_of_stock, ecommerce_parameters.seller_id, ecommerce_parameters.product_dispatch_id, ecommerce_parameters.price_product_dispatch, ecommerce_parameters.has_pickup, ecommerce_parameters.has_delivery, ecommerce_parameters.wsp_title, ecommerce_parameters.wsp_message, ecommerce_parameters.wsp_number, ecommerce_parameters.img_placeholder, ecommerce_parameters.img_favicon, ecommerce_parameters.warehouse_id, ecommerce_parameters.has_share,shipping_services.id as services_id, shipping_services.`name`, shipping_services.logo_path, shipping_services.product_id, shipping_services.is_active, shipping_services.is_ecommerce FROM `ecommerce_parameters` LEFt JOIN shipping_services ON shipping_services.is_ecommerce = '1' LIMIT " + limit + " OFFSET " + offset
     const eshipping = await query(eshippingsQuery, mysql);

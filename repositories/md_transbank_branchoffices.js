@@ -2,8 +2,12 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getMdTransbankBranch = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+    // limite de 100
+    const limit = 100
+    // calcula offset
+    const offset = (page - 1) * limit
     const mysql = createConnectMysql(host, bd_name)
-    const transbranch = await queryMdTransbankBranch(page, mysql)
+    const transbranch = await queryMdTransbankBranch(page, mysql, limit, offset)
     let jsonResult = {
         'total_rows': total_elementos,
         'total_page': total_paginas,
@@ -14,15 +18,11 @@ const getMdTransbankBranch = async (bd_name, host, page) => {//Funcion de tipo a
     return jsonResult;
 }
 
-const queryMdTransbankBranch = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
-    // limite de 100
-    const limit = 100
-    // calcula offset
-    const offset = (page - 1) * limit
+const queryMdTransbankBranch = async (page, mysql, limit, offset) => {//Funcion de tipo asincronica, realiza la consulta.
     // consulta de datos con numero de paginas y offset
-    const mdtransbranchsQuery = "SELECT prod.id, prod.`code`, prod.barcode, prod.barcode_type, prod.description, prod.description_details, prod.measurement_unit_id, prod.group_id, prod.sub_group_id, prod.price_net, prod.cl_price_net_prod, prod.cl_price_net_logistic, prod.price_brute, prod.is_inventory, prod.is_visiblePOS, prod.is_active, prod.img_one, prod.price_lastpur, prod.stockmax, prod.stockrep, prod.stockmin, prod.measurement_unit_convert_id, prod.equivalence, prod.custom1, prod.custom2, prod.custom3, prod.custom4, prod.custom5, prod.cost_prom, prod.equivalence_two, prod.weight, prod.is_kit, prod.has_kit, prod.is_ticket, prod.is_aggregate, prod.is_ecommerce, prod.print_details, prod.is_recurrent, prod.price_net_uf, prod.is_free, ecoprodi.id, ecoprodi.product_id, ecoprodi.img_one, ecoprodi.img_two, ecoprodi.img_three, ecoprodi.img_four, ecoprodi.img_five, ecoprodi.product_details, ecoprodi.product_details_short FROM products AS prod LEFT OUTER JOIN ecommerce_product_images AS ecoprodi ON prod.id = ecoprodi.product_id WHERE prod.is_ecommerce = 1 LIMIT " + limit + " OFFSET " + offset
+    const mdtransbranchsQuery = "SELECT prod.id, prod.`code`, prod.barcode, prod.barcode_type, prod.description, prod.description_details, prod.measurement_unit_id, prod.group_id, prod.sub_group_id, prod.price_net, prod.price_brute, prod.is_inventory, prod.is_visiblePOS, prod.is_active, prod.img_one as img_one, prod.price_lastpur, prod.stockmax, prod.stockrep, prod.stockmin, prod.measurement_unit_convert_id, prod.custom1, prod.custom2, prod.custom3, prod.custom4, prod.custom5, prod.cost_prom, prod.weight, prod.is_kit, prod.is_ticket, prod.is_aggregate, prod.is_ecommerce, prod.print_details, prod.price_net_uf, prod.is_free, ecoprodi.id AS id_ecoprodi, ecoprodi.product_id, ecoprodi.img_one as img_one_ecoprodi, ecoprodi.img_two, ecoprodi.img_three, ecoprodi.img_four, ecoprodi.img_five, ecoprodi.product_details, ecoprodi.product_details_short FROM products AS prod LEFT OUTER JOIN ecommerce_product_images AS ecoprodi ON prod.id = ecoprodi.product_id WHERE prod.deleted_at IS NULL AND prod.is_ecommerce = 1 LIMIT " + limit + " OFFSET " + offset
     const transbanchs = await query(mdtransbranchsQuery, mysql);
-    const totalQuery = "SELECT COUNT(*) AS id FROM products AS prod LEFT OUTER JOIN ecommerce_product_images AS ecoprodi ON prod.id = ecoprodi.product_id WHERE prod.is_ecommerce = 1 "
+    const totalQuery = "SELECT COUNT(*) AS id FROM products AS prod LEFT OUTER JOIN ecommerce_product_images AS ecoprodi ON prod.id = ecoprodi.product_id WHERE prod.deleted_at IS NULL AND prod.is_ecommerce = 1 "
     const total = await query(totalQuery, mysql);
 
     total_elementos = total[0]['id']

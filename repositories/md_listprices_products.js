@@ -2,8 +2,13 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getMdListprice = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+
+    // limite de 100
+    const limit = 100
+    // calcula offset
+    const offset = (page - 1) * limit
     const mysql = createConnectMysql(host, bd_name)
-    const listprices = await queryMdListprices(page, mysql)
+    const listprices = await queryMdListprices(page, mysql, limit, offset)
     let jsonResult = {
         'total_rows': total_elementos,
         'total_page': total_paginas,
@@ -14,11 +19,7 @@ const getMdListprice = async (bd_name, host, page) => {//Funcion de tipo asincro
     return jsonResult;
 }
 
-const queryMdListprices = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
-    // limite de 100
-    const limit = 100
-    // calcula offset
-    const offset = (page - 1) * limit
+const queryMdListprices = async (page, mysql, limit, offset) => {//Funcion de tipo asincronica, realiza la consulta.
     // consulta de datos con numero de paginas y offset
     const mdlistpricesQuery = "SELECT list_prices.id, list_prices.description, list_prices.formula, list_prices.date_ini, list_prices.date_end, list_prices.operation, list_prices.is_ecommerce, list_price_products.id AS list_price_products_id, list_price_products.list_price_id, list_price_products.product_id, list_price_products.price_brute, list_price_products.price_net FROM `list_prices` LEFT OUTER JOIN list_price_products ON list_prices.id = list_price_products.list_price_id WHERE list_prices.deleted_at is null LIMIT " + limit + " OFFSET " + offset
     const listprice = await query(mdlistpricesQuery, mysql);

@@ -5,8 +5,12 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getCostCenters = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+  // limite de 100
+  const limit = 100
+  // calcula offset
+  const offset = (page - 1) * limit
   const mysql = createConnectMysql(host, bd_name)
-  const ccenters = await queryGetAllCostCenters(page, mysql)
+  const ccenters = await queryGetAllCostCenters(page, mysql, limit, offset)
   let jsonResult = {
     'total_rows': total_elementos,
     'total_page': total_paginas,
@@ -17,11 +21,7 @@ const getCostCenters = async (bd_name, host, page) => {//Funcion de tipo asincro
   return jsonResult;
 }
 
-const queryGetAllCostCenters = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
-  // limite de 100
-  const limit = 100
-  // calcula offset
-  const offset = (page - 1) * limit
+const queryGetAllCostCenters = async (page, mysql, limit, offset) => {//Funcion de tipo asincronica, realiza la consulta.
   // consulta de datos con numero de paginas y offset
   const ccentersQuery = "SELECT cost_centers.id, cost_centers.`code`, cost_centers.description FROM cost_centers LIMIT " + limit + " OFFSET " + offset
   const ccenter= await query(ccentersQuery, mysql);

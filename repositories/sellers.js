@@ -6,8 +6,13 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getSellers = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+
+    // limite de 100
+    const limit = 100
+    // calcula offset
+    const offset = (page - 1) * limit
     const mysql = createConnectMysql(host, bd_name)
-    const sellers = await querySellers(page, mysql)
+    const sellers = await querySellers(page, mysql, limit, offset)
     let jsonResult = {
         'total_rows': total_elementos,
         'total_page': total_paginas,
@@ -18,15 +23,11 @@ const getSellers = async (bd_name, host, page) => {//Funcion de tipo asincronica
     return jsonResult;
 }
 
-const querySellers = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
-    // limite de 100
-    const limit = 100
-    // calcula offset
-    const offset = (page - 1) * limit
+const querySellers = async (page, mysql, limit, offset) => {//Funcion de tipo asincronica, realiza la consulta.
     // consulta de datos con numero de paginas y offset
-    const sellersQuery = "SELECT sellers.id, sellers.description, sellers.user_id FROM sellers LIMIT " + limit + " OFFSET " + offset
+    const sellersQuery = "SELECT sellers.id, sellers.description, sellers.user_id FROM sellers WHERE deleted_at IS NULL LIMIT " + limit + " OFFSET " + offset
     const seller = await query(sellersQuery, mysql);
-    const totalQuery = "SELECT COUNT(*) AS id FROM sellers LIMIT "
+    const totalQuery = "SELECT COUNT(*) AS id FROM sellers WHERE deleted_at IS NULL"
     const total = await query(totalQuery, mysql);
 
     total_elementos = total[0]['id']

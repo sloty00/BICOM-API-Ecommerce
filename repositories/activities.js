@@ -5,8 +5,10 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getActivities = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+  const limit = 100
+  const offset = (page - 1) * limit
   const mysql = createConnectMysql(host, bd_name)
-  const activities = await queryGetAllActivities(page, mysql)
+  const activities = await queryGetAllActivities(page, mysql, limit, offset)
   let jsonResult = {
     'total_rows': total_elementos,
     'total_page': total_page,
@@ -17,11 +19,7 @@ const getActivities = async (bd_name, host, page) => {//Funcion de tipo asincron
   return jsonResult;
 }
 
-const queryGetAllActivities = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
-  // limite de 100
-  const limit = 100
-  // calcula offset
-  const offset = (page - 1) * limit
+const queryGetAllActivities = async (page, mysql, limit, offset) => {//Funcion de tipo asincronica, realiza la consulta.
   // consulta de datos con numero de paginas y offset
   const activitiesQuery = "SELECT activities.id, activities.`code`, activities.description FROM activities LIMIT " + limit + " OFFSET " + offset
   const activitie = await query(activitiesQuery, mysql);

@@ -5,8 +5,12 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getCRT = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+  // limite de 100
+  const limit = 100
+  // calcula offset
+  const offset = (page - 1) * limit
   const mysql = createConnectMysql(host, bd_name)
-  const crts = await queryGetAllCRT(page, mysql)
+  const crts = await queryGetAllCRT(page, mysql, limit, offset)
   let jsonResult = {
     'total_rows': total_elementos,
     'total_page':total_paginas,
@@ -17,11 +21,7 @@ const getCRT = async (bd_name, host, page) => {//Funcion de tipo asincronica.
   return jsonResult;
 }
 
-const queryGetAllCRT = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
-  // limite de 100
-  const limit = 100
-  // calcula offset
-  const offset = (page - 1) * limit
+const queryGetAllCRT = async (page, mysql, limit, offset) => {//Funcion de tipo asincronica, realiza la consulta.
   // consulta de datos con numero de paginas y offset
   const crtQuery = "SELECT cash_register_types.id, cash_register_types.branchoffice_id, cash_register_types.description, cash_register_types.posmachine_id, cash_register_types.warehouse_id, cash_register_types.cost_center_id, cash_register_types.printer_id, cash_register_types.transbank_machine_id, cash_register_types.state FROM cash_register_types LIMIT " + limit + " OFFSET " + offset
   const crt= await query(crtQuery, mysql);

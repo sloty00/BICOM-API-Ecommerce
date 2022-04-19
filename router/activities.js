@@ -3,6 +3,43 @@ const { Router } = require('express');
 const router = Router();
 const { getAllActivities } = require('../controllers/activities')
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      activities:
+ *          type: object
+ *          properties:
+ *              id: 
+ *                  type: integer
+ *                  description: Primary key table activities
+ *              code:
+ *                  type: string
+ *                  description: Code activities
+ *              description:
+ *                  type: string
+ *                  description: Description activities
+ */
+
+/**
+ * @swagger
+ *  /activities:
+ *   get: 
+ *     sumary: Get all Activities for Page
+ *     tags: [Activities]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: All Activities for Page
+ *     responses:  
+ *       200: 
+ *         description: Success
+ *   
+ */ 
+
 //Rutas.
 router.get('/', getAllActivities);
 

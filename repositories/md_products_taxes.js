@@ -2,8 +2,13 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getMdProductTaxes = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+
+    // limite de 100
+    const limit = 100
+    // calcula offset
+    const offset = (page - 1) * limit
     const mysql = createConnectMysql(host, bd_name)
-    const productstaxes = await queryMdProductsTaxes(page, mysql)
+    const productstaxes = await queryMdProductsTaxes(page, mysql, limit, offset)
     let jsonResult = {
         'total_rows': total_elementos,
         'total_page': total_paginas,
@@ -14,13 +19,9 @@ const getMdProductTaxes = async (bd_name, host, page) => {//Funcion de tipo asin
     return jsonResult;
 }
 
-const queryMdProductsTaxes = async (page, mysql) => {//Funcion de tipo asincronica, realiza la consulta.
-    // limite de 100
-    const limit = 100
-    // calcula offset
-    const offset = (page - 1) * limit
+const queryMdProductsTaxes = async (page, mysql, limit, offset) => {//Funcion de tipo asincronica, realiza la consulta.
     // consulta de datos con numero de paginas y offset
-    const mdproductstaxesQuery = "SELECT products.id, products.`code`, products.barcode, products.barcode_type, products.description_details, products.description, products.measurement_unit_id, products.group_id, products.sub_group_id, products.price_net, products.cl_price_net_prod, products.cl_price_net_logistic, products.price_brute, products.is_inventory, products.is_visiblePOS, products.is_active, products.img_one, products.price_lastpur, products.stockmax, products.stockrep, products.stockmin, products.measurement_unit_convert_id, products.equivalence, products.custom1, products.custom2, products.custom3, products.custom4, products.custom5, products.cost_prom, products.equivalence_two, products.weight, products.is_kit, products.has_kit, products.is_ticket, products.is_aggregate, products.is_ecommerce, products.print_details, products.is_recurrent, products.price_net_uf, products.is_free, product_taxes.id AS product_taxes_id, taxes.id AS taxes_id, taxes.type, taxes.`value` FROM ( products LEFT OUTER JOIN product_taxes ON products.id = product_taxes.product_id ) LEFT OUTER JOIN taxes ON taxes.id = product_taxes.tax_id WHERE products.deleted_at IS NULL LIMIT " + limit + " OFFSET " + offset
+    const mdproductstaxesQuery = "SELECT products.id, products.`code`, products.barcode, products.barcode_type, products.description_details, products.description, products.measurement_unit_id, products.group_id, products.sub_group_id, products.price_net, products.price_brute, products.is_inventory, products.is_visiblePOS, products.is_active, products.img_one, products.price_lastpur, products.stockmax, products.stockrep, products.stockmin, products.measurement_unit_convert_id, products.custom1, products.custom2, products.custom3, products.custom4, products.custom5, products.cost_prom, products.weight, products.is_kit, products.is_ticket, products.is_aggregate, products.is_ecommerce, products.print_details, products.price_net_uf, products.is_free, product_taxes.id AS product_taxes_id, taxes.id AS taxes_id, taxes.type, taxes.`value` FROM ( products LEFT OUTER JOIN product_taxes ON products.id = product_taxes.product_id ) LEFT OUTER JOIN taxes ON taxes.id = product_taxes.tax_id WHERE products.deleted_at IS NULL LIMIT " + limit + " OFFSET " + offset
     const producttax = await query(mdproductstaxesQuery, mysql);
     const totalQuery = "SELECT COUNT(*) AS id FROM ( products LEFT OUTER JOIN product_taxes ON products.id = product_taxes.product_id ) LEFT OUTER JOIN taxes ON taxes.id = product_taxes.tax_id WHERE products.deleted_at IS NULL "
     const total = await query(totalQuery, mysql);

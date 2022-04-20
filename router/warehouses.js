@@ -15,13 +15,13 @@ const { getAllWarehouses } = require('../controllers/warehouses')
  *                  description: Primary key table warehouses
  *              description:
  *                  type: string
- *                  description: Code warehouses
+ *                  description: Description warehouses
  *              address:
  *                  type: string
  *                  description: Address warehouses
  *              is_ecommerce:
  *                  type: integer
- *                  description: Is warehouses
+ *                  description: Is warehouses ecommerce
  */
 
 /**

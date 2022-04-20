@@ -12,19 +12,19 @@ const { getAllTaxes } = require('../controllers/taxes')
  *          properties:
  *              id: 
  *                  type: integer
- *                  description: Primary key table warehouses
+ *                  description: Primary key table taxes
  *              code:
  *                  type: string
- *                  description: Code warehouses
+ *                  description: Code taxes
  *              description:
  *                  type: string
- *                  description: Address warehouses
+ *                  description: Description taxes
  *              value:
  *                  type: double
- *                  description: Is warehouses
+ *                  description: Value taxes
  *              type:
  *                  type: string
- *                  description: Is warehouses
+ *                  description: Type taxes
  */
 
 /**

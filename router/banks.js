@@ -35,8 +35,10 @@ const { getAllBanks } = require('../controllers/banks')
  *         required: true
  *         description: All Banks for pages
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

@@ -198,8 +198,10 @@ const { getAllMdBimarketDetail } = require('../controllers/md_bimarkets_details'
  *           type: string
  *         description: End date format (YYYY-mm-dd)
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

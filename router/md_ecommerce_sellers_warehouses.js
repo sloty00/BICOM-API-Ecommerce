@@ -213,8 +213,10 @@ const { getAllEcommp } = require('../controllers/md_ecommerce_sellers_warehouses
  *         required: true
  *         description: All MD ecommerce-sellers-warehouses for pages
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

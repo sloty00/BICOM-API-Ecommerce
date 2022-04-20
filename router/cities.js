@@ -38,8 +38,10 @@ const { getAllCities } = require('../controllers/cities')
  *         required: true
  *         description: All Cities for pages
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

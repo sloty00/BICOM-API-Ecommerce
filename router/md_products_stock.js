@@ -39,8 +39,10 @@ const { getAllProductsStock } = require('../controllers/md_products_stock')
  *         required: true
  *         description: All Products Stock for pages
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

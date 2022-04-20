@@ -36,8 +36,10 @@ const { getAllCostCenters } = require('../controllers/costcenters')
  *         required: true
  *         description: All Cost Centers for pages
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

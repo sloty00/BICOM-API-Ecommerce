@@ -209,8 +209,10 @@ const { getAllEcommerceShipping } = require('../controllers/md_ecommerce_shippin
  *         required: true
  *         description: All MD ecommerce shipping for pages
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

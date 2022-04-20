@@ -39,8 +39,10 @@ const { getAllCommunes } = require('../controllers/communes')
  *         required: true
  *         description: All Communes for pages
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

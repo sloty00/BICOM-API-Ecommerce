@@ -37,9 +37,11 @@ const { getAllPosMachines } = require('../controllers/posmachines')
  *           type: integer
  *         required: true
  *         description: All posmachines for pages
- *     responses:
- *       200:
+ *     responses:  
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */
 

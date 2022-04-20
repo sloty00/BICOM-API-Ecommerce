@@ -102,9 +102,11 @@ const { getAllMdInventories } = require('../controllers/md_inventories_details')
  *         schema:
  *           type: string
  *         description: End date format (YYYY-mm-dd)
- *     responses:
- *       200:
+ *     responses:  
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */
 

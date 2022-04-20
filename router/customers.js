@@ -139,8 +139,10 @@ const { getAllCustomers } = require('../controllers/customers')
  *           type: integer
  *         description: Number id to the activity
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

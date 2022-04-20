@@ -37,9 +37,11 @@ const { getAllRegions } = require('../controllers/regions')
  *           type: integer
  *         required: true
  *         description: All Regions for pages
- *     responses:
- *       200:
+ *     responses:  
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */
 

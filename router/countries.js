@@ -36,8 +36,10 @@ const { getAllCountries } = require('../controllers/countries')
  *         required: true
  *         description: All Countries for pages
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

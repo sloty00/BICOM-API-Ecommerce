@@ -207,9 +207,11 @@ const { getAllProducts } = require('../controllers/products')
  *         schema:
  *           type: string
  *         description: Field for end user add his own field
- *     responses:
- *       200:
+ *     responses:  
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */
 

@@ -56,8 +56,10 @@ const { getAllEcommerceImages } = require('../controllers/md_ecomslider_groups')
  *         required: true
  *         description: All MD ecommerce slider groups for pages
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */
 

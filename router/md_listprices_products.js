@@ -61,9 +61,11 @@ const { getAllMdListprice } = require('../controllers/md_listprices_products')
  *           type: integer
  *         required: true
  *         description: All MD list prices products for pages
- *     responses:
- *       200:
+ *     responses:  
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */
 

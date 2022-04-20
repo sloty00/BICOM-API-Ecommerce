@@ -40,9 +40,11 @@ const { getAllTaxes } = require('../controllers/taxes')
  *           type: integer
  *         required: true
  *         description: All taxes for pages
- *     responses:
- *       200:
+ *     responses:  
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */
 

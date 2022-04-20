@@ -35,8 +35,10 @@ const { getAllActivities } = require('../controllers/activities')
  *         required: true
  *         description: All Activities for Page
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

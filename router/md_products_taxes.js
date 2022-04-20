@@ -140,9 +140,11 @@ const { getAllMdProductTaxes } = require('../controllers/md_products_taxes')
  *           type: integer
  *         required: true
  *         description: All MD products taxes for pages
- *     responses:
- *       200:
+ *     responses:  
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */
 

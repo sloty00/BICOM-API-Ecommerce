@@ -37,9 +37,11 @@ const { getAllWarehouses } = require('../controllers/warehouses')
  *           type: integer
  *         required: true
  *         description: All warehouses for pages
- *     responses:
- *       200:
+ *     responses:  
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */
 

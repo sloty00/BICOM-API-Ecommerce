@@ -33,8 +33,10 @@ const { getAllEcommerceBrands } = require('../controllers/ecommerce_slider_brand
  *         required: true
  *         description: All Ecommerce Slider Brands for pages
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

@@ -50,8 +50,10 @@ const { getAllCRT } = require('../controllers/cash_registers_types')
  *         required: true
  *         description: All Cash Register Types for pages
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

@@ -155,9 +155,11 @@ const { getAllMdTransbankBranch } = require('../controllers/md_transbank_brancho
  *           type: integer
  *         required: true
  *         description: All MD transbank branchoffices for pages
- *     responses:
- *       200:
+ *     responses:  
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */
 

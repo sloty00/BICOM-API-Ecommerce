@@ -42,8 +42,10 @@ const { getAllGroups } = require('../controllers/groups')
  *         required: true
  *         description: All Groups for pages
  *     responses:  
- *       200: 
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */ 
 

@@ -34,9 +34,11 @@ const { getAllSellers } = require('../controllers/sellers')
  *           type: integer
  *         required: true
  *         description: All sellers for pages
- *     responses:
- *       200:
+ *     responses:  
+ *       '200': 
  *         description: Success
+ *       '400':
+ *         description: Bad request
  *   
  */
 

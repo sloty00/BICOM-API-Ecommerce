@@ -310,12 +310,12 @@ const { getAllMdMovement } = require('../controllers/md_movements_details')
  *       - in: query
  *         name: begin_date
  *         schema:
- *           type: integer
+ *           type: string
  *         description: Begin date format (YYYY-mm-dd)
  *       - in: query
  *         name: end_date
  *         schema:
- *           type: integer
+ *           type: string
  *         description: End date format (YYYY-mm-dd)
  *     responses:
  *       200:

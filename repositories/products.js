@@ -199,7 +199,6 @@ const queryTaxes = async (dbConnection, id_prod, limit, offset) => {//Funcion de
     // consulta de datos con numero de paginas y offset
     const taxQuery = "SELECT * FROM product_taxes WHERE product_id IN ("+id_prod +")" + " LIMIT " + limit + " OFFSET " + offset
     const tax = await query(taxQuery, dbConnection);
-
     return tax;
 }
 

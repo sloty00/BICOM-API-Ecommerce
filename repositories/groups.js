@@ -34,6 +34,20 @@ const queryGroups = async (page, mysql, limit, offset) => {//Funcion de tipo asi
     return group;
 }
 
+const getAddGroups = async (bd_name, host, id, description, is_ecommerce, is_menu, img_groups) => {
+    var id;
+    var description;
+    var is_ecommerce;
+    var is_menu;
+    var img_groups;
+    var f = new Date();
+    var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+    const mysql = createConnectMysql(host, bd_name)
+    const groupsAddQuery = "INSERT INTO `groups` (id, description, is_ecommerce, is_menu, img_groups, created_at, updated_at) VALUES" + " (" + id + ", '" + description + "', " + is_ecommerce + ", " + is_menu + ", '" + img_groups + "', '" + datenow + "', '" + datenow + "')"
+    const addgroups = await query(groupsAddQuery, mysql);
+    return addgroups;
+  }
+
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
@@ -49,5 +63,6 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-    getGroups
+    getGroups,
+    getAddGroups
 }

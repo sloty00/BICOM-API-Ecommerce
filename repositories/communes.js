@@ -33,6 +33,20 @@ const queryGetAllCommunes = async (page, mysql, limit, offset) => {//Funcion de 
   return commune;
 }
 
+const getAddCommunes = async (bd_name, host, id, code, description, city_id) => {
+  var id;
+  var code;
+  var description;
+  var city_id;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const communesAddQuery = "INSERT INTO communes (id, `code`, description, city_id, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', " + city_id + ", '" + datenow + "', '" + datenow + "')"
+  const add = await query(communesAddQuery, mysql);
+  return add;
+}
+
+
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
@@ -48,5 +62,6 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-  getCommunes
+  getCommunes,
+  getAddCommunes
 }

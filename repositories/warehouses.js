@@ -34,6 +34,21 @@ const queryGetAllWarehouses = async (page, mysql, limit, offset) => {//Funcion d
   return warehouse;
 }
 
+const getAddWarehouses = async (bd_name, host, id, code, description, address, is_ecommerce) => {
+  var id;
+  var code;
+  var description;
+  var address;
+  var is_ecommerce;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const warehousesAddQuery = "INSERT INTO warehouses (id, `code`, description, address, is_ecommerce, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', '" + address+ "', " + is_ecommerce + ", '" + datenow + "', '" + datenow + "')"
+  const addwarehouses = await query(warehousesAddQuery, mysql);
+  return addwarehouses;
+}
+
+
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
@@ -49,5 +64,6 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-  getWarehouses
+  getWarehouses,
+  getAddWarehouses
 }

@@ -33,6 +33,25 @@ const queryGetAllCRT = async (page, mysql, limit, offset) => {//Funcion de tipo 
   return crt;
 }
 
+const getAddCRT = async (bd_name, host, id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state) => {
+  var id;
+  var branchoffice_id;
+  var description;
+  var posmachine_id;
+  var warehouse_id;
+  var cost_center_id;
+  var printer_id;
+  var transbank_machine_id;
+  var state;
+
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const banksAddQuery = "INSERT INTO cash_register_types (id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state, created_at, updated_at) VALUES" + " (" + id + ", " + branchoffice_id + ", '" + description + "', " + posmachine_id + ", " + warehouse_id + ", " + cost_center_id + ", " + printer_id + ", " + transbank_machine_id +", " + state + ", '" + datenow +"', '" + datenow +"')"
+  const add = await query(banksAddQuery, mysql);
+  return add;
+}
+
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
@@ -48,5 +67,6 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-  getCRT
+  getCRT,
+  getAddCRT
 }

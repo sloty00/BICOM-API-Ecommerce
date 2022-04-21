@@ -31,6 +31,18 @@ const queryGetAllActivities = async (page, mysql, limit, offset) => {//Funcion d
   return activitie;
 }
 
+const getAddActivities = async (bd_name, host, id, code, description) => {
+  var id;
+  var code;
+  var description;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const activitiesAddQuery = "INSERT INTO activities (id, `code`, description, created_at, updated_at) VALUES" + " (" + id + ", " + code + ", '" + description + "', '" + datenow + "', '" + datenow + "')"
+  const addactivities = await query(activitiesAddQuery, mysql);
+  return addactivities;
+}
+
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
@@ -46,5 +58,6 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-  getActivities
+  getActivities,
+  getAddActivities
 }

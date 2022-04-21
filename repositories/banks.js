@@ -5,6 +5,7 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getBanks = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+  
   // limite de 100
   const limit = 100
   // calcula offset
@@ -33,6 +34,18 @@ const queryGetAllBanks = async (page, mysql, limit, offset) => {//Funcion de tip
   return bank;
 }
 
+const getAddBanks = async (bd_name, host, id, code, description) => {
+  var id;
+  var code;
+  var description;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const banksAddQuery = "INSERT INTO banks (id, `code`, description, created_at, updated_at) VALUES" + " (" + id + ", " + code + ", '" + description + "', '" + datenow + "', '" + datenow + "')"
+  const add = await query(banksAddQuery, mysql);
+  return add;
+}
+
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
@@ -48,5 +61,6 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-  getBanks
+  getBanks,
+  getAddBanks
 }

@@ -33,6 +33,19 @@ const queryGetAllCities = async (page, mysql, limit, offset) => {//Funcion de ti
   return citie;
 }
 
+const getAddCities = async (bd_name, host, id, code, description, region_id) => {
+  var id;
+  var code;
+  var description;
+  var region_id;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const citiesAddQuery = "INSERT INTO cities (id, `code`, description, region_id, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', "+ region_id + ", '" + datenow + "', '" + datenow + "')"
+  const add = await query(citiesAddQuery, mysql);
+  return add;
+}
+
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
@@ -48,5 +61,6 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-  getCities
+  getCities,
+  getAddCities
 }

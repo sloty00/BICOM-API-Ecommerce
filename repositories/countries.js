@@ -33,6 +33,18 @@ const queryGetAllCountries = async (page, mysql, limit, offset) => {//Funcion de
   return countrie;
 }
 
+const getAddCountries = async (bd_name, host, id, code, description) => {
+  var id;
+  var code;
+  var description;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const countriesAddQuery = "INSERT INTO countries (id, `code`, description, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', '" + datenow + "', '" + datenow + "')"
+  const addcountries = await query(countriesAddQuery, mysql);
+  return addcountries;
+}
+
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
@@ -48,5 +60,6 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-  getCountries
+  getCountries,
+  getAddCountries
 }

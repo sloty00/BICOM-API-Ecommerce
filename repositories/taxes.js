@@ -30,6 +30,20 @@ const getTaxes = async (bd_name, host, page) => {//Funcion de tipo asincronica.
     total_paginas = Math.ceil(total_elementos/100)
     return taxes;
   }
+
+  const getAddTaxes = async (bd_name, host, id, code, description, value, type) => {
+    var id;
+    var code;
+    var description;
+    var value;
+    var type;
+    var f = new Date();
+    var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+    const mysql = createConnectMysql(host, bd_name)
+    const taxesAddQuery = "INSERT INTO taxes (id, `code`, description, value, type, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', '" + value + "', " + type + ", '" + datenow + "', '" + datenow + "')"
+    const addtaxes = await query(taxesAddQuery, mysql);
+    return addtaxes;
+  }
   
   //Deberia ir en herlpers
   //Controla los errores de conexion
@@ -46,5 +60,6 @@ const getTaxes = async (bd_name, host, page) => {//Funcion de tipo asincronica.
   
   //Exportamos la funcion para usar los datos en controller/products.js.
   module.exports = {
-    getTaxes
+    getTaxes,
+    getAddTaxes
   }

@@ -34,16 +34,8 @@ const queryGetAllCRT = async (page, mysql, limit, offset) => {//Funcion de tipo 
 }
 
 const getAddCRT = async (bd_name, host, id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state) => {
-  var id;
-  var branchoffice_id;
-  var description;
-  var posmachine_id;
-  var warehouse_id;
-  var cost_center_id;
-  var printer_id;
-  var transbank_machine_id;
-  var state;
-
+  
+  var id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)

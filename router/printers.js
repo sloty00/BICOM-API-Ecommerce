@@ -1,7 +1,7 @@
 //Declaracion Constantes.
 const { Router } = require('express');
 const router = Router();
-const { getAllPrinters } = require('../controllers/printers')
+const { getAllPrinters, AddPrinters } = require('../controllers/printers')
 
 /**
  * @swagger
@@ -47,6 +47,7 @@ const { getAllPrinters } = require('../controllers/printers')
 
 //Rutas.
 router.get('/', getAllPrinters);
+router.post('/add', AddPrinters);
 
 //Exportamos ñas funciones para usar en server.js.
 module.exports = router;

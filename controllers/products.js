@@ -6,7 +6,7 @@
 -measurement_unit_convert_id???
 */
 //Declaracion de Constantes.
-const { getProducts } = require('../repositories/products')
+const { getProducts, getAddProducts } = require('../repositories/products')
 
 const getAllProducts = async (req, res) => {//Funcion de tipo asincronica, declara parametros
   const bd_name = process.env.BC_DATABASE_MYSQL_1
@@ -34,7 +34,16 @@ const getAllProducts = async (req, res) => {//Funcion de tipo asincronica, decla
   res.json(products)
 };
 
+const AddProducts = async (req, res) => {
+  const bd_name = process.env.BC_DATABASE_MYSQL_1
+  const host = "1"
+
+  const addproducts = await getAddProducts(bd_name, host, req.body.id, req.body.code, req.body.barcode, req.body.barcode_type, req.body.description, req.body.description_details, req.body.measurement_unit_id, req.body.group_id, req.body.sub_group_id, req.body.price_net, req.body.cl_price_net_prod, req.body.cl_price_net_logistic, req.body.price_brute, req.body.is_inventory, req.body.is_visiblePOS, req.body.is_active, req.body.img_one, req.body.price_lastpur, req.body.stockmax, req.body.stockrep, req.body.stockmin, req.body.measurement_unit_convert_id, req.body.equivalence, req.body.custom1, req.body.custom2, req.body.custom3, req.body.custom4, req.body.custom5, req.body.cost_prom, req.body.equivalence_two, req.body.weight, req.body.is_kit, req.body.has_kit, req.body.is_ticket, req.body.is_aggregate, req.body.is_ecommerce, req.body.print_details, req.body.is_recurrent, req.body.price_net_uf, req.body.is_free);
+  res.json(addproducts)
+}
+
 //Exportamos la funcion para usar los datos en .router/products.js
 module.exports = {
-  getAllProducts
+  getAllProducts,
+  AddProducts
 }

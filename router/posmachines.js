@@ -1,7 +1,7 @@
 //Declaracion Constantes.
 const { Router } = require('express');
 const router = Router();
-const { getAllPosMachines } = require('../controllers/posmachines')
+const { getAllPosMachines, AddPosmachines } = require('../controllers/posmachines')
 
 /**
  * @swagger
@@ -47,6 +47,7 @@ const { getAllPosMachines } = require('../controllers/posmachines')
 
 //Rutas.
 router.get('/', getAllPosMachines);
+router.post('/add', AddPosmachines);
 
 //Exportamos ñas funciones para usar en server.js.
 module.exports = router;

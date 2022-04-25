@@ -35,9 +35,7 @@ const queryGetAllCostCenters = async (page, mysql, limit, offset) => {//Funcion 
 }
 
 const getAddCostCenters = async (bd_name, host, id, code, description) => {
-  var id;
-  var code;
-  var description;
+  var id, code, description;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)

@@ -34,10 +34,7 @@ const queryGetAllCities = async (page, mysql, limit, offset) => {//Funcion de ti
 }
 
 const getAddCities = async (bd_name, host, id, code, description, region_id) => {
-  var id;
-  var code;
-  var description;
-  var region_id;
+  var id, code, description, region_id;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)

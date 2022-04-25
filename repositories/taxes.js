@@ -32,11 +32,8 @@ const getTaxes = async (bd_name, host, page) => {//Funcion de tipo asincronica.
   }
 
   const getAddTaxes = async (bd_name, host, id, code, description, value, type) => {
-    var id;
-    var code;
-    var description;
-    var value;
-    var type;
+    
+    var id, code, description, value, type;
     var f = new Date();
     var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
     const mysql = createConnectMysql(host, bd_name)

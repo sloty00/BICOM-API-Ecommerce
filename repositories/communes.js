@@ -34,10 +34,7 @@ const queryGetAllCommunes = async (page, mysql, limit, offset) => {//Funcion de 
 }
 
 const getAddCommunes = async (bd_name, host, id, code, description, city_id) => {
-  var id;
-  var code;
-  var description;
-  var city_id;
+  var id, code, description, city_id;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)

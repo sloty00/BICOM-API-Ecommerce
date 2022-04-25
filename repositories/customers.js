@@ -83,6 +83,17 @@ const queryGetAllCustomers = async (page, mysql, filter_isactive, filter_iscusto
   return custom;
 }
 
+const getAddCustomers = async (bd_name, host, id, rut, business_name, fantasy_name, activity_id, country_id, region_id, city_id, commune_id, address, email, email_dte, website, is_customer, is_supplier, is_active, phone, phone_two, payment_type, seller_id, list_price_id, expired_days, limit_amount, is_customer_simple, can_invoice, can_ballot, can_no_ballot) => {
+    
+  var id, rut, business_name, fantasy_name, activity_id, country_id, region_id, city_id, commune_id, address, email, email_dte, website, is_customer, is_supplier, is_active, phone, phone_two, payment_type, seller_id, list_price_id, expired_days, limit_amount, is_customer_simple, can_invoice, can_ballot, can_no_ballot;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const customersAddQuery = "INSERT INTO customer_suppliers (id, rut, business_name, fantasy_name, activity_id, country_id, region_id, city_id, commune_id, address, email, email_dte, website, is_customer, is_supplier, is_active, phone, phone_two, payment_type, seller_id, list_price_id, expired_days, limit_amount, is_customer_simple, can_invoice, can_ballot, can_no_ballot, created_at, updated_at) VALUES" + " (" + id + ", '" + rut + "', '" + business_name + "', '" + fantasy_name + "', " + activity_id + ", " + country_id + ", " + region_id + ", " + city_id + ", " + commune_id + ", '" + address + "', '" + email + "', '" + email_dte + "', '" + website + "', " + is_customer + ", " + is_supplier + ", " + is_active + ", '" + phone + "', '" + phone_two + "', " + payment_type + ", " + seller_id + ", " + list_price_id + ", " + expired_days + ", " + limit_amount + ", " + is_customer_simple + ", " + can_invoice + ", " + can_ballot + ", " + can_no_ballot + ", '" + datenow + "', '" + datenow + "')"
+  const addcustomers = await query(customersAddQuery, mysql);
+  return addcustomers;
+}
+
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
@@ -98,5 +109,6 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-  getCustomers
+  getCustomers,
+  getAddCustomers
 }

@@ -34,6 +34,17 @@ const queryGetAllSubgroups = async (page, mysql, limit, offset) => {//Funcion de
   return subgroup;
 }
 
+const getAddSubgroups = async (bd_name, host, id, description, group_id) => {
+  var id, description, group_id;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const subgroupsAddQuery = "INSERT INTO sub_groups (id, description, group_id, created_at, updated_at) VALUES" + " (" + id + ", '" + description + "', " + group_id + ", '" + datenow + "', '" + datenow + "')"
+  const addsubgroups = await query(subgroupsAddQuery, mysql);
+  return addsubgroups;
+}
+
+
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
@@ -49,5 +60,6 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-  getSubGroups
+  getSubGroups,
+  getAddSubgroups
 }

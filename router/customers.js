@@ -1,7 +1,7 @@
 //Declaracion Constantes.
 const { Router } = require('express');
 const router = Router();
-const { getAllCustomers } = require('../controllers/customers')
+const { getAllCustomers, AddCustomers } = require('../controllers/customers')
 
 /**
  * 
@@ -148,6 +148,7 @@ const { getAllCustomers } = require('../controllers/customers')
 
 //Rutas.
 router.get('/', getAllCustomers);
+router.post('/add', AddCustomers);
 
 //Exportamos ñas funciones para usar en server.js.
 module.exports = router;

@@ -35,11 +35,8 @@ const queryGetAllWarehouses = async (page, mysql, limit, offset) => {//Funcion d
 }
 
 const getAddWarehouses = async (bd_name, host, id, code, description, address, is_ecommerce) => {
-  var id;
-  var code;
-  var description;
-  var address;
-  var is_ecommerce;
+ 
+  var id, code, description, address, is_ecommerce;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)

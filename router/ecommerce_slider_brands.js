@@ -1,7 +1,7 @@
 //Declaracion Constantes.
 const { Router } = require('express');
 const router = Router();
-const { getAllEcommerceBrands } = require('../controllers/ecommerce_slider_brands')
+const { getAllEcommerceBrands, AddEcommerceBrands } = require('../controllers/ecommerce_slider_brands')
 
 /**
  * @swagger
@@ -42,6 +42,7 @@ const { getAllEcommerceBrands } = require('../controllers/ecommerce_slider_brand
 
 //Rutas.
 router.get('/', getAllEcommerceBrands);
+router.post('/add', AddEcommerceBrands);
 
 //Exportamos ñas funciones para usar en server.js.
 module.exports = router;

@@ -33,6 +33,16 @@ const queryGetAllPrinters = async (page, mysql, limit, offset) => {//Funcion de 
   return printer;
 }
 
+const getAddPrinters = async (bd_name, host, id, description, is_active, branchoffice_id) => {
+  var id, description, is_active, branchoffice_id;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const printersAddQuery = "INSERT INTO printers (id, description, is_active, branchoffice_id, created_at, updated_at) VALUES" + " (" + id + ", '" + description + "', '" + is_active + "', " + branchoffice_id + ", '" + datenow + "', '" + datenow + "')"
+  const addprinters = await query(printersAddQuery, mysql);
+  return addprinters;
+}
+
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
@@ -48,5 +58,6 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-  getPrinters
+  getPrinters,
+  getAddPrinters
 }

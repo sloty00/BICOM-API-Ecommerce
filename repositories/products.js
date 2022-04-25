@@ -202,6 +202,19 @@ const queryTaxes = async (dbConnection, id_prod, limit, offset) => {//Funcion de
     return tax;
 }
 
+const getAddProducts = async (bd_name, host, id, code, barcode, barcode_type, description, description_details, measurement_unit_id, group_id, sub_group_id, price_net, cl_price_net_prod, cl_price_net_logistic, price_brute, is_inventory, is_visiblePOS, is_active, img_one, price_lastpur, stockmax, stockrep, stockmin, measurement_unit_convert_id, equivalence, custom1, custom2, custom3, custom4, custom5, cost_prom, equivalence_two, weight, is_kit, has_kit, is_ticket, is_aggregate, is_ecommerce, print_details, is_recurrent, price_net_uf, is_free) => {
+
+    var id, code, barcode, barcode_type, description, description_details, measurement_unit_id, group_id, sub_group_id, price_net, cl_price_net_prod, cl_price_net_logistic, price_brute, is_inventory, is_visiblePOS, is_active, img_one, price_lastpur, stockmax, stockrep, stockmin, measurement_unit_convert_id, equivalence, custom1, custom2, custom3, custom4, custom5, cost_prom, equivalence_two, weight, is_kit, has_kit, is_ticket, is_aggregate, is_ecommerce, print_details, is_recurrent, price_net_uf, is_free;
+
+    var f = new Date();
+    var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+    const mysql = createConnectMysql(host, bd_name)
+    const productsAddQuery = "INSERT INTO products (id, code, barcode, barcode_type, description, description_details, measurement_unit_id, group_id, sub_group_id, price_net, cl_price_net_prod, cl_price_net_logistic, price_brute, is_inventory, is_visiblePOS, is_active, img_one, price_lastpur, stockmax, stockrep, stockmin, measurement_unit_convert_id, equivalence, custom1, custom2, custom3, custom4, custom5, cost_prom, equivalence_two, weight, is_kit, has_kit, is_ticket, is_aggregate, is_ecommerce, print_details, is_recurrent, price_net_uf, is_free, created_at, updated_at) VALUES" + " (" + id + ", '" + code +"', '" + barcode + "', " + barcode_type + ", '" + description + "', '" + description_details + "', " + measurement_unit_id + ", " + group_id + ", " + sub_group_id + ", " + price_net + ", " + cl_price_net_prod + ", " + cl_price_net_logistic + ", " + price_brute + ", " + is_inventory + ", " + is_visiblePOS + ", " + is_active + ", '" + img_one + "', " + price_lastpur + ", " + stockmax + ", " + stockrep + ", " + stockmin + ", " + measurement_unit_convert_id + ", " + equivalence + ", '" + custom1 + "', '" + custom2 + "', '" + custom3 + "', '" + custom4 + "', '" + custom5 + "', " + cost_prom + ", " + equivalence_two + ", " + weight + ", " + is_kit + ", " + has_kit + ", " + is_ticket + ", " + is_aggregate + ", " + is_ecommerce + ", " + print_details + ", " + is_recurrent + ", " + price_net_uf + ", " + is_free + ", '" + datenow + "', '" + datenow + "')"
+    const addproducts = await query(productsAddQuery, mysql);
+    return addproducts;
+    
+  }
+  
 
 //Controla los errores de conexion
 const query = (sql, dbConnection) => {
@@ -218,5 +231,6 @@ const query = (sql, dbConnection) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-    getProducts
+    getProducts,
+    getAddProducts
 }

@@ -33,6 +33,16 @@ const queryGetAllPosMachines = async (page, mysql, limit, offset) => {//Funcion 
   return pmachine;
 }
 
+const getAddPosmachines = async (bd_name, host, id, code, description, mac_address) => {
+  var id, code, description, mac_address;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const posmachinesAddQuery = "INSERT INTO posmachines (id, code, description, mac_address, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', '" + mac_address + "', '" + datenow + "', '" + datenow + "')"
+  const addposmachines = await query(posmachinesAddQuery, mysql);
+  return addposmachines;
+}
+
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
@@ -48,5 +58,6 @@ const query = (sql, mysql) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-  getPosMachines
+  getPosMachines,
+  getAddPosmachines
 }

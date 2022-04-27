@@ -83,7 +83,7 @@ const queryGetAllCustomers = async (page, mysql, filter_isactive, filter_iscusto
   return custom;
 }
 
-const getAddCustomers = async (bd_name, host, id, rut, business_name, fantasy_name, activity_id, country_id, region_id, city_id, commune_id, address, email, email_dte, website, is_customer, is_supplier, is_active, phone, phone_two, payment_type, seller_id, list_price_id, expired_days, limit_amount, is_customer_simple, can_invoice, can_ballot, can_no_ballot) => {
+const AddCustomers = async (bd_name, host, id, rut, business_name, fantasy_name, activity_id, country_id, region_id, city_id, commune_id, address, email, email_dte, website, is_customer, is_supplier, is_active, phone, phone_two, payment_type, seller_id, list_price_id, expired_days, limit_amount, is_customer_simple, can_invoice, can_ballot, can_no_ballot) => {
     
   var id, rut, business_name, fantasy_name, activity_id, country_id, region_id, city_id, commune_id, address, email, email_dte, website, is_customer, is_supplier, is_active, phone, phone_two, payment_type, seller_id, list_price_id, expired_days, limit_amount, is_customer_simple, can_invoice, can_ballot, can_no_ballot;
   var f = new Date();
@@ -92,6 +92,17 @@ const getAddCustomers = async (bd_name, host, id, rut, business_name, fantasy_na
   const customersAddQuery = "INSERT INTO customer_suppliers (id, rut, business_name, fantasy_name, activity_id, country_id, region_id, city_id, commune_id, address, email, email_dte, website, is_customer, is_supplier, is_active, phone, phone_two, payment_type, seller_id, list_price_id, expired_days, limit_amount, is_customer_simple, can_invoice, can_ballot, can_no_ballot, created_at, updated_at) VALUES" + " (" + id + ", '" + rut + "', '" + business_name + "', '" + fantasy_name + "', " + activity_id + ", " + country_id + ", " + region_id + ", " + city_id + ", " + commune_id + ", '" + address + "', '" + email + "', '" + email_dte + "', '" + website + "', " + is_customer + ", " + is_supplier + ", " + is_active + ", '" + phone + "', '" + phone_two + "', " + payment_type + ", " + seller_id + ", " + list_price_id + ", " + expired_days + ", " + limit_amount + ", " + is_customer_simple + ", " + can_invoice + ", " + can_ballot + ", " + can_no_ballot + ", '" + datenow + "', '" + datenow + "')"
   const addcustomers = await query(customersAddQuery, mysql);
   return addcustomers;
+}
+
+const PutCustomers = async (bd_name, host, id_params, id, rut, business_name, fantasy_name, activity_id, country_id, region_id, city_id, commune_id, address, email, email_dte, website, is_customer, is_supplier, is_active, phone, phone_two, payment_type, seller_id, list_price_id, expired_days, limit_amount, is_customer_simple, can_invoice, can_ballot, can_no_ballot) => {
+  var id, rut, business_name, fantasy_name, activity_id, country_id, region_id, city_id, commune_id, address, email, email_dte, website, is_customer, is_supplier, is_active, phone, phone_two, payment_type, seller_id, list_price_id, expired_days, limit_amount, is_customer_simple, can_invoice, can_ballot, can_no_ballot;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const customersPutQuery = "UPDATE `customer_suppliers` SET id = " + id + ", rut = '" + rut + "', business_name = '" + business_name + "', fantasy_name = '" + fantasy_name + "', activity_id = " + activity_id + ", country_id = " + country_id + ", region_id = " + region_id + ", city_id = " + city_id + ", commune_id = " + commune_id + ", address = '" + address + "', email = '" + email + "', email_dte = '" + email_dte + "', website = '" + website + "', is_customer = " + is_customer + ", is_supplier = " + is_supplier + ", is_active = " + is_active + ", phone = '" + phone + "', phone_two = '" + phone_two + "', payment_type = " + payment_type + ", seller_id = " + seller_id + ", list_price_id = " + list_price_id + ", expired_days = " + expired_days + ", limit_amount = " + limit_amount + ", is_customer_simple = " + is_customer_simple + ", can_invoice = " + can_invoice + ", can_ballot = " + can_ballot + ", can_no_ballot = " + can_no_ballot + ", updated_at = '" + datenow + "' WHERE id = " + id_params
+  const putcustomers = await query(customersPutQuery, mysql);
+  console.log(customersPutQuery);
+  return putcustomers;
 }
 
 //Deberia ir en herlpers
@@ -110,5 +121,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getCustomers,
-  getAddCustomers
+  AddCustomers,
+  PutCustomers
 }

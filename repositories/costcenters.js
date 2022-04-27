@@ -34,7 +34,7 @@ const queryGetAllCostCenters = async (page, mysql, limit, offset) => {//Funcion 
   return ccenter;
 }
 
-const getAddCostCenters = async (bd_name, host, id, code, description) => {
+const AddCostCenters = async (bd_name, host, id, code, description) => {
   var id, code, description;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -42,6 +42,17 @@ const getAddCostCenters = async (bd_name, host, id, code, description) => {
   const costcentersAddQuery = "INSERT INTO cost_centers (id, `code`, description, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', '" + datenow + "', '" + datenow + "')"
   const add = await query(costcentersAddQuery, mysql);
   return add;
+}
+
+const PutCostCenters = async (bd_name, host, id_params, id, code, description) => {
+  var id, code, description;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const communesPutQuery = "UPDATE cost_centers SET id = " + id + ", code = '" + code + "', description = '" + description + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putcommunes = await query(communesPutQuery, mysql);
+  console.log(communesPutQuery);
+  return putcommunes;
 }
 
 //Deberia ir en herlpers
@@ -60,5 +71,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getCostCenters,
-  getAddCostCenters
+  AddCostCenters,
+  PutCostCenters
 }

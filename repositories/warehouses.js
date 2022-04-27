@@ -2,6 +2,7 @@
 --------------------------------------------TABLA BASE---------------------------------------------
 */
 //Declaracion de Constantes.
+const { add } = require("nodemon/lib/rules")
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getWarehouses = async (bd_name, host, page) => {//Funcion de tipo asincronica.
@@ -34,8 +35,7 @@ const queryGetAllWarehouses = async (page, mysql, limit, offset) => {//Funcion d
   return warehouse;
 }
 
-const getAddWarehouses = async (bd_name, host, id, code, description, address, is_ecommerce) => {
- 
+const AddWarehouses = async (bd_name, host, id, code, description, address, is_ecommerce) => {
   var id, code, description, address, is_ecommerce;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -43,6 +43,17 @@ const getAddWarehouses = async (bd_name, host, id, code, description, address, i
   const warehousesAddQuery = "INSERT INTO warehouses (id, `code`, description, address, is_ecommerce, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', '" + address+ "', " + is_ecommerce + ", '" + datenow + "', '" + datenow + "')"
   const addwarehouses = await query(warehousesAddQuery, mysql);
   return addwarehouses;
+}
+
+const PutWarehouses = async (bd_name, host, id_params, id, code, description, address, is_ecommerce) => {
+  var id, code, description, address, is_ecommerce;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const warehousesPutQuery = "UPDATE warehouses SET id = " + id + ", code = '" + code + "', description = '" + description + "', address = '" + address + "', is_ecommerce = " + is_ecommerce + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putwarehouses = await query(warehousesPutQuery, mysql);
+  console.log(warehousesPutQuery);
+  return putwarehouses;
 }
 
 
@@ -62,5 +73,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getWarehouses,
-  getAddWarehouses
+  AddWarehouses,
+  PutWarehouses
 }

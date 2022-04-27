@@ -1,7 +1,7 @@
 //Declaracion Constantes.
 const { Router } = require('express');
 const router = Router();
-const { getAllGroups, Addgroups } = require('../controllers/groups')
+const { getAllGroups, Add_Groups, Put_Groups } = require('../controllers/groups')
 
 /**
  * @swagger
@@ -51,7 +51,8 @@ const { getAllGroups, Addgroups } = require('../controllers/groups')
 
 //Rutas.
 router.get('/', getAllGroups);
-router.post('/add', Addgroups);
+router.post('/add', Add_Groups);
+router.put('/update/:id_params', Put_Groups);
 
 //Exportamos ñas funciones para usar en server.js.
 module.exports = router;

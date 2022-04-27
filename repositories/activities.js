@@ -5,10 +5,12 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getActivities = async (bd_name, host, page) => {//Funcion de tipo asincronica.
+  var putcode = "";
   const limit = 100
   const offset = (page - 1) * limit
   const mysql = createConnectMysql(host, bd_name)
-  const activities = await queryGetAllActivities(page, mysql, limit, offset)
+
+  const activities = await queryGetAllActivities(page, mysql, limit, offset, putcode)
   let jsonResult = {
     'total_rows': total_elementos,
     'total_page': total_page,
@@ -16,6 +18,7 @@ const getActivities = async (bd_name, host, page) => {//Funcion de tipo asincron
     'page': page,
     'data': activities
   }
+  console.log(putcode);
   return jsonResult;
 }
 
@@ -31,7 +34,7 @@ const queryGetAllActivities = async (page, mysql, limit, offset) => {//Funcion d
   return activitie;
 }
 
-const getAddActivities = async (bd_name, host, id, code, description) => {
+const AddActivities = async (bd_name, host, id, code, description) => {
   var id, code, description;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -41,11 +44,24 @@ const getAddActivities = async (bd_name, host, id, code, description) => {
   return addactivities;
 }
 
+const PutActivities = async (bd_name, host, id_params, id, code, description) => {
+  var id, code, description;
+
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const activitiesPutQuery = "UPDATE activities SET id = " + id + ", code = " + code + ", description = '" + description + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putactivities = await query(activitiesPutQuery, mysql);
+  console.log(activitiesPutQuery);
+  return putactivities;
+}
+
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
   return new Promise((resolve, reject) => {
-    mysql.query(sql, (err, rows) => {
+    mysql.query(sql,
+       (err, rows) => {
       if (err) {
         return reject(err);
       }
@@ -57,5 +73,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getActivities,
-  getAddActivities
+  AddActivities,
+  PutActivities
 }

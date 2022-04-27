@@ -33,7 +33,7 @@ const queryGetAllCommunes = async (page, mysql, limit, offset) => {//Funcion de 
   return commune;
 }
 
-const getAddCommunes = async (bd_name, host, id, code, description, city_id) => {
+const AddCommunes = async (bd_name, host, id, code, description, city_id) => {
   var id, code, description, city_id;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -41,6 +41,17 @@ const getAddCommunes = async (bd_name, host, id, code, description, city_id) => 
   const communesAddQuery = "INSERT INTO communes (id, `code`, description, city_id, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', " + city_id + ", '" + datenow + "', '" + datenow + "')"
   const add = await query(communesAddQuery, mysql);
   return add;
+}
+
+const PutCommunes = async (bd_name, host, id_params, id, code, description, city_id) => {
+  var id, code, description, city_id;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const communesPutQuery = "UPDATE communes SET id = " + id + ", code = '" + code + "', description = '" + description + "', city_id = " + city_id + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putcommunes = await query(communesPutQuery, mysql);
+  console.log(communesPutQuery);
+  return putcommunes;
 }
 
 
@@ -60,5 +71,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getCommunes,
-  getAddCommunes
+  AddCommunes,
+  PutCommunes
 }

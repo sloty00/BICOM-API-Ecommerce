@@ -33,7 +33,7 @@ const queryGetAllCities = async (page, mysql, limit, offset) => {//Funcion de ti
   return citie;
 }
 
-const getAddCities = async (bd_name, host, id, code, description, region_id) => {
+const AddCities = async (bd_name, host, id, code, description, region_id) => {
   var id, code, description, region_id;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -41,6 +41,17 @@ const getAddCities = async (bd_name, host, id, code, description, region_id) => 
   const citiesAddQuery = "INSERT INTO cities (id, `code`, description, region_id, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', "+ region_id + ", '" + datenow + "', '" + datenow + "')"
   const add = await query(citiesAddQuery, mysql);
   return add;
+}
+
+const PutCities = async (bd_name, host, id_params, id, code, description, region_id) => {
+  var id, code, description, region_id;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const citiesPutQuery = "UPDATE cities SET id = " + id + ", code = '" + code + "', description = '" + description + "', region_id = " + region_id + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putcities = await query(citiesPutQuery, mysql);
+  console.log(citiesPutQuery);
+  return putcities;
 }
 
 //Deberia ir en herlpers
@@ -59,5 +70,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getCities,
-  getAddCities
+  AddCities,
+  PutCities
 }

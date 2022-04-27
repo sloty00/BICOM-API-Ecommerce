@@ -1,7 +1,7 @@
 //Declaracion Constantes.
 const { Router } = require('express');
 const router = Router();
-const { getAllPosMachines, AddPosmachines } = require('../controllers/posmachines')
+const { getAllPosMachines, Add_Posmachines, Put_Posmachines } = require('../controllers/posmachines')
 
 /**
  * @swagger
@@ -10,7 +10,7 @@ const { getAllPosMachines, AddPosmachines } = require('../controllers/posmachine
  *      posmachines:
  *          type: object
  *          properties:
- *              id: 
+ *              id:
  *                  type: integer
  *                  description: Primary key table posmachines
  *              code:
@@ -47,7 +47,8 @@ const { getAllPosMachines, AddPosmachines } = require('../controllers/posmachine
 
 //Rutas.
 router.get('/', getAllPosMachines);
-router.post('/add', AddPosmachines);
+router.post('/add', Add_Posmachines);
+router.put('/update/:id_params', Put_Posmachines);
 
 //Exportamos ñas funciones para usar en server.js.
 module.exports = router;

@@ -34,7 +34,7 @@ const queryGetAllSubgroups = async (page, mysql, limit, offset) => {//Funcion de
   return subgroup;
 }
 
-const getAddSubgroups = async (bd_name, host, id, description, group_id) => {
+const AddSubgroups = async (bd_name, host, id, description, group_id) => {
   var id, description, group_id;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -42,6 +42,17 @@ const getAddSubgroups = async (bd_name, host, id, description, group_id) => {
   const subgroupsAddQuery = "INSERT INTO sub_groups (id, description, group_id, created_at, updated_at) VALUES" + " (" + id + ", '" + description + "', " + group_id + ", '" + datenow + "', '" + datenow + "')"
   const addsubgroups = await query(subgroupsAddQuery, mysql);
   return addsubgroups;
+}
+
+const PutSubGroups = async (bd_name, host, id_params, id, description, group_id) => {
+  var id, description, group_id;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const subgroupsPutQuery = "UPDATE sub_groups SET id = " + id + ", description = '" + description + "', group_id = " + group_id + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putsubgroups = await query(subgroupsPutQuery, mysql);
+  console.log(subgroupsPutQuery);
+  return putsubgroups;
 }
 
 
@@ -61,5 +72,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getSubGroups,
-  getAddSubgroups
+  AddSubgroups,
+  PutSubGroups
 }

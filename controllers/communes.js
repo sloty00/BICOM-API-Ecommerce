@@ -2,7 +2,7 @@
 -------------------------------------TABLA COMPUESTA (E/R por CITIES)--------------------------------------
 */
 //Declaracion de Constantes.
-const { getCommunes, getAddCommunes } = require('../repositories/communes')
+const { getCommunes, AddCommunes, PutCommunes } = require('../repositories/communes')
 
 const getAllCommunes = async (req, res) => {
   const bd_name = process.env.BC_DATABASE_MYSQL_1
@@ -12,7 +12,7 @@ const getAllCommunes = async (req, res) => {
   res.json(communes)
 };
 
-const AddCommunes = async (req, res) => {
+const Add_Communes = async (req, res) => {
   const bd_name = process.env.BC_DATABASE_MYSQL_1
   const host = "1"
 
@@ -20,8 +20,22 @@ const AddCommunes = async (req, res) => {
   res.json(communes)
 }
 
+const Put_Communes = async (req, res) => {
+  const bd_name = process.env.BC_DATABASE_MYSQL_1
+  const host = "1"
+  var id = (req.body.id == undefined) ?"":req.body.id;
+  var code = (req.body.code == undefined) ?"":req.body.code;
+  var description = (req.body.description == undefined) ?"":req.body.description;
+  var city_id = (req.body.city_id == undefined) ?"":req.body.city_id;
+  
+  const putcommunes = await getPutCommunes(bd_name, host, req.params.id_params, id, code, description, city_id);
+  res.json(putcommunes)
+}
+
+
 //Exportamos la funcion para usar los datos en .router/customers.js
 module.exports = {
   getAllCommunes,
-  AddCommunes
+  Add_Communes,
+  Put_Communes
 }

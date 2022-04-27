@@ -33,7 +33,7 @@ const queryMuis = async (page, mysql, limit, offset) => {//Funcion de tipo asinc
     return mui;
 }
 
-const getAddMunits = async (bd_name, host, id, code, description) => {
+const AddMunits = async (bd_name, host, id, code, description) => {
     var id, code, description;
     var f = new Date();
     var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -41,9 +41,19 @@ const getAddMunits = async (bd_name, host, id, code, description) => {
     const muisAddQuery = "INSERT INTO measurement_units (id, code, description, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', '" + datenow + "', '" + datenow + "')"
     const addmuis = await query(muisAddQuery, mysql);
     return addmuis;
-  }
-  
+}
 
+const PutMunits = async (bd_name, host, id_params, id, code, description) => {
+    var id, code, description;
+    var f = new Date();
+    var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+    const mysql = createConnectMysql(host, bd_name)
+    const muisPutQuery = "UPDATE measurement_units SET id = " + id + ", code = '" + code + "', description = '" + description + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+    const putmuis = await query(muisPutQuery, mysql);
+    console.log(muisPutQuery);
+    return putmuis;
+}
+  
 //Deberia ir en herlpers
 //Controla los errores de conexion
 const query = (sql, mysql) => {
@@ -60,5 +70,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
     getMuis,
-    getAddMunits
+    AddMunits,
+    PutMunits
 }

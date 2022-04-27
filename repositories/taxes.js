@@ -31,7 +31,7 @@ const getTaxes = async (bd_name, host, page) => {//Funcion de tipo asincronica.
     return taxes;
   }
 
-  const getAddTaxes = async (bd_name, host, id, code, description, value, type) => {
+  const AddTaxes = async (bd_name, host, id, code, description, value, type) => {
     
     var id, code, description, value, type;
     var f = new Date();
@@ -40,6 +40,17 @@ const getTaxes = async (bd_name, host, page) => {//Funcion de tipo asincronica.
     const taxesAddQuery = "INSERT INTO taxes (id, `code`, description, value, type, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', '" + value + "', " + type + ", '" + datenow + "', '" + datenow + "')"
     const addtaxes = await query(taxesAddQuery, mysql);
     return addtaxes;
+  }
+
+  const PutTaxes = async (bd_name, host, id_params, id, code, description, value, type) => {
+    var id, code, description, value, type;
+    var f = new Date();
+    var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+    const mysql = createConnectMysql(host, bd_name)
+    const taxesPutQuery = "UPDATE taxes SET id = " + id + ", code = '" + code + "', description = '" + description + "', value = " + value + ", type = " + type + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+    const puttaxes = await query(taxesPutQuery, mysql);
+    console.log(taxesPutQuery);
+    return puttaxes;
   }
   
   //Deberia ir en herlpers
@@ -58,5 +69,6 @@ const getTaxes = async (bd_name, host, page) => {//Funcion de tipo asincronica.
   //Exportamos la funcion para usar los datos en controller/products.js.
   module.exports = {
     getTaxes,
-    getAddTaxes
+    AddTaxes,
+    PutTaxes
   }

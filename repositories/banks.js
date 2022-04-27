@@ -34,7 +34,7 @@ const queryGetAllBanks = async (page, mysql, limit, offset) => {//Funcion de tip
   return bank;
 }
 
-const getAddBanks = async (bd_name, host, id, code, description) => {
+const AddBanks = async (bd_name, host, id, code, description) => {
   var id, code, description;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -42,6 +42,17 @@ const getAddBanks = async (bd_name, host, id, code, description) => {
   const banksAddQuery = "INSERT INTO banks (id, `code`, description, created_at, updated_at) VALUES" + " (" + id + ", " + code + ", '" + description + "', '" + datenow + "', '" + datenow + "')"
   const add = await query(banksAddQuery, mysql);
   return add;
+}
+
+const PutBanks = async (bd_name, host, id_params, id, code, description) => {
+  var id, code, description;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const banksPutQuery = "UPDATE banks SET id = " + id + ", code = '" + code + "', description = '" + description + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putbanks = await query(banksPutQuery, mysql);
+  console.log(banksPutQuery);
+  return putbanks;
 }
 
 //Deberia ir en herlpers
@@ -60,5 +71,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getBanks,
-  getAddBanks
+  AddBanks,
+  PutBanks
 }

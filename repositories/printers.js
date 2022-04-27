@@ -33,7 +33,7 @@ const queryGetAllPrinters = async (page, mysql, limit, offset) => {//Funcion de 
   return printer;
 }
 
-const getAddPrinters = async (bd_name, host, id, description, is_active, branchoffice_id) => {
+const AddPrinters = async (bd_name, host, id, description, is_active, branchoffice_id) => {
   var id, description, is_active, branchoffice_id;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -42,6 +42,18 @@ const getAddPrinters = async (bd_name, host, id, description, is_active, brancho
   const addprinters = await query(printersAddQuery, mysql);
   return addprinters;
 }
+
+const PutPrinters = async (bd_name, host, id_params, id, description, is_active, branchoffice_id) => {
+  var id, description, is_active, branchoffice_id;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const printersPutQuery = "UPDATE printers SET id = " + id + ", description = '" + description + "', is_active = " + is_active + ", branchoffice_id = " + branchoffice_id + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putprinters = await query(printersPutQuery, mysql);
+  console.log(printersPutQuery);
+  return putprinters;
+}
+
 
 //Deberia ir en herlpers
 //Controla los errores de conexion
@@ -59,5 +71,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getPrinters,
-  getAddPrinters
+  AddPrinters,
+  PutPrinters
 }

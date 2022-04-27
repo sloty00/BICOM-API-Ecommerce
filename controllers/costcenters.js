@@ -2,7 +2,7 @@
 -------------------------------------TABLA BASE--------------------------------------
 */
 //Declaracion de Constantes.
-const { getCostCenters, getAddCostCenters } = require('../repositories/costcenters')
+const { getCostCenters, AddCostCenters, PutCostCenters } = require('../repositories/costcenters')
 
 const getAllCostCenters = async (req, res) => {
   const bd_name = process.env.BC_DATABASE_MYSQL_1
@@ -12,17 +12,28 @@ const getAllCostCenters = async (req, res) => {
   res.json(ccenters)
 };
 
-const AddCostCenters = async (req, res) => {
+const Add_CostCenters = async (req, res) => {
   const bd_name = process.env.BC_DATABASE_MYSQL_1
   const host = "1"
 
-  const add = await getAddCostCenters(bd_name, host, req.body.id, req.body.code, req.body.description);
+  const add = await AddCostCenters(bd_name, host, req.body.id, req.body.code, req.body.description);
   res.json(add)
 }
 
+const Put_CostCenters = async (req, res) => {
+  const bd_name = process.env.BC_DATABASE_MYSQL_1
+  const host = "1"
+  var id = (req.body.id == undefined) ?"":req.body.id;
+  var code = (req.body.code == undefined) ?"":req.body.code;
+  var description = (req.body.description == undefined) ?"":req.body.description;
+
+  const putcostcenters = await PutCostCenters(bd_name, host, req.params.id_params, id, code, description);
+  res.json(putcostcenters)
+}
 
 //Exportamos la funcion para usar los datos en .router/customers.js
 module.exports = {
   getAllCostCenters,
-  AddCostCenters
+  Add_CostCenters,
+  Put_CostCenters
 }

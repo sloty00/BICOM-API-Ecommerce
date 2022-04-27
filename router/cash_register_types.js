@@ -1,7 +1,7 @@
 //Declaracion Constantes.
 const { Router } = require('express');
 const router = Router();
-const { getAllCRT, AddCRT } = require('../controllers/cash_registers_types')
+const { getAllCRT, Add_CRT, Put_CRT } = require('../controllers/cash_registers_types')
 
 /**
  * @swagger
@@ -59,7 +59,8 @@ const { getAllCRT, AddCRT } = require('../controllers/cash_registers_types')
 
 //Rutas.
 router.get('/', getAllCRT);
-router.post('/add', AddCRT);
+router.post('/add', Add_CRT);
+router.put('/update/:id_params', Put_CRT);
 
 //Exportamos las funciones para usar en server.js.
 module.exports = router;

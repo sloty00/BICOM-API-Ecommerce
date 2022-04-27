@@ -33,7 +33,7 @@ const queryGetAllPosMachines = async (page, mysql, limit, offset) => {//Funcion 
   return pmachine;
 }
 
-const getAddPosmachines = async (bd_name, host, id, code, description, mac_address) => {
+const AddPosmachines = async (bd_name, host, id, code, description, mac_address) => {
   var id, code, description, mac_address;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -41,6 +41,17 @@ const getAddPosmachines = async (bd_name, host, id, code, description, mac_addre
   const posmachinesAddQuery = "INSERT INTO posmachines (id, code, description, mac_address, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', '" + mac_address + "', '" + datenow + "', '" + datenow + "')"
   const addposmachines = await query(posmachinesAddQuery, mysql);
   return addposmachines;
+}
+
+const PutPosmachines = async (bd_name, host, id_params, id, code, description, mac_address) => {
+  var id, code, description, mac_address;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const posmachinesPutQuery = "UPDATE posmachines SET id = " + id + ", code = '" + code + "', description = '" + description + "', mac_address = '" + mac_address + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putposmachines = await query(posmachinesPutQuery, mysql);
+  console.log(posmachinesPutQuery);
+  return putposmachines;
 }
 
 //Deberia ir en herlpers
@@ -59,5 +70,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getPosMachines,
-  getAddPosmachines
+  AddPosmachines,
+  PutPosmachines
 }

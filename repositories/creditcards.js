@@ -33,7 +33,7 @@ const queryGetAllCreditCards = async (page, mysql, limit, offset) => {//Funcion 
   return ccard;
 }
 
-const getAddCreditCards = async (bd_name, host, id, code, description) => {
+const AddCreditCards = async (bd_name, host, id, code, description) => {
   var id, code, description;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -41,6 +41,17 @@ const getAddCreditCards = async (bd_name, host, id, code, description) => {
   const creditsAddQuery = "INSERT INTO credit_cards (id, `code`, description, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', '" + datenow + "', '" + datenow + "')"
   const addcredits = await query(creditsAddQuery, mysql);
   return addcredits;
+}
+
+const PutCreditCards = async (bd_name, host, id_params, id, code, description) => {
+  var id, code, description;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const creditsPutQuery = "UPDATE credit_cards SET id = " + id + ", code = '" + code + "', description = '" + description + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putcredits = await query(creditsPutQuery, mysql);
+  console.log(creditsPutQuery);
+  return putcredits;
 }
 
 //Deberia ir en herlpers
@@ -59,5 +70,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getCreditCards,
-  getAddCreditCards
+  AddCreditCards,
+  PutCreditCards
 }

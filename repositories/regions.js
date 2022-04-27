@@ -32,7 +32,7 @@ const queryGetAllRegions = async (page, mysql, limit, offset) => {//Funcion de t
   return region;
 }
 
-const getAddRegions = async (bd_name, host, id, code, description, country_id) => {
+const AddRegions = async (bd_name, host, id, code, description, country_id) => {
   var id, code, description, country_id;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -40,6 +40,17 @@ const getAddRegions = async (bd_name, host, id, code, description, country_id) =
   const regionsAddQuery = "INSERT INTO regions (id, code, description, country_id, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', " + country_id + ", '" + datenow + "', '" + datenow + "')"
   const addregions = await query(regionsAddQuery, mysql);
   return addregions;
+}
+
+const PutRegions = async (bd_name, host, id_params, id, code, description, country_id) => {
+  var id, code, description, country_id;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const regionsPutQuery = "UPDATE regions SET id = " + id + ", code = '" + code + "', description = '" + description + "', country_id = " + country_id + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putregions = await query(regionsPutQuery, mysql);
+  console.log(regionsPutQuery);
+  return putregions;
 }
 
 //Deberia ir en herlpers
@@ -58,5 +69,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getRegions,
-  getAddRegions
+  AddRegions,
+  PutRegions
 }

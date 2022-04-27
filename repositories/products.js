@@ -5,7 +5,7 @@
 //Declaracion de Constantes.
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos.
 
-const getProducts = async (bd_name, host, page, code, begin_code, end_code, is_active, is_inventory, is_ecommerce, is_ticket, is_aggregate, is_free, is_kit, group_id, sub_group_id, custom1, custom2, custom3, custom4, custom5) => {//Funcion de tipo asincronica.
+const getAllProducts = async (bd_name, host, page, code, begin_code, end_code, is_active, is_inventory, is_ecommerce, is_ticket, is_aggregate, is_free, is_kit, group_id, sub_group_id, custom1, custom2, custom3, custom4, custom5) => {//Funcion de tipo asincronica.
     var filter_code= '';
     var filter_begin_code= '';
     var filter_end_code = '';
@@ -202,10 +202,8 @@ const queryTaxes = async (dbConnection, id_prod, limit, offset) => {//Funcion de
     return tax;
 }
 
-const getAddProducts = async (bd_name, host, id, code, barcode, barcode_type, description, description_details, measurement_unit_id, group_id, sub_group_id, price_net, cl_price_net_prod, cl_price_net_logistic, price_brute, is_inventory, is_visiblePOS, is_active, img_one, price_lastpur, stockmax, stockrep, stockmin, measurement_unit_convert_id, equivalence, custom1, custom2, custom3, custom4, custom5, cost_prom, equivalence_two, weight, is_kit, has_kit, is_ticket, is_aggregate, is_ecommerce, print_details, is_recurrent, price_net_uf, is_free) => {
-
+const AddProducts = async (bd_name, host, id, code, barcode, barcode_type, description, description_details, measurement_unit_id, group_id, sub_group_id, price_net, cl_price_net_prod, cl_price_net_logistic, price_brute, is_inventory, is_visiblePOS, is_active, img_one, price_lastpur, stockmax, stockrep, stockmin, measurement_unit_convert_id, equivalence, custom1, custom2, custom3, custom4, custom5, cost_prom, equivalence_two, weight, is_kit, has_kit, is_ticket, is_aggregate, is_ecommerce, print_details, is_recurrent, price_net_uf, is_free) => {
     var id, code, barcode, barcode_type, description, description_details, measurement_unit_id, group_id, sub_group_id, price_net, cl_price_net_prod, cl_price_net_logistic, price_brute, is_inventory, is_visiblePOS, is_active, img_one, price_lastpur, stockmax, stockrep, stockmin, measurement_unit_convert_id, equivalence, custom1, custom2, custom3, custom4, custom5, cost_prom, equivalence_two, weight, is_kit, has_kit, is_ticket, is_aggregate, is_ecommerce, print_details, is_recurrent, price_net_uf, is_free;
-
     var f = new Date();
     var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
     const mysql = createConnectMysql(host, bd_name)
@@ -213,8 +211,18 @@ const getAddProducts = async (bd_name, host, id, code, barcode, barcode_type, de
     const addproducts = await query(productsAddQuery, mysql);
     return addproducts;
     
-  }
-  
+}
+
+const PutProducts = async (bd_name, host, id_params, id, code, barcode, barcode_type, description, description_details, measurement_unit_id, group_id, sub_group_id, price_net, cl_price_net_prod, cl_price_net_logistic, price_brute, is_inventory, is_visiblePOS, is_active, img_one, price_lastpur, stockmax, stockrep, stockmin, measurement_unit_convert_id, equivalence, custom1, custom2, custom3, custom4, custom5, cost_prom, equivalence_two, weight, is_kit, has_kit, is_ticket, is_aggregate, is_ecommerce, print_details, is_recurrent, price_net_uf, is_free) => {
+    var id, code, barcode, barcode_type, description, description_details, measurement_unit_id, group_id, sub_group_id, price_net, cl_price_net_prod, cl_price_net_logistic, price_brute, is_inventory, is_visiblePOS, is_active, img_one, price_lastpur, stockmax, stockrep, stockmin, measurement_unit_convert_id, equivalence, custom1, custom2, custom3, custom4, custom5, cost_prom, equivalence_two, weight, is_kit, has_kit, is_ticket, is_aggregate, is_ecommerce, print_details, is_recurrent, price_net_uf, is_free;
+    var f = new Date();
+    var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+    const mysql = createConnectMysql(host, bd_name)
+    const productsPutQuery = "UPDATE products SET id = " + id + ", `code` = '" + code + "', barcode = '" + barcode + "', barcode_type = " + barcode_type + ", description = '" + description + "', description_details = '" + description_details + "', measurement_unit_id = " + measurement_unit_id + ", group_id = " + group_id + ", sub_group_id = " + sub_group_id + ", price_net = " + price_net + ", cl_price_net_prod = " + cl_price_net_prod + ", cl_price_net_logistic = " + cl_price_net_logistic + ", price_brute = " + price_brute + ", is_inventory = " + is_inventory + ", is_visiblePOS = " + is_visiblePOS + ", is_active = " + is_active + ", img_one = '" + img_one + "', price_lastpur = " + price_lastpur + ", stockmax = " + stockmax + ", stockrep = " + stockrep + ", stockmin = " + stockmin + ", measurement_unit_convert_id = " + measurement_unit_convert_id + ", equivalence = " + equivalence + ", custom1 = '" + custom1 + "', custom2 = '" + custom2 + "', custom3 = '" + custom3 + "', custom4 = '" + custom4 + "', custom5 = '" + custom5 + "', cost_prom = " + cost_prom + ", updated_at = '" + datenow + "', equivalence_two = " + equivalence_two + ", weight = " + weight + ", is_kit = " + is_kit + ", has_kit = " + has_kit + ", is_ticket = " + is_ticket + ", is_aggregate = " + is_aggregate + ", is_ecommerce = " + is_ecommerce + ", print_details = " + print_details + ", is_recurrent = " + is_recurrent + ", price_net_uf = " + price_net_uf + ", is_free = " + is_free + "  WHERE id = " + id_params
+    const putproducts = await query(productsPutQuery, mysql);
+    console.log(productsPutQuery);
+    return putproducts;
+}
 
 //Controla los errores de conexion
 const query = (sql, dbConnection) => {
@@ -231,6 +239,7 @@ const query = (sql, dbConnection) => {
 
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
-    getProducts,
-    getAddProducts
+    getAllProducts,
+    AddProducts,
+    PutProducts
 }

@@ -33,7 +33,7 @@ const queryGetAllCRT = async (page, mysql, limit, offset) => {//Funcion de tipo 
   return crt;
 }
 
-const getAddCRT = async (bd_name, host, id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state) => {
+const AddCRT = async (bd_name, host, id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state) => {
   
   var id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state;
   var f = new Date();
@@ -42,6 +42,17 @@ const getAddCRT = async (bd_name, host, id, branchoffice_id, description, posmac
   const banksAddQuery = "INSERT INTO cash_register_types (id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state, created_at, updated_at) VALUES" + " (" + id + ", " + branchoffice_id + ", '" + description + "', " + posmachine_id + ", " + warehouse_id + ", " + cost_center_id + ", " + printer_id + ", " + transbank_machine_id +", " + state + ", '" + datenow +"', '" + datenow +"')"
   const add = await query(banksAddQuery, mysql);
   return add;
+}
+
+const PutCRT = async (bd_name, host, id_params, id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state) => {
+  var id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const crtPutQuery = "UPDATE cash_register_types SET id = " + id + ", branchoffice_id = " + branchoffice_id + ", description = '" + description + "', posmachine_id = " + posmachine_id + ", warehouse_id = " + warehouse_id + ", cost_center_id = " + cost_center_id + ", printer_id = " + printer_id + ", transbank_machine_id = " + transbank_machine_id + ", state = " + state + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putcrt = await query(crtPutQuery, mysql);
+  console.log(crtPutQuery);
+  return putcrt;
 }
 
 //Deberia ir en herlpers
@@ -60,5 +71,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getCRT,
-  getAddCRT
+  AddCRT,
+  PutCRT
 }

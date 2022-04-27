@@ -33,7 +33,7 @@ const queryGetAllCountries = async (page, mysql, limit, offset) => {//Funcion de
   return countrie;
 }
 
-const getAddCountries = async (bd_name, host, id, code, description) => {
+const AddCountries = async (bd_name, host, id, code, description) => {
   var id, code, description;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -41,6 +41,17 @@ const getAddCountries = async (bd_name, host, id, code, description) => {
   const countriesAddQuery = "INSERT INTO countries (id, `code`, description, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', '" + datenow + "', '" + datenow + "')"
   const addcountries = await query(countriesAddQuery, mysql);
   return addcountries;
+}
+
+const PutCountries = async (bd_name, host, id_params, id, code, description) => {
+  var id, code, description;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const countriesPutQuery = "UPDATE countries SET id = " + id + ", code = '" + code + "', description = '" + description + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putcountries = await query(countriesPutQuery, mysql);
+  console.log(countriesPutQuery);
+  return putcountries;
 }
 
 //Deberia ir en herlpers
@@ -59,5 +70,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getCountries,
-  getAddCountries
+  AddCountries,
+  PutCountries
 }

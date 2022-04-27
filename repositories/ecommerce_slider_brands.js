@@ -34,7 +34,7 @@ const queryGetAllEcommerceBrands = async (page, mysql, limit, offset) => {//Func
   return ecommerce;
 }
 
-const getAddEcommerceBrands= async (bd_name, host, id, slider_img) => {
+const AddEcommerceBrands= async (bd_name, host, id, slider_img) => {
   var id, slider_img;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -42,6 +42,17 @@ const getAddEcommerceBrands= async (bd_name, host, id, slider_img) => {
   const ecommercebrandsAddQuery = "INSERT INTO ecommerce_slider_brands (id, slider_img, created_at, updated_at) VALUES" + " (" + id + ", '" + slider_img + "', '" + datenow + "', '" + datenow + "')"
   const addecommercebrands = await query(ecommercebrandsAddQuery, mysql);
   return addecommercebrands;
+}
+
+const PutEcommerceBrands = async (bd_name, host, id_params, id, slider_img) => {
+  var id, slider_img;
+  var f = new Date();
+  var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+  const mysql = createConnectMysql(host, bd_name)
+  const ecommercebrandsPutQuery = "UPDATE ecommerce_slider_brands SET id = " + id + ", slider_img = '" + slider_img + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const putecommercebrands = await query(ecommercebrandsPutQuery, mysql);
+  console.log(ecommercebrandsPutQuery);
+  return putecommercebrands;
 }
 
 //Deberia ir en herlpers
@@ -60,5 +71,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getEcommerceBrands,
-  getAddEcommerceBrands
+  AddEcommerceBrands,
+  PutEcommerceBrands
 }

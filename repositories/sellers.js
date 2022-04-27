@@ -35,7 +35,7 @@ const querySellers = async (page, mysql, limit, offset) => {//Funcion de tipo as
     return seller;
 }
 
-const getAddSellers = async (bd_name, host, id, description, user_id) => {
+const AddSellers = async (bd_name, host, id, description, user_id) => {
     var id, description, user_id;
     var f = new Date();
     var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
@@ -43,6 +43,17 @@ const getAddSellers = async (bd_name, host, id, description, user_id) => {
     const sellersAddQuery = "INSERT INTO sellers (id, description, user_id, created_at, updated_at) VALUES" + " (" + id + ", '" + description + "', " + user_id + ", '" + datenow + "', '" + datenow + "')"
     const addsellers = await query(sellersAddQuery, mysql);
     return addsellers;
+}
+
+const PutSellers = async (bd_name, host, id_params, id, description, user_id) => {
+    var id, description, user_id;
+    var f = new Date();
+    var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+    const mysql = createConnectMysql(host, bd_name)
+    const sellersPutQuery = "UPDATE sellers SET id = " + id + ", description = '" + description + "', user_id = " + user_id + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+    const putsellers = await query(sellersPutQuery, mysql);
+    console.log(sellersPutQuery);
+    return putsellers;
 }
 
 //Deberia ir en herlpers
@@ -61,5 +72,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
     getSellers,
-    getAddSellers
+    AddSellers,
+    PutSellers
 }

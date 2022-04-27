@@ -44,7 +44,53 @@ const { getAllSellers, Add_Sellers, Put_Sellers } = require('../controllers/sell
 
 //Rutas.
 router.get('/', getAllSellers);
-router.post('/add', Add_Sellers);
+
+/**
+ * @swagger
+ * /sellers/insert:
+ *   post:
+ *      summary: Create new Sellers
+ *      tags: [Sellers]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/sellers'
+ *      responses:
+ *         200:
+ *            description: New Sellers created!!
+ */
+router.post('/insert', Add_Sellers);
+
+/**
+ * @swagger
+ *  /sellers/update/{id_params}:
+ *   put: 
+ *     sumary: Update Sellers
+ *     tags: [Sellers]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/sellers'
+ *     responses:  
+ *       '200': 
+ *         description: Sellers Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_Sellers);
 
 //Exportamos ñas funciones para usar en server.js.

@@ -2,7 +2,7 @@
 -------------------------------------------TABLA BASE-------------------------------------------------
 */
 //Declaracion de Constantes.
-const { getBanks, getAddBanks, getPutBanks } = require('../repositories/banks')
+const { getBanks, AddBanks, PutBanks } = require('../repositories/banks')
 
 const getAllBanks = async (req, res) => {
   const bd_name = process.env.BC_DATABASE_MYSQL_1

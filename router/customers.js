@@ -4,10 +4,10 @@ const router = Router();
 const { getAllCustomers, Add_Customers, Put_Customers } = require('../controllers/customers')
 
 /**
- * 
+ * @swagger
  * components:
  *  schemas:
- *      customers:
+ *      customers_suppliers:
  *          type: object
  *          properties:
  *	            id:
@@ -16,12 +16,12 @@ const { getAllCustomers, Add_Customers, Put_Customers } = require('../controller
  *	            rut:
  *                  type: string
  *                  description: ID Rut
+ *	            business_name:
+ *                  type: string
+ *                  description: Name Bussiness
  *	            fantasy_name:
  *                  type: string
  *                  description: Fantasy Name Bussiness
- *	            business_name:
- *                  type: integer
- *                  description: Name Bussiness
  *	            activity_id:
  *                  type: integer
  *                  description: ID activities
@@ -38,13 +38,13 @@ const { getAllCustomers, Add_Customers, Put_Customers } = require('../controller
  *                  type: integer
  *                  description: ID Commune
  *	            address:
- *                  type: integer
+ *                  type: string
  *                  description: Address Customer Supplier
  *	            email:
- *                  type: integer
+ *                  type: string
  *                  description: Email Customer Supplier
  *	            website:
- *                  type: integer
+ *                  type: string
  *                  description: Website Customer Supplier
  *	            is_customer:
  *                  type: integer
@@ -56,11 +56,14 @@ const { getAllCustomers, Add_Customers, Put_Customers } = require('../controller
  *                  type: integer
  *                  description: If is Active
  *	            phone:
- *                  type: integer
+ *                  type: string
  *                  description: Phone Customer Supplier
  *	            phone_two:
- *                  type: integer
+ *                  type: string
  *                  description: Second Phone Customer Supplier
+ *	            payment_type:
+ *                  type: integer
+ *                  description: Payment Type
  *	            seller_id:
  *                  type: integer
  *                  description: ID Seller
@@ -72,7 +75,7 @@ const { getAllCustomers, Add_Customers, Put_Customers } = require('../controller
  *                  description: Expired Days
  *	            limit_amount:
  *                  type: integer
- *                  description: 
+ *                  description: Limit Amount
  *	            is_customer_simple:
  *                  type: integer
  *                  description: If is Customer Cimple
@@ -94,7 +97,7 @@ const { getAllCustomers, Add_Customers, Put_Customers } = require('../controller
  * @swagger
  *  /customers_sup:
  *   get: 
- *     sumary: Get all Activities
+ *     sumary: Get all Customers
  *     tags: [Customers Suppliers]
  *     parameters:
  *       - in: query
@@ -148,7 +151,53 @@ const { getAllCustomers, Add_Customers, Put_Customers } = require('../controller
 
 //Rutas.
 router.get('/', getAllCustomers);
-router.post('/add', Add_Customers);
+
+/**
+ * @swagger
+ * /customers_sup/insert:
+ *   post:
+ *      summary: Create new Customers Suppliers
+ *      tags: [Customers Suppliers]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/customers_suppliers'
+ *      responses:
+ *         200:
+ *            description: New Customers Suppliers created!!
+ */
+router.post('/insert', Add_Customers);
+
+/**
+ * @swagger
+ *  /customers_sup/update/{id_params}:
+ *   put: 
+ *     sumary: Update Customers Suppliers
+ *     tags: [Customers Suppliers]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/customers_suppliers'
+ *     responses:  
+ *       '200': 
+ *         description: Customers Suppliers Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_Customers);
 
 //Exportamos ñas funciones para usar en server.js.

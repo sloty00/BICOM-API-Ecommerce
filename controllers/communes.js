@@ -16,7 +16,7 @@ const Add_Communes = async (req, res) => {
   const bd_name = process.env.BC_DATABASE_MYSQL_1
   const host = "1"
 
-  const communes = await getAddCommunes(bd_name, host, req.body.id, req.body.code, req.body.description, req.body.city_id);
+  const communes = await AddCommunes(bd_name, host, req.body.id, req.body.code, req.body.description, req.body.city_id);
   res.json(communes)
 }
 
@@ -28,7 +28,7 @@ const Put_Communes = async (req, res) => {
   var description = (req.body.description == undefined) ?"":req.body.description;
   var city_id = (req.body.city_id == undefined) ?"":req.body.city_id;
   
-  const putcommunes = await getPutCommunes(bd_name, host, req.params.id_params, id, code, description, city_id);
+  const putcommunes = await PutCommunes(bd_name, host, req.params.id_params, id, code, description, city_id);
   res.json(putcommunes)
 }
 

@@ -44,7 +44,53 @@ const { getAllSubgroups, Add_Subgroups, Put_Subgroups } = require('../controller
 
 //Rutas.
 router.get('/', getAllSubgroups);
-router.post('/add', Add_Subgroups);
+
+/**
+ * @swagger
+ * /subgroups/insert:
+ *   post:
+ *      summary: Create new Subgroups
+ *      tags: [Subgroups]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/sub_groups'
+ *      responses:
+ *         200:
+ *            description: New subgroups created!!
+ */
+router.post('/insert', Add_Subgroups);
+
+/**
+ * @swagger
+ *  /subgroups/update/{id_params}:
+ *   put: 
+ *     sumary: Update Subgroups
+ *     tags: [Subgroups]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/sub_groups'
+ *     responses:  
+ *       '200': 
+ *         description: Subgroups Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_Subgroups);
 
 //Exportamos ñas funciones para usar en server.js.

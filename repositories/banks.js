@@ -39,7 +39,7 @@ const AddBanks = async (bd_name, host, id, code, description) => {
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)
-  const banksAddQuery = "INSERT INTO banks (id, `code`, description, created_at, updated_at) VALUES" + " (" + id + ", " + code + ", '" + description + "', '" + datenow + "', '" + datenow + "')"
+  const banksAddQuery = "INSERT INTO banks (id, `code`, description, created_at, updated_at) VALUES" + " (" + id + ", '" + code + "', '" + description + "', '" + datenow + "', '" + datenow + "')"
   const add = await query(banksAddQuery, mysql);
   return add;
 }

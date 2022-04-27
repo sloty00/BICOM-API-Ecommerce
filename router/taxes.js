@@ -20,10 +20,10 @@ const { getAllTaxes, Add_Taxes, Put_Taxes } = require('../controllers/taxes')
  *                  type: string
  *                  description: Description taxes
  *              value:
- *                  type: double
+ *                  type: integer
  *                  description: Value taxes
  *              type:
- *                  type: string
+ *                  type: integer
  *                  description: Type taxes
  */
 
@@ -50,7 +50,53 @@ const { getAllTaxes, Add_Taxes, Put_Taxes } = require('../controllers/taxes')
 
 //Rutas.
 router.get('/', getAllTaxes);
-router.post('/add', Add_Taxes);
+
+/**
+ * @swagger
+ * /taxes/insert:
+ *   post:
+ *      summary: Create new Taxes
+ *      tags: [Taxes]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/taxes'
+ *      responses:
+ *         200:
+ *            description: New taxes created!!
+ */
+router.post('/insert', Add_Taxes);
+
+/**
+ * @swagger
+ *  /taxes/update/{id_params}:
+ *   put: 
+ *     sumary: Update Taxes
+ *     tags: [Taxes]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/taxes'
+ *     responses:  
+ *       '200': 
+ *         description: Taxes Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_Taxes);
 
 //Exportamos ñas funciones para usar en server.js.

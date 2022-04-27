@@ -7,14 +7,14 @@ const { getAllCostCenters, Add_CostCenters, Put_CostCenters} = require('../contr
  * @swagger
  * components:
  *  schemas:
- *      cost_centers:
+ *      costcenters:
  *          type: object
  *          properties:
  *              id: 
  *                  type: integer
  *                  description: Primary key table Cost Centers
  *              code:
- *                  type: integer
+ *                  type: string
  *                  description: Code Cost Centers
  *              description:
  *                  type: string
@@ -45,7 +45,53 @@ const { getAllCostCenters, Add_CostCenters, Put_CostCenters} = require('../contr
 
 //Rutas.
 router.get('/', getAllCostCenters);
-router.post('/add', Add_CostCenters);
+
+/**
+ * @swagger
+ * /costcenters/insert:
+ *   post:
+ *      summary: Create new Cost Centers
+ *      tags: [Cost Centers]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/costcenters'
+ *      responses:
+ *         200:
+ *            description: New Cost Centers created!!
+ */
+router.post('/insert', Add_CostCenters);
+
+/**
+ * @swagger
+ *  /costcenters/update/{id_params}:
+ *   put: 
+ *     sumary: Update Cost Centers
+ *     tags: [Cost Centers]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/costcenters'
+ *     responses:  
+ *       '200': 
+ *         description: Cost Centers Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_CostCenters);
 
 //Exportamos las funciones para usar en server.js.

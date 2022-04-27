@@ -20,7 +20,7 @@ const { getAllPosMachines, Add_Posmachines, Put_Posmachines } = require('../cont
  *                  type: string
  *                  description: Description posmachine
  *              mac_address:
- *                  type: integer
+ *                  type: string
  *                  description: physical device mac address
  */
 
@@ -28,7 +28,7 @@ const { getAllPosMachines, Add_Posmachines, Put_Posmachines } = require('../cont
  * @swagger
  *  /posmachines:
  *   get:
- *     sumary: Get all posmachines
+ *     sumary: Get all Posmachines
  *     tags: [Posmachines]
  *     parameters:
  *       - in: query
@@ -47,7 +47,53 @@ const { getAllPosMachines, Add_Posmachines, Put_Posmachines } = require('../cont
 
 //Rutas.
 router.get('/', getAllPosMachines);
-router.post('/add', Add_Posmachines);
+
+/**
+ * @swagger
+ * /posmachines/insert:
+ *   post:
+ *      summary: Create new Posmachines
+ *      tags: [Posmachines]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/posmachines'
+ *      responses:
+ *         200:
+ *            description: New Posmachines created!!
+ */
+router.post('/insert', Add_Posmachines);
+
+/**
+ * @swagger
+ *  /posmachines/update/{id_params}:
+ *   put: 
+ *     sumary: Update Posmachines
+ *     tags: [Posmachines]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/posmachines'
+ *     responses:  
+ *       '200': 
+ *         description: Posmachines Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_Posmachines);
 
 //Exportamos ñas funciones para usar en server.js.

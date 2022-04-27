@@ -13,6 +13,9 @@ const { getAllWarehouses, Add_Warehouses, Put_Warehouses } = require('../control
  *              id: 
  *                  type: integer
  *                  description: Primary key table warehouses
+ *              code: 
+ *                  type: string
+ *                  description: Code warehouses
  *              description:
  *                  type: string
  *                  description: Description warehouses
@@ -47,7 +50,53 @@ const { getAllWarehouses, Add_Warehouses, Put_Warehouses } = require('../control
 
 //Rutas.
 router.get('/', getAllWarehouses);
-router.post('/add', Add_Warehouses);
+
+/**
+ * @swagger
+ * /warehouses/insert:
+ *   post:
+ *      summary: Create new Warehouses
+ *      tags: [Warehouses]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/warehouses'
+ *      responses:
+ *         200:
+ *            description: New Warehouses created!!
+ */
+router.post('/insert', Add_Warehouses);
+
+/**
+ * @swagger
+ *  /warehouses/update/{id_params}:
+ *   put: 
+ *     sumary: Update Warehouses
+ *     tags: [Warehouses]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/warehouses'
+ *     responses:  
+ *       '200': 
+ *         description: Warehouses Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_Warehouses);
 
 //Exportamos las funciones para usar en server.js.

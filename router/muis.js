@@ -44,7 +44,53 @@ const { getAllMuis, Add_Munits, Put_Munits } = require('../controllers/muis')
 
 //Rutas.
 router.get('/', getAllMuis);
-router.post('/add', Add_Munits);
+
+/**
+ * @swagger
+ * /muis/insert:
+ *   post:
+ *      summary: Create new Measurement Units
+ *      tags: [Measurement Units]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/measurement_units'
+ *      responses:
+ *         200:
+ *            description: New Measurement Units created!!
+ */
+router.post('/insert', Add_Munits);
+
+/**
+ * @swagger
+ *  /muis/update/{id_params}:
+ *   put: 
+ *     sumary: Update Measurement Units
+ *     tags: [Measurement Units]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/measurement_units'
+ *     responses:  
+ *       '200': 
+ *         description: Measurement Units Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_Munits);
 
 //Exportamos las funciones para usar en server.js.

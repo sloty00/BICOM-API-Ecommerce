@@ -217,7 +217,25 @@ const { GetAllProducts, Add_Products, Put_Products } = require('../controllers/p
 
 //Rutas.
 router.get('/', GetAllProducts);
-router.post('/add', Add_Products);
+
+/**
+ * @swagger
+ * /products/insert:
+ *   post:
+ *      summary: Create new Products
+ *      tags: [Products]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/products'
+ *      responses:
+ *         200:
+ *            description: New Products created!!
+ */
+router.post('/insert', Add_Products);
 router.put('/update/:id_params', Put_Products);
 
 //Exportamos ñas funciones para usar en server.js.

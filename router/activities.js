@@ -44,7 +44,53 @@ const { getAllActivities, Add_Activities, Put_Activities } = require('../control
 
 //Rutas.
 router.get('/', getAllActivities);
+
+/**
+ * @swagger
+ * /activities/insert:
+ *   post:
+ *      summary: Create new Activities
+ *      tags: [Activities]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/activities'
+ *      responses:
+ *         200:
+ *            description: New Activities created!!
+ */
 router.post('/insert', Add_Activities );
+
+/**
+ * @swagger
+ *  /activities/update/{id_params}:
+ *   put: 
+ *     sumary: Update Activities
+ *     tags: [Activities]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Actualiza Datos
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/activities'
+ *     responses:  
+ *       '200': 
+ *         description: Activities Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_Activities);
 
 //Exportamos las funciones para usar en server.js.

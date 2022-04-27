@@ -25,10 +25,13 @@ const { getAllCRT, Add_CRT, Put_CRT } = require('../controllers/cash_registers_t
  *              warehouse_id:
  *                  type: integer
  *                  description: ID Bodega
+ *              cost_center_id:
+ *                  type: integer
+ *                  description: ID Cost Center
  *              printer_id:
  *                  type: integer
  *                  description: ID Printer
- *              transbank_machines_id:
+ *              transbank_machine_id:
  *                  type: integer
  *                  description: ID transback nmachine
  *              state:
@@ -59,7 +62,53 @@ const { getAllCRT, Add_CRT, Put_CRT } = require('../controllers/cash_registers_t
 
 //Rutas.
 router.get('/', getAllCRT);
-router.post('/add', Add_CRT);
+
+/**
+ * @swagger
+ * /cash_register_types/insert:
+ *   post:
+ *      summary: Create new Cash Register Types
+ *      tags: [Cash Register Types]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/cash_register_types'
+ *      responses:
+ *         200:
+ *            description: New Cash Register Types created!!
+ */
+router.post('/insert', Add_CRT);
+
+/**
+ * @swagger
+ *  /cash_register_types/update/{id_params}:
+ *   put: 
+ *     sumary: Update Cash Register Types
+ *     tags: [Cash Register Types]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/cash_register_types'
+ *     responses:  
+ *       '200': 
+ *         description: Activities Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_CRT);
 
 //Exportamos las funciones para usar en server.js.

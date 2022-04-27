@@ -13,7 +13,7 @@ const { getAllEcommerceBrands, Add_EcommerceBrands, Put_EcommerceBrands } = requ
  *              id: 
  *                  type: integer
  *                  description: Primary key table Credit cards
- *              img_slider:
+ *              slider_img:
  *                  type: string
  *                  description: Save link path image slider
  * 
@@ -42,7 +42,53 @@ const { getAllEcommerceBrands, Add_EcommerceBrands, Put_EcommerceBrands } = requ
 
 //Rutas.
 router.get('/', getAllEcommerceBrands);
-router.post('/add', Add_EcommerceBrands);
+
+/**
+ * @swagger
+ * /ebrands/insert:
+ *   post:
+ *      summary: Create new Ecommerce Slider Brands
+ *      tags: [Ecommerce Slider Brands]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/ecommerce_slider_brands'
+ *      responses:
+ *         200:
+ *            description: New Ecommerce Slider Brands created!!
+ */
+router.post('/insert', Add_EcommerceBrands);
+
+/**
+ * @swagger
+ *  /ebrands/update/{id_params}:
+ *   put: 
+ *     sumary: Update Ecommerce Slider Brands
+ *     tags: [Ecommerce Slider Brands]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/ecommerce_slider_brands'
+ *     responses:
+ *       '200':
+ *         description: Ecommerce Slider Brands Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_EcommerceBrands)
 
 //Exportamos ñas funciones para usar en server.js.

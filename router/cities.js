@@ -14,7 +14,7 @@ const { getAllCities, Add_Cities, Put_Cities } = require('../controllers/cities'
  *                  type: integer
  *                  description: Primary key table cities
  *              code:
- *                  type: integer
+ *                  type: string
  *                  description: Code cities
  *              description:
  *                  type: string
@@ -47,7 +47,53 @@ const { getAllCities, Add_Cities, Put_Cities } = require('../controllers/cities'
 
 //Rutas.
 router.get('/', getAllCities);
-router.post('/add', Add_Cities);
+
+/**
+ * @swagger
+ * /cities/insert:
+ *   post:
+ *      summary: Create new Cities
+ *      tags: [Cities]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/cities'
+ *      responses:
+ *         200:
+ *            description: New Cities created!!
+ */
+router.post('/insert', Add_Cities);
+
+/**
+ * @swagger
+ *  /cities/update/{id_params}:
+ *   put: 
+ *     sumary: Update Cities
+ *     tags: [Cities]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/cities'
+ *     responses:  
+ *       '200': 
+ *         description: Cities Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_Cities);
 //Exportamos las funciones para usar en server.js.
 module.exports = router;

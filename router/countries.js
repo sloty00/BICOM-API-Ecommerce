@@ -14,7 +14,7 @@ const { getAllCountries, Add_Countries, Put_Countries } = require('../controller
  *                  type: integer
  *                  description: Primary key table Countries
  *              code:
- *                  type: integer
+ *                  type: string
  *                  description: Code Cost Countries
  *              description:
  *                  type: string
@@ -45,7 +45,53 @@ const { getAllCountries, Add_Countries, Put_Countries } = require('../controller
 
 //Rutas.
 router.get('/', getAllCountries);
-router.post('/add', Add_Countries);
+
+/**
+ * @swagger
+ * /countries/insert:
+ *   post:
+ *      summary: Create new Countries
+ *      tags: [Countries]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/countries'
+ *      responses:
+ *         200:
+ *            description: New Countries created!!
+ */
+router.post('/insert', Add_Countries);
+
+/**
+ * @swagger
+ *  /countries/update/{id_params}:
+ *   put: 
+ *     sumary: Update Countries
+ *     tags: [Countries]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/countries'
+ *     responses:  
+ *       '200': 
+ *         description: Countries Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_Countries)
 
 //Exportamos ñas funciones para usar en server.js.

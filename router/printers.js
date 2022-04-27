@@ -17,7 +17,7 @@ const { getAllPrinters, Add_Printers, Put_Printers } = require('../controllers/p
  *                  type: string
  *                  description: Description printers
  *              is_active:
- *                  type: string
+ *                  type: integer
  *                  description: Printers is active (if is not active does not appear in the system)
  *              branchoffice_id:
  *                  type: integer
@@ -47,7 +47,53 @@ const { getAllPrinters, Add_Printers, Put_Printers } = require('../controllers/p
 
 //Rutas.
 router.get('/', getAllPrinters);
-router.post('/add', Add_Printers);
+
+/**
+ * @swagger
+ * /printers/insert:
+ *   post:
+ *      summary: Create new Printers
+ *      tags: [Printers]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *               schema:
+ *                  type: object
+ *                  $ref: '#/components/schemas/printers'
+ *      responses:
+ *         200:
+ *            description: New Printers created!!
+ */
+router.post('/insert', Add_Printers);
+
+/**
+ * @swagger
+ *  /printers/update/{id_params}:
+ *   put: 
+ *     sumary: Update Printers
+ *     tags: [Printers]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/printers'
+ *     responses:  
+ *       '200': 
+ *         description: Printers Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_Printers);
 
 //Exportamos ñas funciones para usar en server.js.

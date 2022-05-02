@@ -18,13 +18,13 @@ const getAllCRT = async (req, res) => {
   res.json(crt)
 };
 
-const Add_CRT = async (req, res) => {
+/* const Add_CRT = async (req, res) => {
   const bd_name = process.env.BC_DATABASE_MYSQL_1
   const host = "1"
 
   const CRT = await AddCRT(bd_name, host, req.body.id, req.body.branchoffice_id, req.body.description, req.body.posmachine_id, req.body.warehouse_id, req.body.cost_center_id, req.body.printer_id, req.body.transbank_machine_id, req.body.state);
   res.json(CRT)
-}
+} */
 
 const Put_CRT = async (req, res) => {
   const bd_name = process.env.BC_DATABASE_MYSQL_1
@@ -49,6 +49,6 @@ const Put_CRT = async (req, res) => {
 //Exportamos la funcion para usar los datos en .router/customers.js
 module.exports = {
   getAllCRT,
-  Add_CRT,
+  //Add_CRT,
   Put_CRT
 }

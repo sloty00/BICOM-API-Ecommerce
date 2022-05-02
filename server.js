@@ -51,7 +51,7 @@ app.use('/api/cash_register_types', require('./router/cash_register_types')); //
 app.use('/api/banks', require('./router/banks')); //<--- (http://localhost:3000/api/banks?page=1)
 app.use('/api/warehouses', require('./router/warehouses')); //<--- (http://localhost:3000/api/warehouses?page=1)
 app.use('/api/costcenters', require('./router/costcenters')); //<--- (http://localhost:3000/api/costcenters?page=1)
-app.use('/api/posmachines', require('./router/posmachines')); //<--- (http://localhost:3000/api/posmachines?page=1)
+//app.use('/api/posmachines', require('./router/posmachines')); //<--- (http://localhost:3000/api/posmachines?page=1)
 app.use('/api/activities', require('./router/activities')); //<--- (http://localhost:3000/api/activities?page=1)
 app.use('/api/subgroups', require('./router/subgroups')); //<--- (http://localhost:3000/api/subgroups?page=1)
 app.use('/api/creditcards', require('./router/creditcards')); //<--- (http://localhost:3000/api/creditcards?page=1)

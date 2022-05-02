@@ -1,7 +1,7 @@
 //Declaracion Constantes.
 const { Router } = require('express');
 const router = Router();
-const { getAllCRT, Add_CRT, Put_CRT } = require('../controllers/cash_registers_types')
+const { getAllCRT, /*Add_CRT,*/ Put_CRT } = require('../controllers/cash_registers_types')
 
 /**
  * @swagger
@@ -62,25 +62,6 @@ const { getAllCRT, Add_CRT, Put_CRT } = require('../controllers/cash_registers_t
 
 //Rutas.
 router.get('/', getAllCRT);
-
-/**
- * @swagger
- * /cash_register_types/insert:
- *   post:
- *      summary: Create new Cash Register Types
- *      tags: [Cash Register Types]
- *      requestBody:
- *         required: true
- *         content:
- *            application/json:
- *               schema:
- *                  type: object
- *                  $ref: '#/components/schemas/cash_register_types'
- *      responses:
- *         200:
- *            description: New Cash Register Types created!!
- */
-router.post('/insert', Add_CRT);
 
 /**
  * @swagger

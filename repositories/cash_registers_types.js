@@ -33,7 +33,7 @@ const queryGetAllCRT = async (page, mysql, limit, offset) => {//Funcion de tipo 
   return crt;
 }
 
-const AddCRT = async (bd_name, host, id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state) => {
+/* const AddCRT = async (bd_name, host, id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state) => {
   
   var id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state;
   var f = new Date();
@@ -42,7 +42,7 @@ const AddCRT = async (bd_name, host, id, branchoffice_id, description, posmachin
   const banksAddQuery = "INSERT INTO cash_register_types (id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state, created_at, updated_at) VALUES" + " (" + id + ", " + branchoffice_id + ", '" + description + "', " + posmachine_id + ", " + warehouse_id + ", " + cost_center_id + ", " + printer_id + ", " + transbank_machine_id +", " + state + ", '" + datenow +"', '" + datenow +"')"
   const add = await query(banksAddQuery, mysql);
   return add;
-}
+} */
 
 const PutCRT = async (bd_name, host, id_params, id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state) => {
   var id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state;
@@ -82,6 +82,6 @@ const query = (sql, mysql) => {
 //Exportamos la funcion para usar los datos en controller/products.js.
 module.exports = {
   getCRT,
-  AddCRT,
+  //AddCRT,
   PutCRT
 }

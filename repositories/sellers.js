@@ -38,6 +38,7 @@ const querySellers = async (page, mysql, limit, offset) => {//Funcion de tipo as
 const AddSellers = async (bd_name, host, id, description, user_id) => {
     var id, description, user_id;
     var f = new Date();
+
     var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
     const mysql = createConnectMysql(host, bd_name)
     const sellersAddQuery = "INSERT INTO sellers (id, description, user_id, created_at, updated_at) VALUES" + " (" + id + ", '" + description + "', " + user_id + ", '" + datenow + "', '" + datenow + "')"
@@ -47,10 +48,16 @@ const AddSellers = async (bd_name, host, id, description, user_id) => {
 
 const PutSellers = async (bd_name, host, id_params, id, description, user_id) => {
     var id, description, user_id;
+    var f_id, f_description, f_user_id
     var f = new Date();
+
+    f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+    f_description = ( !description || description == '' ) ?f_description = "" : f_description = "description = '" + description + "', ";
+    f_user_id = ( !user_id || user_id == '' ) ?f_user_id = "" : f_user_id = "user_id = '" + user_id + "', ";
+
     var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
     const mysql = createConnectMysql(host, bd_name)
-    const sellersPutQuery = "UPDATE sellers SET id = " + id + ", description = '" + description + "', user_id = " + user_id + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+    const sellersPutQuery = "UPDATE sellers SET " + f_id + f_description +  f_user_id + "updated_at = '" + datenow + "'  WHERE id = " + id_params
     const putsellers = await query(sellersPutQuery, mysql);
     console.log(sellersPutQuery);
     return putsellers;

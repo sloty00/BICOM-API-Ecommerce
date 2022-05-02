@@ -5,12 +5,11 @@
 const { createConnectMysql } = require("../config/dbConnect")//Conexion a base de datos
 
 const getActivities = async (bd_name, host, page) => {//Funcion de tipo asincronica.
-  var putcode = "";
   const limit = 100
   const offset = (page - 1) * limit
   const mysql = createConnectMysql(host, bd_name)
 
-  const activities = await queryGetAllActivities(page, mysql, limit, offset, putcode)
+  const activities = await queryGetAllActivities(page, mysql, limit, offset)
   let jsonResult = {
     'total_rows': total_elementos,
     'total_page': total_page,
@@ -35,7 +34,6 @@ const queryGetAllActivities = async (page, mysql, limit, offset) => {//Funcion d
 }
 
 const AddActivities = async (bd_name, host, id, code, description) => {
-  var id, code, description;
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)
@@ -46,11 +44,16 @@ const AddActivities = async (bd_name, host, id, code, description) => {
 
 const PutActivities = async (bd_name, host, id_params, id, code, description) => {
   var id, code, description;
-
+  var f_id, f_code, f_description;
   var f = new Date();
+
+  f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+  f_code = ( !code || code == '' ) ?f_code = "" : f_code = "code = '" + code + "', ";
+  f_description = ( !description || description == '' ) ?f_description = "" : f_description = "description = '" + description + "', ";
+
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)
-  const activitiesPutQuery = "UPDATE activities SET id = " + id + ", code = " + code + ", description = '" + description + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const activitiesPutQuery = "UPDATE activities SET " + f_id + f_code + f_description + "updated_at = '" + datenow + "'  WHERE id = " + id_params
   const putactivities = await query(activitiesPutQuery, mysql);
   console.log(activitiesPutQuery);
   return putactivities;

@@ -46,10 +46,15 @@ const AddEcommerceBrands= async (bd_name, host, id, slider_img) => {
 
 const PutEcommerceBrands = async (bd_name, host, id_params, id, slider_img) => {
   var id, slider_img;
+  var f_id, f_slider_img;
+
+  f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+  f_slider_img = ( !slider_img || slider_img == '' ) ?f_slider_img = "" : f_slider_img = "slider_img = '" + slider_img + "', ";
+
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)
-  const ecommercebrandsPutQuery = "UPDATE ecommerce_slider_brands SET id = " + id + ", slider_img = '" + slider_img + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const ecommercebrandsPutQuery = "UPDATE ecommerce_slider_brands SET " + f_id + f_slider_img + "updated_at = '" + datenow + "'  WHERE id = " + id_params
   const putecommercebrands = await query(ecommercebrandsPutQuery, mysql);
   console.log(ecommercebrandsPutQuery);
   return putecommercebrands;

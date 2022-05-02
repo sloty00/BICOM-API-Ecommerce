@@ -45,10 +45,17 @@ const AddCities = async (bd_name, host, id, code, description, region_id) => {
 
 const PutCities = async (bd_name, host, id_params, id, code, description, region_id) => {
   var id, code, description, region_id;
+  var f_id, f_code, f_description, f_region_id;
   var f = new Date();
+
+  f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+  f_code = ( !code || code == '' ) ?f_code = "" : f_code = "code = '" + code + "', ";
+  f_description = ( !description || description == '' ) ?f_description = "" : f_description = " description = '" + description + "', ";
+  f_region_id = ( !region_id || region_id == '' ) ?f_region_id = "" : f_region_id = " region_id = " + region_id + ", ";
+
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)
-  const citiesPutQuery = "UPDATE cities SET id = " + id + ", code = '" + code + "', description = '" + description + "', region_id = " + region_id + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const citiesPutQuery = "UPDATE cities SET " + f_id + f_code + f_description + f_region_id + "updated_at = '" + datenow + "'  WHERE id = " + id_params
   const putcities = await query(citiesPutQuery, mysql);
   console.log(citiesPutQuery);
   return putcities;

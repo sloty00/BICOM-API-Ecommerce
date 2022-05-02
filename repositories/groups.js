@@ -47,10 +47,17 @@ const AddGroups = async (bd_name, host, id, description, is_ecommerce, is_menu, 
 
 const PutGroups = async (bd_name, host, id_params, id, description, is_ecommerce, is_menu, img_groups) => {
     var id, description, is_ecommerce, is_menu, img_groups;
+    var f_id, f_description, f_is_ecommerce, f_is_menu, f_img_groups;
+    f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+    f_description = ( !description || description == '' ) ?f_description = "" : f_description = "description = '" + description + "', ";
+    f_is_ecommerce = ( !is_ecommerce || is_ecommerce == '' ) ?f_is_ecommerce = "" : f_is_ecommerce = "is_ecommerce = '" + is_ecommerce + "', ";
+    f_is_menu = ( !is_menu || is_menu == '' ) ?f_is_menu = "" : f_is_menu = "is_menu = " + is_menu + ", ";
+    f_img_groups = ( !img_groups || img_groups == '' ) ?f_img_groups = "" : f_img_groups = "img_groups = '" + img_groups + "', ";
+
     var f = new Date();
     var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
     const mysql = createConnectMysql(host, bd_name)
-    const groupsPutQuery = "UPDATE `groups` SET id = " + id + ", description = '" + description + "', is_ecommerce = " + is_ecommerce + ", is_menu = " + is_menu + ", img_groups = '" + img_groups + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+    const groupsPutQuery = "UPDATE `groups` SET " + f_id + f_description + f_is_ecommerce + f_is_menu + f_img_groups + "updated_at = '" + datenow + "'  WHERE id = " + id_params
     const putgroups = await query(groupsPutQuery, mysql);
     console.log(groupsPutQuery);
     return putgroups;

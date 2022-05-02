@@ -38,7 +38,7 @@ const { GetAllProducts, Add_Products, Put_Products } = require('../controllers/p
  *                  type: integer
  *                  description: Id of the subgroup to which the product belongs
  *              price_net:
- *                  type: double
+ *                  type: integer
  *                  description: Product net price (Tax included)
  *              price_brute:
  *                  type: integer
@@ -107,7 +107,7 @@ const { GetAllProducts, Add_Products, Put_Products } = require('../controllers/p
  *                  type: integer
  *                  description: If it is a kit product, print this product also on the ballot
  *              price_net_uf:
- *                  type: double
+ *                  type: integer
  *                  description: Product Net Value in UF
  *              is_free:
  *                  type: integer
@@ -236,6 +236,34 @@ router.get('/', GetAllProducts);
  *            description: New Products created!!
  */
 router.post('/insert', Add_Products);
+
+/**
+ * @swagger
+ *  /products/update/{id_params}:
+ *   put: 
+ *     sumary: Update Products
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id_params
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Update Data
+ *     requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 type: object
+ *                 $ref: '#/components/schemas/products'
+ *     responses:  
+ *       '200': 
+ *         description: Products Updated!!
+ *       '400':
+ *         description: Bad request
+ *   
+ */
 router.put('/update/:id_params', Put_Products);
 
 //Exportamos ñas funciones para usar en server.js.

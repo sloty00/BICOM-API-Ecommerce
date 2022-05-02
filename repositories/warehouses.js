@@ -47,10 +47,18 @@ const AddWarehouses = async (bd_name, host, id, code, description, address, is_e
 
 const PutWarehouses = async (bd_name, host, id_params, id, code, description, address, is_ecommerce) => {
   var id, code, description, address, is_ecommerce;
+  var f_id, f_code, f_description, f_address, f_is_ecommerce;
   var f = new Date();
+  f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+  f_code = ( !code || code == '' ) ?f_code = "" : f_code = "code = '" + code + "', ";
+  f_description = ( !description || description == '' ) ?f_description = "" : f_description = "description = '" + description + "', ";
+  f_address = ( !address || address == '' ) ?f_address = "" : f_address = "address = '" + address + "', ";
+  f_is_ecommerce = ( !is_ecommerce || is_ecommerce == '' ) ?f_is_ecommerce = "" : f_is_ecommerce = "is_ecommerce = " + is_ecommerce + ", ";
+
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
+
   const mysql = createConnectMysql(host, bd_name)
-  const warehousesPutQuery = "UPDATE warehouses SET id = " + id + ", code = '" + code + "', description = '" + description + "', address = '" + address + "', is_ecommerce = " + is_ecommerce + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const warehousesPutQuery = "UPDATE warehouses SET " + f_id + f_code + f_description + f_address + f_is_ecommerce + "updated_at = '" + datenow + "'  WHERE id = " + id_params
   const putwarehouses = await query(warehousesPutQuery, mysql);
   console.log(warehousesPutQuery);
   return putwarehouses;

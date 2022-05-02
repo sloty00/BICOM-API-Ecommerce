@@ -44,10 +44,18 @@ const getTaxes = async (bd_name, host, page) => {//Funcion de tipo asincronica.
 
   const PutTaxes = async (bd_name, host, id_params, id, code, description, value, type) => {
     var id, code, description, value, type;
+    var f_id, f_code, f_description, f_value, f_type;
     var f = new Date();
+
+    f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+    f_code = ( !code || code == '' ) ?f_code = "" : f_code = "code = '" + code + "', ";
+    f_description = ( !description || description == '' ) ?f_description = "" : f_description = "description = '" + description + "', ";
+    f_value = ( !value || value == '' ) ?f_value = "" : f_value = "value = " + value + ", ";
+    f_type = ( !type || type == '' ) ?f_type = "" : f_type = "type = " + type + ", ";
+
     var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
     const mysql = createConnectMysql(host, bd_name)
-    const taxesPutQuery = "UPDATE taxes SET id = " + id + ", code = '" + code + "', description = '" + description + "', value = " + value + ", type = " + type + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+    const taxesPutQuery = "UPDATE taxes SET " + f_id + f_code + f_description + f_value + f_type + "updated_at = '" + datenow + "'  WHERE id = " + id_params
     const puttaxes = await query(taxesPutQuery, mysql);
     console.log(taxesPutQuery);
     return puttaxes;

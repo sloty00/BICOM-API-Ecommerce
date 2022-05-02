@@ -96,10 +96,38 @@ const AddCustomers = async (bd_name, host, id, rut, business_name, fantasy_name,
 
 const PutCustomers = async (bd_name, host, id_params, id, rut, business_name, fantasy_name, activity_id, country_id, region_id, city_id, commune_id, address, email, email_dte, website, is_customer, is_supplier, is_active, phone, phone_two, payment_type, seller_id, list_price_id, expired_days, limit_amount, is_customer_simple, can_invoice, can_ballot, can_no_ballot) => {
   var id, rut, business_name, fantasy_name, activity_id, country_id, region_id, city_id, commune_id, address, email, email_dte, website, is_customer, is_supplier, is_active, phone, phone_two, payment_type, seller_id, list_price_id, expired_days, limit_amount, is_customer_simple, can_invoice, can_ballot, can_no_ballot;
+  var f_id,  f_rut,  f_fantasy_name,  f_business_name,  f_activity_id,  f_country_id,  f_region_id,  f_city_id,  f_commune_id,  f_address,  f_email,  f_email_dte,  f_website,  f_is_customer,  f_is_supplier,  f_is_active,  f_phone,  f_phone_two, f_payment_type,  f_seller_id,  f_list_price_id,  f_expired_days,  f_limit_amount,  f_is_customer_simple,  f_can_invoice,  f_can_ballot,  f_can_no_ballot;
   var f = new Date();
+  f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+  f_rut = ( !rut || rut == '' ) ?f_rut = "" : f_rut = "rut = '" + rut + "', ";
+  f_business_name = ( !business_name || business_name == '' ) ?f_business_name = "" : f_business_name = "business_name = '" + business_name + "', ";
+  f_fantasy_name = ( !fantasy_name || fantasy_name == '' ) ?f_fantasy_name = "" : f_fantasy_name = "fantasy_name = '" + fantasy_name + "', ";
+  f_activity_id = ( !activity_id || activity_id == '' ) ?f_activity_id = "" : f_activity_id = "activity_id = " + activity_id + ", ";
+  f_country_id = ( !country_id || country_id == '' ) ?f_country_id = "" : f_country_id = "country_id = " + country_id + ", ";
+  f_region_id = ( !region_id || region_id == '' ) ?f_region_id = "" : f_region_id = "region_id = " + region_id + ", ";
+  f_city_id = ( !city_id || city_id == '' ) ?f_city_id = "" : f_city_id = "city_id = " + city_id + ", ";
+  f_commune_id = ( !commune_id || commune_id == '' ) ?f_commune_id = "" : f_commune_id = "commune_id = " + commune_id + ", ";
+  f_address = ( !address || address == '' ) ?f_address = "" : f_address = "address = '" + address + "', ";
+  f_email = ( !email || email == '' ) ?f_email = "" : f_email = "email = '" + email + "', ";
+  f_email_dte = ( !email_dte || email_dte == '' ) ?f_email_dte = "" : f_email_dte = "email_dte = '" + email_dte + "', ";
+  f_website = ( !website || website == '' ) ?f_website = "" : f_website = "website = '" + website + "', ";
+  f_is_customer = ( !is_customer || is_customer == '' ) ?f_is_customer = "" : f_is_customer = "is_customer = " + is_customer + ", ";
+  f_is_supplier = ( !is_supplier || is_supplier == '' ) ?f_is_supplier = "" : f_is_supplier = "is_supplier = " + is_supplier + ", ";
+  f_is_active = ( !is_active || is_active == '' ) ?f_is_active = "" : f_is_active = "is_active = " + is_active + ", ";
+  f_phone = ( !phone || phone == '' ) ?f_phone = "" : f_phone = "phone = '" + phone + "', ";
+  f_phone_two = ( !phone_two || phone_two == '' ) ?f_phone_two = "" : f_phone_two = "phone_two = '" + phone_two + "', ";
+  f_payment_type = ( !payment_type || payment_type == '' ) ?f_payment_type = "" : f_payment_type = "payment_type = " + payment_type + ", ";
+  f_seller_id = ( !seller_id || seller_id == '' ) ?f_iseller_id= "" : f_seller_id = "seller_id = " + seller_id + ", ";
+  f_list_price_id = ( !list_price_id || list_price_id == '' ) ?f_list_price_id = "" : f_list_price_id = "list_price_id = " + list_price_id + ", ";
+  f_expired_days = ( !expired_days || expired_days == '' ) ?f_expired_days = "" : f_expired_days = "expired_days = " + expired_days + ", ";
+  f_limit_amount = ( !limit_amount || limit_amount == '' ) ?f_limit_amount = "" : f_limit_amount = "limit_amount = " + limit_amount + ", ";
+  f_is_customer_simple = ( !is_customer_simple || is_customer_simple == '' ) ?f_is_customer_simple = "" : f_is_customer_simple = "is_customer_simple = " + is_customer_simple + ", ";
+  f_can_invoice = ( !can_invoice || can_invoice == '' ) ?f_can_invoice = "" : f_can_invoice = "can_invoice = " + can_invoice + ", ";
+  f_can_ballot = ( !can_ballot || can_ballot == '' ) ?f_can_ballot = "" : f_can_ballot = "can_ballot = " + can_ballot + ", ";
+  f_can_no_ballot = ( !can_no_ballot || can_no_ballot == '' ) ?f_can_no_ballot = "" : f_can_no_ballot = "can_no_ballot = " + can_no_ballot + ", ";
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)
-  const customersPutQuery = "UPDATE `customer_suppliers` SET id = " + id + ", rut = '" + rut + "', business_name = '" + business_name + "', fantasy_name = '" + fantasy_name + "', activity_id = " + activity_id + ", country_id = " + country_id + ", region_id = " + region_id + ", city_id = " + city_id + ", commune_id = " + commune_id + ", address = '" + address + "', email = '" + email + "', email_dte = '" + email_dte + "', website = '" + website + "', is_customer = " + is_customer + ", is_supplier = " + is_supplier + ", is_active = " + is_active + ", phone = '" + phone + "', phone_two = '" + phone_two + "', payment_type = " + payment_type + ", seller_id = " + seller_id + ", list_price_id = " + list_price_id + ", expired_days = " + expired_days + ", limit_amount = " + limit_amount + ", is_customer_simple = " + is_customer_simple + ", can_invoice = " + can_invoice + ", can_ballot = " + can_ballot + ", can_no_ballot = " + can_no_ballot + ", updated_at = '" + datenow + "' WHERE id = " + id_params
+  const customersPutQuery = "UPDATE `customer_suppliers` SET " + f_id + f_rut + f_business_name + f_fantasy_name + f_activity_id + f_country_id + f_region_id + f_city_id + f_commune_id + f_address + f_email + f_email_dte + f_website + f_is_customer + f_is_supplier + f_is_active + f_phone + f_phone_two + f_payment_type + f_seller_id + f_list_price_id + f_expired_days + f_limit_amount + f_is_customer_simple + f_can_invoice + f_can_ballot + f_can_no_ballot + "updated_at = '" + datenow + "' WHERE id = " + id_params
   const putcustomers = await query(customersPutQuery, mysql);
   console.log(customersPutQuery);
   return putcustomers;

@@ -46,10 +46,21 @@ const AddCRT = async (bd_name, host, id, branchoffice_id, description, posmachin
 
 const PutCRT = async (bd_name, host, id_params, id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state) => {
   var id, branchoffice_id, description, posmachine_id, warehouse_id, cost_center_id, printer_id, transbank_machine_id, state;
+  var f_id, f_branchoffice_id, f_description, f_posmachine_id, f_warehouse_id, f_cost_center_id, f_printer_id, f_transbank_machine_id, f_state;
   var f = new Date();
+  f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+  f_branchoffice_id = ( !branchoffice_id || branchoffice_id == '' ) ?f_branchoffice_id = "" : f_branchoffice_id = "branchoffice_id = '" + branchoffice_id + "', ";
+  f_description = ( !description || description == '' ) ?f_description = "" : f_description = " description = '" + description + "', ";
+  f_posmachine_id = ( !posmachine_id || posmachine_id == '' ) ?f_posmachine_id = "" : f_posmachine_id = " posmachine_id = " + posmachine_id + ", ";
+  f_warehouse_id = ( !warehouse_id || warehouse_id == '' ) ?f_warehouse_id = "" : f_warehouse_id = "warehouse_id = " + warehouse_id + ", ";
+  f_cost_center_id = ( !cost_center_id ||cost_center_id == '' ) ?f_cost_center_id = "" : f_cost_center_id = "cost_center_id = " + cost_center_id + ", ";
+  f_printer_id = ( !printer_id || printer_id == '' ) ?f_printer_id = "" : f_printer_id = "printer_id = " + printer_id + ", ";
+  f_transbank_machine_id = ( !transbank_machine_id || transbank_machine_id == '' ) ?f_transbank_machine_id = "" : f_transbank_machine_id = "transbank_machine_id = " + transbank_machine_id + ", ";
+  f_state = ( !state || state == '' ) ?f_state = "" : f_state = "state = " + state + ", ";
+
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)
-  const crtPutQuery = "UPDATE cash_register_types SET id = " + id + ", branchoffice_id = " + branchoffice_id + ", description = '" + description + "', posmachine_id = " + posmachine_id + ", warehouse_id = " + warehouse_id + ", cost_center_id = " + cost_center_id + ", printer_id = " + printer_id + ", transbank_machine_id = " + transbank_machine_id + ", state = " + state + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const crtPutQuery = "UPDATE cash_register_types SET " + f_id + f_branchoffice_id + f_description + f_posmachine_id + f_warehouse_id + f_cost_center_id + f_printer_id + f_transbank_machine_id + f_state + "updated_at = '" + datenow + "'  WHERE id = " + id_params
   const putcrt = await query(crtPutQuery, mysql);
   console.log(crtPutQuery);
   return putcrt;

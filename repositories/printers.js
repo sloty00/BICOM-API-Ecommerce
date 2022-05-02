@@ -45,10 +45,16 @@ const AddPrinters = async (bd_name, host, id, description, is_active, branchoffi
 
 const PutPrinters = async (bd_name, host, id_params, id, description, is_active, branchoffice_id) => {
   var id, description, is_active, branchoffice_id;
+  var f_id, f_description, f_is_active, f_branchoffice_id;
   var f = new Date();
+  f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+  f_description = ( !description || description == '' ) ?f_description = "" : f_description = "description = '" + description + "', ";
+  f_is_active = ( !is_active || is_active == '' ) ?f_is_active = "" : f_is_active = "is_active = " + is_active + ", ";
+  f_branchoffice_id = ( !branchoffice_id || branchoffice_id == '' ) ?f_branchoffice_id = "" : f_branchoffice_id = "branchoffice_id = " + branchoffice_id + ", ";
+
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)
-  const printersPutQuery = "UPDATE printers SET id = " + id + ", description = '" + description + "', is_active = " + is_active + ", branchoffice_id = " + branchoffice_id + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const printersPutQuery = "UPDATE printers SET " + f_id + f_description + f_is_active + f_branchoffice_id + "updated_at = '" + datenow + "'  WHERE id = " + id_params
   const putprinters = await query(printersPutQuery, mysql);
   console.log(printersPutQuery);
   return putprinters;

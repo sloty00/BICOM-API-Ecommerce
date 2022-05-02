@@ -46,10 +46,16 @@ const AddSubgroups = async (bd_name, host, id, description, group_id) => {
 
 const PutSubGroups = async (bd_name, host, id_params, id, description, group_id) => {
   var id, description, group_id;
+  var f_id, f_description, f_group_id
   var f = new Date();
+
+  f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+  f_description = ( !description || description == '' ) ?f_description = "" : f_description = "description = '" + description + "', ";
+  f_group_id = ( !group_id || group_id == '' ) ?f_group_id = "" : f_group_id = "group_id = '" + group_id + "', ";
+
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)
-  const subgroupsPutQuery = "UPDATE sub_groups SET id = " + id + ", description = '" + description + "', group_id = " + group_id + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const subgroupsPutQuery = "UPDATE sub_groups SET " + f_id + f_description + f_group_id + "updated_at = '" + datenow + "'  WHERE id = " + id_params
   const putsubgroups = await query(subgroupsPutQuery, mysql);
   console.log(subgroupsPutQuery);
   return putsubgroups;

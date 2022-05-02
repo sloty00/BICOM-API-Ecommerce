@@ -45,10 +45,16 @@ const AddMunits = async (bd_name, host, id, code, description) => {
 
 const PutMunits = async (bd_name, host, id_params, id, code, description) => {
     var id, code, description;
+    var f_id, f_code, f_description;
     var f = new Date();
+
+    f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+    f_code = ( !code || code == '' ) ?f_code = "" : f_code = "code = '" + code + "', ";
+    f_description = ( !description || description == '' ) ?f_description = "" : f_description = "description = '" + description + "', ";
+
     var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
     const mysql = createConnectMysql(host, bd_name)
-    const muisPutQuery = "UPDATE measurement_units SET id = " + id + ", code = '" + code + "', description = '" + description + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+    const muisPutQuery = "UPDATE measurement_units SET " + f_id + f_code + f_description + "updated_at = '" + datenow + "'  WHERE id = " + id_params
     const putmuis = await query(muisPutQuery, mysql);
     console.log(muisPutQuery);
     return putmuis;

@@ -44,10 +44,16 @@ const AddRegions = async (bd_name, host, id, code, description, country_id) => {
 
 const PutRegions = async (bd_name, host, id_params, id, code, description, country_id) => {
   var id, code, description, country_id;
+  var f_id, f_code, f_description, f_country_id;
   var f = new Date();
+  f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+  f_code = ( !code || code == '' ) ?f_code = "" : f_code = "code = '" + code + "', ";
+  f_description = ( !description || description == '' ) ?f_description = "" : f_description = "description = '" + description + "', ";
+  f_country_id = ( !country_id || country_id == '' ) ?f_country_id = "" : f_country_id = "country_id = " + country_id + ", ";
+
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)
-  const regionsPutQuery = "UPDATE regions SET id = " + id + ", code = '" + code + "', description = '" + description + "', country_id = " + country_id + ", updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const regionsPutQuery = "UPDATE regions SET " + f_id + f_code + f_description + f_country_id + "updated_at = '" + datenow + "'  WHERE id = " + id_params
   const putregions = await query(regionsPutQuery, mysql);
   console.log(regionsPutQuery);
   return putregions;

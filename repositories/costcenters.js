@@ -46,10 +46,16 @@ const AddCostCenters = async (bd_name, host, id, code, description) => {
 
 const PutCostCenters = async (bd_name, host, id_params, id, code, description) => {
   var id, code, description;
+  var f_id, f_code, f_description;
   var f = new Date();
+
+  f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+  f_code = ( !code || code == '' ) ?f_code = "" : f_code = "code = '" + code + "', ";
+  f_description = ( !description || description == '' ) ?f_description = "" : f_description = "description = '" + description + "', ";
+
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)
-  const communesPutQuery = "UPDATE cost_centers SET id = " + id + ", code = '" + code + "', description = '" + description + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const communesPutQuery = "UPDATE cost_centers SET " + f_id + f_code + f_description + "updated_at = '" + datenow + "'  WHERE id = " + id_params
   const putcommunes = await query(communesPutQuery, mysql);
   console.log(communesPutQuery);
   return putcommunes;

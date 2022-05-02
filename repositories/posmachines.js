@@ -45,10 +45,15 @@ const AddPosmachines = async (bd_name, host, id, code, description, mac_address)
 
 const PutPosmachines = async (bd_name, host, id_params, id, code, description, mac_address) => {
   var id, code, description, mac_address;
+  var f_id, f_code, f_description, f_mac_address;
   var f = new Date();
+  f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+  f_code = ( !code || code == '' ) ?f_code = "" : f_code = "code = '" + code + "', ";
+  f_description = ( !description || description == '' ) ?f_description = "" : f_description = "description = '" + description + "', ";
+  f_mac_address = ( !mac_address || mac_address == '' ) ?f_mac_address = "" : f_mac_address = "mac_address = '" + mac_address + "', ";
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)
-  const posmachinesPutQuery = "UPDATE posmachines SET id = " + id + ", code = '" + code + "', description = '" + description + "', mac_address = '" + mac_address + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const posmachinesPutQuery = "UPDATE posmachines SET " + f_id + f_code + f_description + f_mac_address + "updated_at = '" + datenow + "'  WHERE id = " + id_params
   const putposmachines = await query(posmachinesPutQuery, mysql);
   console.log(posmachinesPutQuery);
   return putposmachines;

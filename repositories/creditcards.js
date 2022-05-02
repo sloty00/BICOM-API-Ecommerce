@@ -45,10 +45,16 @@ const AddCreditCards = async (bd_name, host, id, code, description) => {
 
 const PutCreditCards = async (bd_name, host, id_params, id, code, description) => {
   var id, code, description;
+  var f_id, f_code, f_description;
+
+  f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
+  f_code = ( !code || code == '' ) ?f_code = "" : f_code = "code = '" + code + "', ";
+  f_description = ( !description || description == '' ) ?f_description = "" : f_description = "description = '" + description + "', ";
+
   var f = new Date();
   var datenow = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds()));
   const mysql = createConnectMysql(host, bd_name)
-  const creditsPutQuery = "UPDATE credit_cards SET id = " + id + ", code = '" + code + "', description = '" + description + "', updated_at = '" + datenow + "'  WHERE id = " + id_params
+  const creditsPutQuery = "UPDATE credit_cards SET " + f_id + f_code + f_description + "updated_at = '" + datenow + "'  WHERE id = " + id_params
   const putcredits = await query(creditsPutQuery, mysql);
   console.log(creditsPutQuery);
   return putcredits;

@@ -45,9 +45,8 @@ const AddBanks = async (bd_name, host, id, code, description) => {
 }
 
 const PutBanks = async (bd_name, host, id_params, id, code, description) => {
-  var id, code, description;
   var f_id, f_code, f_description;
-  var f = new Date();
+  var f = new Date(), datenow;
 
   f_id = ( !id || id == '' ) ?f_id = "" : f_id = "id = " + id + ", ";
   f_code = ( !code || code == '' ) ?f_code = "" : f_code = "code = '" + code + "', ";
